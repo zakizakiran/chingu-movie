@@ -124,7 +124,9 @@ class LoginView extends GetView<LoginController> {
                         style: AppTextStyles.smallText,
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Get.toNamed('/register'); // Navigate to register page
+                        },
                         child: Text(
                           ' Register now',
                           style: AppTextStyles.smallText.copyWith(
