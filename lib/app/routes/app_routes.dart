@@ -5,10 +5,12 @@ abstract class Routes {
   Routes._();
   // ignore: constant_identifier_names
   static const HOME = _Paths.HOME;
+  static const LOGIN = _Paths.LOGIN;
 }
 
 abstract class _Paths {
   _Paths._();
   // ignore: constant_identifier_names
   static const HOME = '/home';
+  static const LOGIN = '/login';
 }
