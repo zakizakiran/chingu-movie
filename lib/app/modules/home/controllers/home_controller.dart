@@ -5,4 +5,12 @@ class HomeController extends GetxController {
   final count = 0.obs;
   final searchController = TextEditingController();
   void increment() => count.value++;
+
+  var isObscure = true.obs;
+  var isConfirmObscure = true.obs;
+  var isLoading = false.obs;
+
+  void toggle() {
+    isObscure.value = !isObscure.value;
+  }
 }
