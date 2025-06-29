@@ -104,7 +104,9 @@ class LoginView extends GetView<LoginController> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             CustomButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed('/home');
+                              },
                               borderRadius: 20.r,
                               backgroundColor: AppColors.primary,
                               text: 'Login',
