@@ -21,8 +21,8 @@ class HomeView extends GetView<HomeController> {
               Center(
                 child: Image.asset(
                   'assets/images/logo.png',
-                  width: 150.w,
-                  height: 150.h,
+                  width: 140.w,
+                  height: 140.h,
                 ),
               ),
               Form(
@@ -60,9 +60,8 @@ class HomeView extends GetView<HomeController> {
                                 width: 165.w,
                                 height: 200.h,
                               ),
-                              Text("Jumbo", style: AppTextStyles.label),
-                              Text(
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices turpis",
+                              Text(controller.movieTitle, style: AppTextStyles.label),
+                              Text(controller.movieSynopsis,
                                 style: AppTextStyles.smallText,
                                 // textAlign: TextAlign.justify,
                                 maxLines: 3,
