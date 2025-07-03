@@ -6,6 +6,7 @@ class HomeController extends GetxController {
   final searchController = TextEditingController();
   final movieTitle = "Jumbo";
   final movieSynopsis = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices turpis, nec dapibus eros. Aliquam euismod lorem dolor. Proin tellus mauris, rutrum vestibulum arcu ac, dignissim hendrerit ligula. In accumsan gravida vehicula. Duis sed ipsum sed est fringilla lobortis. Quisque viverra dui quis ligula tempor, ";
+  final rating = 3.5;
 
   final count = 0.obs;
   @override

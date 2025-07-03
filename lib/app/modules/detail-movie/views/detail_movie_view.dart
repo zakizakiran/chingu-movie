@@ -1,6 +1,7 @@
+import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:chingu_app/shared/widgets/custom_button.dart';
-import 'package:chingu_app/shared/widgets/custom_text_field.dart';
+import 'package:chingu_app/shared/widgets/custom_star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -64,19 +65,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      SizedBox(
-                        width: 140.w,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(Icons.star),
-                            Icon(Icons.star),
-                            Icon(Icons.star),
-                            Icon(Icons.star),
-                            Icon(Icons.star_border_outlined),
-                          ],
-                        ),
-                      ),
+                      StarRating(rating: args['rating']),
                       SizedBox(height: 10.h),
                       Text(
                         args["movieSynopsis"],
@@ -89,20 +78,33 @@ class DetailMovieView extends GetView<DetailMovieController> {
                 SizedBox(height: 20.h),
                 Text("Showtime", style: AppTextStyles.label),
                 SizedBox(height: 15.h),
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Column(
-                    children: [
-                      CustomButton(
-                        text: "12.00 - 13.30",
-                        textStyle: AppTextStyles.body,
-                        onPressed: () {},
-                        backgroundColor: Colors.white,
-                        borderColor: Colors.black,
-                      ),
-                    ],
+                    children: List.generate(3, (index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(vertical: 7.h),
+                        child: CustomButton(
+                          text: "12.00 - 13.30",
+                          textStyle: AppTextStyles.body,
+                          onPressed: () {},
+                          backgroundColor: Colors.white,
+                          borderColor: Colors.black,
+                        ),
+                      );
+                    }),
                   ),
                 ),
+                SizedBox(
+                  height: 30.h,
+                ),
+                CustomButton(
+                  text: "Buy Ticket", 
+                  backgroundColor: AppColors.primary,
+                  onPressed: () {}),
+                SizedBox(
+                  height: 10.h,
+                )
               ],
             ),
           ),
