@@ -4,7 +4,6 @@ import 'package:chingu_app/shared/widgets/custom_button.dart';
 import 'package:chingu_app/shared/widgets/custom_star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/detail_movie_controller.dart';
@@ -58,9 +57,9 @@ class DetailMovieView extends GetView<DetailMovieController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("2025", style: AppTextStyles.smallText),
-                            Text("Comedy", style: AppTextStyles.smallText),
-                            Text("2h 31m", style: AppTextStyles.smallText),
+                            Text(args["year"], style: AppTextStyles.smallText),
+                            Text(args['genre'], style: AppTextStyles.smallText),
+                            Text(args['duration'], style: AppTextStyles.smallText),
                           ],
                         ),
                       ),

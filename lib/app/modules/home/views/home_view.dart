@@ -51,7 +51,10 @@ class HomeView extends GetView<HomeController> {
                               arguments: {
                                 'movieTitle': controller.movieTitle,
                                 'movieSynopsis': controller.movieSynopsis,
-                                'rating' : controller.rating
+                                'rating' : controller.rating,
+                                'genre' : controller.genre,
+                                'year' : controller.year,
+                                'duration' : controller.duration
                                 },
                             );
                           },
