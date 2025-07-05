@@ -9,6 +9,7 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const DETAIL_MOVIE = _Paths.DETAIL_MOVIE;
   static const CHECKOUT = _Paths.CHECKOUT;
+  static const TICKETS = _Paths.TICKETS;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const REGISTER = '/register';
   static const DETAIL_MOVIE = '/detail-movie';
   static const CHECKOUT = '/checkout';
+  static const TICKETS = '/tickets';
 }

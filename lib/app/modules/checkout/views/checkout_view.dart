@@ -111,8 +111,10 @@ class CheckoutView extends GetView<CheckoutController> {
                 Padding(
                   padding: EdgeInsetsGeometry.only(top: 30.h),
                   child: CustomButton(
-                    text: "Confim",
-                    onPressed: () {},
+                    text: "Confirm",
+                    onPressed: () {
+                      Get.toNamed("/tickets", arguments: args);
+                    },
                     backgroundColor: AppColors.primary,
                   ),
                 ),

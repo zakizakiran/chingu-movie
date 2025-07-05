@@ -12,6 +12,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/tickets/bindings/tickets_binding.dart';
+import '../modules/tickets/views/tickets_view.dart';
 
 part 'app_routes.dart';
 
@@ -53,6 +55,11 @@ class AppPages {
       name: _Paths.CHECKOUT,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: _Paths.TICKETS,
+      page: () => const TicketsView(),
+      binding: TicketsBinding(),
     ),
   ];
 }
