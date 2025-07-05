@@ -100,7 +100,9 @@ class DetailMovieView extends GetView<DetailMovieController> {
                 CustomButton(
                   text: "Buy Ticket", 
                   backgroundColor: AppColors.primary,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Get.toNamed('/checkout', arguments: args);
+                  }),
                 SizedBox(
                   height: 10.h,
                 )
