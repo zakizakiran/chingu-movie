@@ -17,7 +17,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
       backgroundColor: AppColors.pageBackground,
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Text('Detail Movie', style: AppTextStyles.label),
+        title: Text('Movies Detail', style: AppTextStyles.label),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: AppColors.text),
           onPressed: () => Get.back(),
@@ -54,10 +54,17 @@ class DetailMovieView extends GetView<DetailMovieController> {
                         ),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            "assets/images/jumbo-poster.png",
-                            fit: BoxFit.cover,
-                          ),
+                          child:
+                              args['moviePoster'] != null
+                                  ? Image.asset(
+                                    args['moviePoster'] as String,
+                                    fit: BoxFit.cover,
+                                  )
+                                  : Image.asset(
+                                    "assets/images/jumbo-poster.png",
+                                    // Default image if no poster is provided
+                                    fit: BoxFit.cover,
+                                  ),
                         ),
                       ),
                       SizedBox(height: 10.h),
