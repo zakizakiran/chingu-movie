@@ -47,7 +47,7 @@ class CheckoutView extends GetView<CheckoutController> {
                           Image.asset("assets/images/logo.png", height: 50.h),
                           Text(args['movieTitle'], style: AppTextStyles.label),
                           Text(
-                            "Thursday, June 26th, 2025",
+                            args['date'],
                             style: AppTextStyles.smallText,
                           ),
                         ],
