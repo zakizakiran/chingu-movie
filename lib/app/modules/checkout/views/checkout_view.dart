@@ -46,10 +46,7 @@ class CheckoutView extends GetView<CheckoutController> {
                         children: [
                           Image.asset("assets/images/logo.png", height: 50.h),
                           Text(args['movieTitle'], style: AppTextStyles.label),
-                          Text(
-                            args['date'],
-                            style: AppTextStyles.smallText,
-                          ),
+                          Text(args['date'], style: AppTextStyles.smallText),
                         ],
                       ),
                     ),
@@ -87,33 +84,52 @@ class CheckoutView extends GetView<CheckoutController> {
                 ),
                 SizedBox(
                   height: 160.h,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomButton(
-                        text: "QRIS",
-                        onPressed: () {},
-                        backgroundColor: Colors.black,
-                      ),
-                      CustomButton(
-                        text: "E-WALLET",
-                        onPressed: () {},
-                        backgroundColor: Colors.black,
-                      ),
-                      CustomButton(
-                        text: "Debit",
-                        onPressed: () {},
-                        backgroundColor: Colors.black,
-                      ),
-                    ],
-                  ),
+                  child: Obx(() {
+                    final methods = ["QRIS", "E-WALLET", "Debit"];
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children:
+                          methods.map((method) {
+                            final isSelected =
+                                controller.selectedPaymentMethod.value ==
+                                method;
+
+                            return CustomButton(
+                              text: method,
+                              onPressed: () {
+                                controller.selectedPaymentMethod.value = method;
+                              },
+                              backgroundColor:
+                                  isSelected ? AppColors.secondary : Colors.black,
+                              textStyle: AppTextStyles.body.copyWith(
+                                color: isSelected ? Colors.white : Colors.white,
+                              ),
+                            );
+                          }).toList(),
+                    );
+                  }),
                 ),
                 Padding(
                   padding: EdgeInsetsGeometry.only(top: 30.h),
                   child: CustomButton(
                     text: "Confirm",
                     onPressed: () {
-                      Get.toNamed("/tickets", arguments: args);
+                      if (controller.selectedPaymentMethod.value.isEmpty) {
+                        Get.snackbar(
+                          "Peringatan",
+                          "Pilih metode pembayaran terlebih dahulu",
+                        );
+                        return;
+                      }
+
+                      Get.toNamed(
+                        "/tickets",
+                        arguments: {
+                          ...args,
+                          "paymentMethod":
+                              controller.selectedPaymentMethod.value,
+                        },
+                      );
                     },
                     backgroundColor: AppColors.primary,
                   ),
@@ -134,7 +150,7 @@ Widget transactionDetails({required String text, required String value}) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(text, style: AppTextStyles.body),
-        Text(value, style: AppTextStyles.body,),
+        Text(value, style: AppTextStyles.body),
       ],
     ),
   );
