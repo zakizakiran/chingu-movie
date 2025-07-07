@@ -6,6 +6,7 @@ class RegisterController extends GetxController {
   final nameController = TextEditingController();
   final passwordController = TextEditingController();
 
+  var isAgree = false.obs;
   var isObscure = true.obs;
   var isConfirmObscure = true.obs;
   var isLoading = false.obs;
