@@ -19,6 +19,7 @@ class LoginView extends GetView<LoginController> {
         FocusScope.of(context).unfocus(); // Dismiss the keyboard
       },
       child: Scaffold(
+        backgroundColor: AppColors.pageBackground,
         body: SingleChildScrollView(
           child: SafeArea(
             child: Padding(
