@@ -52,6 +52,12 @@ class AppTextStyles {
     color: AppColors.black,
   );
 
+  static TextStyle get smallTextBold => GoogleFonts.poppins(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
   static TextStyle get hintText => GoogleFonts.poppins(
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
