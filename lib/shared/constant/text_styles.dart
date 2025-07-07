@@ -10,6 +10,12 @@ class AppTextStyles {
     color: AppColors.black,
   );
 
+  static TextStyle get cardTitle => GoogleFonts.poppins(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
   static TextStyle get label => GoogleFonts.poppins(
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
