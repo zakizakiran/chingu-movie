@@ -106,7 +106,9 @@ class LoginView extends GetView<LoginController> {
                           children: [
                             CustomButton(
                               onPressed: () {
-                                Get.toNamed('/home');
+                                Get.toNamed(
+                                  '/bottom-navigation',
+                                ); // Navigate to home page
                               },
                               borderRadius: 20.r,
                               backgroundColor: AppColors.primary,
