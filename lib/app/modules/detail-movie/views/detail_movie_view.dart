@@ -12,11 +12,17 @@ class DetailMovieView extends GetView<DetailMovieController> {
   const DetailMovieView({super.key});
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map;
+    final args = Get.arguments as Map? ?? {};
 
     return Scaffold(
+      backgroundColor: AppColors.pageBackground,
       appBar: AppBar(
+        backgroundColor: AppColors.white,
         title: Text('Detail Movie', style: AppTextStyles.label),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: AppColors.text),
+          onPressed: () => Get.back(),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -29,13 +35,17 @@ class DetailMovieView extends GetView<DetailMovieController> {
                 Center(
                   child: Column(
                     children: [
-                      Text(args['movieTitle'], style: AppTextStyles.label),
-
+                      SizedBox(height: 12.h),
+                      Text(
+                        args['movieTitle'] ?? 'Unknown Title',
+                        style: AppTextStyles.label,
+                      ),
+                      SizedBox(height: 4.h),
                       Text(
                         "Thursday, June 26th, 2025",
                         style: AppTextStyles.smallText,
                       ),
-                      SizedBox(height: 10.h),
+                      SizedBox(height: 12.h),
                       Container(
                         height: 200.h,
                         width: 150.w,
@@ -57,17 +67,29 @@ class DetailMovieView extends GetView<DetailMovieController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(args["year"], style: AppTextStyles.smallText),
-                            Text(args['genre'], style: AppTextStyles.smallText),
-                            Text(args['duration'], style: AppTextStyles.smallText),
+                            Text(
+                              args["year"]?.toString() ?? '',
+                              style: AppTextStyles.smallText,
+                            ),
+                            Text(
+                              args['genre']?.toString() ?? '',
+                              style: AppTextStyles.smallText,
+                            ),
+                            Text(
+                              args['duration']?.toString() ?? '',
+                              style: AppTextStyles.smallText,
+                            ),
                           ],
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      StarRating(rating: args['rating']),
+                      StarRating(
+                        rating: (args['rating'] as num?)?.toDouble() ?? 0.0,
+                      ),
                       SizedBox(height: 10.h),
                       Text(
-                        args["movieSynopsis"],
+                        args["movieSynopsis"]?.toString() ??
+                            'No synopsis available',
                         style: AppTextStyles.smallText,
                         textAlign: TextAlign.center,
                       ),
@@ -84,7 +106,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                       return Padding(
                         padding: EdgeInsets.symmetric(vertical: 7.h),
                         child: CustomButton(
-                          text: "12.00 - 13.30",
+                          text: "12.00 - 13.30 WIB",
                           textStyle: AppTextStyles.body,
                           onPressed: () {},
                           backgroundColor: Colors.white,
@@ -94,16 +116,16 @@ class DetailMovieView extends GetView<DetailMovieController> {
                     }),
                   ),
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
+                SizedBox(height: 30.h),
                 CustomButton(
-                  text: "Buy Ticket", 
+                  text: "Buy Ticket",
                   backgroundColor: AppColors.primary,
-                  onPressed: () {}),
-                SizedBox(
-                  height: 10.h,
-                )
+                  textStyle: AppTextStyles.buttonLight,
+                  borderRadius: 20.r,
+                  height: 65.h,
+                  onPressed: () {},
+                ),
+                SizedBox(height: 10.h),
               ],
             ),
           ),
