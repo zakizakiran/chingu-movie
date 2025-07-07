@@ -1,3 +1,4 @@
+import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:chingu_app/shared/widgets/custom_card.dart';
 import 'package:chingu_app/shared/widgets/custom_text_field.dart';
@@ -17,6 +18,7 @@ class HomeView extends GetView<HomeController> {
         FocusScope.of(context).unfocus(); // Dismiss the keyboard
       },
       child: Scaffold(
+        backgroundColor: AppColors.pageBackground,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -45,9 +47,7 @@ class HomeView extends GetView<HomeController> {
                 Expanded(
                   child: GridView.count(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 4.w,
-                    mainAxisSpacing: 8.w,
-                    childAspectRatio: 0.55,
+                    childAspectRatio: 0.52.w,
                     children: List.generate(4, (index) {
                       return Padding(
                         padding: EdgeInsets.all(8.w),
@@ -57,9 +57,24 @@ class HomeView extends GetView<HomeController> {
                           clipBehavior: Clip.hardEdge,
                           child: InkWell(
                             onTap: () {
-                              print('tap $index');
+                              Get.toNamed(
+                                '/detail-movie',
+                                arguments: {
+                                  'movieTitle': controller.movieTitle,
+                                  'movieSynopsis': controller.movieSynopsis,
+                                  'year': controller.movieYear,
+                                  'genre': controller.movieGenre,
+                                  'duration': controller.movieDuration,
+                                  'rating': controller.movieRating,
+                                },
+                              );
                             },
-                            child: CustomCard(controller: controller),
+                            child: CustomCard(
+                              image: Image.asset(controller.moviePoster.value),
+                              controller: controller,
+                              title: controller.movieTitle,
+                              description: controller.movieSynopsis,
+                            ),
                           ),
                         ),
                       );
