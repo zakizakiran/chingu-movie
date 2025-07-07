@@ -39,6 +39,7 @@ dependencies:
   flutter_screenutil: ^5.9.3
   hexcolor: ^3.0.1
   email_validator: ^3.0.0
+  google_nav_bar: ^5.0.7
 
 dev_dependencies:
   flutter_test:
