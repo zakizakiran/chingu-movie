@@ -30,7 +30,7 @@ class CustomButton extends StatelessWidget {
     this.verticalPad = 0.0,
     this.elevation = 4.0,
     this.textStyle,
-    this.borderColor
+    this.borderColor,
   });
 
   @override

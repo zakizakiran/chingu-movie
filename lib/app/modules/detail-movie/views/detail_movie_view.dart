@@ -5,7 +5,6 @@ import 'package:chingu_app/shared/widgets/custom_star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../controllers/detail_movie_controller.dart';
 
 class DetailMovieView extends GetView<DetailMovieController> {
@@ -110,7 +109,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                           textStyle: AppTextStyles.body,
                           onPressed: () {},
                           backgroundColor: Colors.white,
-                          borderColor: Colors.black,
+                          borderColor: AppColors.lightGrey,
                         ),
                       );
                     }),
