@@ -6,10 +6,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomCard extends StatelessWidget {
   final String? title;
   final String? description;
+  final Image? image;
 
   const CustomCard({
     super.key,
     required this.controller,
+    this.image,
     this.title,
     this.description,
   });
@@ -18,20 +20,31 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(8.w),
-      child: SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/images/jumbo-poster.png'),
+            image ?? Image.asset('assets/images/jumbo-poster.png'),
             SizedBox(height: 8.h),
-            Text(controller.movieTitle, style: AppTextStyles.cardTitle),
+            Text(title!, style: AppTextStyles.cardTitle),
             SizedBox(height: 4.h),
             Text(
-              controller.movieSynopsis,
+              description!,
               style: AppTextStyles.smallText,
-              // textAlign: TextAlign.justify,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
             ),
