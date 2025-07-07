@@ -100,29 +100,61 @@ class DetailMovieView extends GetView<DetailMovieController> {
                 SizedBox(height: 15.h),
                 SizedBox(
                   width: double.infinity,
-                  child: Column(
-                    children: List.generate(3, (index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 7.h),
-                        child: CustomButton(
-                          text: "12.00 - 13.30 WIB",
-                          textStyle: AppTextStyles.body,
-                          onPressed: () {},
-                          backgroundColor: Colors.white,
-                          borderColor: AppColors.lightGrey,
-                        ),
-                      );
-                    }),
+                  child: Obx(
+                    () => Column(
+                      children: List.generate(controller.showtimes.length, (
+                        index,
+                      ) {
+                        final isSelected =
+                            controller.selectedShowtimeIndex.value == index;
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 7.h),
+                          child: CustomButton(
+                            text: controller.showtimes[index],
+                            textStyle:
+                                isSelected
+                                    ? AppTextStyles.body.copyWith(
+                                      color: AppColors.white,
+                                    )
+                                    : AppTextStyles.body,
+                            onPressed: () {
+                              controller.selectShowtime(index);
+                            },
+                            backgroundColor:
+                                isSelected ? AppColors.black : Colors.white,
+                            borderColor:
+                                isSelected
+                                    ? AppColors.primary
+                                    : AppColors.lightGrey,
+                          ),
+                        );
+                      }),
+                    ),
                   ),
                 ),
                 SizedBox(height: 30.h),
-                CustomButton(
-                  text: "Buy Ticket",
-                  backgroundColor: AppColors.primary,
-                  textStyle: AppTextStyles.buttonLight,
-                  borderRadius: 20.r,
-                  height: 65.h,
-                  onPressed: () {},
+                Obx(
+                  () => CustomButton(
+                    text: "Buy Ticket",
+                    backgroundColor:
+                        controller.selectedShowtimeIndex.value >= 0
+                            ? AppColors.primary
+                            : AppColors.lightGrey,
+                    textStyle: AppTextStyles.buttonLight,
+                    borderRadius: 20.r,
+                    height: 65.h,
+                    onPressed:
+                        controller.selectedShowtimeIndex.value >= 0
+                            ? () {
+                              Get.snackbar(
+                                "Showtime Selected",
+                                "You selected: ${controller.showtimes[controller.selectedShowtimeIndex.value]}",
+                                backgroundColor: AppColors.darkGrey,
+                                colorText: Colors.white,
+                              );
+                            }
+                            : null,
+                  ),
                 ),
                 SizedBox(height: 10.h),
               ],
