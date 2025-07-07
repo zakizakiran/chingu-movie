@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
-
 import '../modules/detail-movie/bindings/detail_movie_binding.dart';
 import '../modules/detail-movie/views/detail_movie_view.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';

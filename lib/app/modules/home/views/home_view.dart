@@ -4,9 +4,7 @@ import 'package:chingu_app/shared/widgets/custom_card.dart';
 import 'package:chingu_app/shared/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
