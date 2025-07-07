@@ -10,7 +10,9 @@ class HomeController extends GetxController {
   final genre = "Comedy";
   final year = "2025";
   final duration = "2h 31m"; 
-
+  final date = "Thursday, June 26th, 2025";
+  final showtime = ["12.00 - 13.30", "14.00 - 15.00", "16.00 - 17.00"];
+  
   final count = 0.obs;
   @override
   void onInit() {

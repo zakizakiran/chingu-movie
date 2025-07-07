@@ -54,7 +54,9 @@ class HomeView extends GetView<HomeController> {
                                 'rating' : controller.rating,
                                 'genre' : controller.genre,
                                 'year' : controller.year,
-                                'duration' : controller.duration
+                                'duration' : controller.duration,
+                                'date' : controller.date,
+                                'showtime' : controller.showtime
                                 },
                             );
                           },

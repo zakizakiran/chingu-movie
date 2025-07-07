@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 class DetailMovieController extends GetxController {
   //TODO: Implement DetailMovieController
 
+  var selectedShowtime = RxnString();
+
   final count = 0.obs;
   @override
   void onInit() {

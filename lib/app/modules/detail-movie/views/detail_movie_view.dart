@@ -11,8 +11,9 @@ import '../controllers/detail_movie_controller.dart';
 class DetailMovieView extends GetView<DetailMovieController> {
   const DetailMovieView({super.key});
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     final args = Get.arguments as Map;
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -30,11 +31,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                   child: Column(
                     children: [
                       Text(args['movieTitle'], style: AppTextStyles.label),
-
-                      Text(
-                        "Thursday, June 26th, 2025",
-                        style: AppTextStyles.smallText,
-                      ),
+                      Text(args["date"], style: AppTextStyles.smallText),
                       SizedBox(height: 10.h),
                       Container(
                         height: 200.h,
@@ -59,7 +56,10 @@ class DetailMovieView extends GetView<DetailMovieController> {
                           children: [
                             Text(args["year"], style: AppTextStyles.smallText),
                             Text(args['genre'], style: AppTextStyles.smallText),
-                            Text(args['duration'], style: AppTextStyles.smallText),
+                            Text(
+                              args['duration'],
+                              style: AppTextStyles.smallText,
+                            ),
                           ],
                         ),
                       ),
@@ -79,33 +79,41 @@ class DetailMovieView extends GetView<DetailMovieController> {
                 SizedBox(height: 15.h),
                 SizedBox(
                   width: double.infinity,
-                  child: Column(
-                    children: List.generate(3, (index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(vertical: 7.h),
-                        child: CustomButton(
-                          text: "12.00 - 13.30",
-                          textStyle: AppTextStyles.body,
-                          onPressed: () {},
-                          backgroundColor: Colors.white,
-                          borderColor: Colors.black,
-                        ),
-                      );
-                    }),
-                  ),
+                  child: Obx(() {
+                    return Column(
+                      children: List.generate(args["showtime"].length, (index) {
+                        final time = args["showtime"][index];
+                        final isSelected =
+                            controller.selectedShowtime.value == time;
+
+                        return Padding(
+                          padding: EdgeInsets.symmetric(vertical: 7.h),
+                          child: CustomButton(
+                            text: time,
+                            textStyle: AppTextStyles.body.copyWith(
+                              color: isSelected ? Colors.white : Colors.black,
+                            ),
+                            onPressed: () {
+                              controller.selectedShowtime.value = time;
+                            },
+                            backgroundColor:
+                                isSelected ? AppColors.secondary : Colors.white,
+                            borderColor: Colors.black,
+                          ),
+                        );
+                      }),
+                    );
+                  }),
                 ),
-                SizedBox(
-                  height: 30.h,
-                ),
+                SizedBox(height: 30.h),
                 CustomButton(
-                  text: "Buy Ticket", 
+                  text: "Buy Ticket",
                   backgroundColor: AppColors.primary,
                   onPressed: () {
                     Get.toNamed('/checkout', arguments: args);
-                  }),
-                SizedBox(
-                  height: 10.h,
-                )
+                  },
+                ),
+                SizedBox(height: 10.h),
               ],
             ),
           ),
