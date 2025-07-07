@@ -47,7 +47,7 @@ class AppTextStyles {
   );
 
   static TextStyle get smallText => GoogleFonts.poppins(
-    fontSize: 14.sp,
+    fontSize: 12.sp,
     fontWeight: FontWeight.w400,
     color: AppColors.black,
   );

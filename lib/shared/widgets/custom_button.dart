@@ -15,6 +15,7 @@ class CustomButton extends StatelessWidget {
   final double horizontalPad;
   final double verticalPad;
   final TextStyle? textStyle;
+  final Color? borderColor;
 
   const CustomButton({
     super.key,
@@ -29,6 +30,7 @@ class CustomButton extends StatelessWidget {
     this.verticalPad = 0.0,
     this.elevation = 4.0,
     this.textStyle,
+    this.borderColor
   });
 
   @override
@@ -43,6 +45,10 @@ class CustomButton extends StatelessWidget {
           elevation: elevation,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius.r),
+            side: BorderSide(
+              color: borderColor ?? Colors.transparent,
+              width: 1,
+            ),
           ),
           shadowColor: Colors.black.withOpacity(0.25),
           padding: EdgeInsets.symmetric(
