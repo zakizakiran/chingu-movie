@@ -16,6 +16,8 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
+import '../modules/reservation/bindings/reservation_binding.dart';
+import '../modules/reservation/views/reservation_view.dart';
 
 part 'app_routes.dart';
 
@@ -72,6 +74,11 @@ class AppPages {
       name: _Paths.PROFILE,
       page: () => const ProfileView(),
       binding: ProfileBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESERVATION,
+      page: () => const ReservationView(),
+      binding: ReservationBinding(),
     ),
   ];
 }

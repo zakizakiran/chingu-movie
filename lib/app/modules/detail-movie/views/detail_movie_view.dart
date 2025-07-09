@@ -159,6 +159,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                                 backgroundColor: AppColors.darkGrey,
                                 colorText: Colors.white,
                               );
+                              Get.toNamed('/reservation');
                             }
                             : null,
                   ),
