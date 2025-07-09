@@ -10,10 +10,22 @@ class AppTextStyles {
     color: AppColors.black,
   );
 
+  static TextStyle get cardTitle => GoogleFonts.poppins(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+  );
+
   static TextStyle get label => GoogleFonts.poppins(
     fontSize: 16.sp,
     fontWeight: FontWeight.w600,
     color: AppColors.text,
+  );
+
+  static TextStyle get navigation => GoogleFonts.poppins(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
   );
 
   static TextStyle get buttonLight => GoogleFonts.poppins(
@@ -43,6 +55,12 @@ class AppTextStyles {
   static TextStyle get smallText => GoogleFonts.poppins(
     fontSize: 12.sp,
     fontWeight: FontWeight.w400,
+    color: AppColors.black,
+  );
+
+  static TextStyle get smallTextBold => GoogleFonts.poppins(
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w600,
     color: AppColors.black,
   );
 
