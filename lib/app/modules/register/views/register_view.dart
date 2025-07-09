@@ -190,6 +190,7 @@ class RegisterView extends GetView<RegisterController> {
                             textStyle: AppTextStyles.buttonDark,
                             height: 65.h,
                           ),
+                          SizedBox(height: 16.h),
                         ],
                       ),
                     ],

@@ -7,6 +7,7 @@ import 'package:chingu_app/app/modules/order_history/views/order_history_view.da
 import 'package:chingu_app/app/modules/profile/controllers/profile_controller.dart';
 import 'package:chingu_app/app/modules/profile/views/profile_view.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
+import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -47,10 +48,26 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
             selectedIndex: controller.currentIndex.value,
             onTabChange: controller.changePage,
             tabs: [
-              GButton(icon: Icons.home_rounded, text: 'Home'),
-              GButton(icon: Icons.history, text: 'Order History'),
-              GButton(icon: Icons.notifications, text: 'Notifications'),
-              GButton(icon: Icons.person_rounded, text: 'Profile'),
+              GButton(
+                icon: Icons.home_rounded,
+                text: 'Home',
+                textStyle: AppTextStyles.navigation,
+              ),
+              GButton(
+                icon: Icons.history,
+                text: 'Order History',
+                textStyle: AppTextStyles.navigation,
+              ),
+              GButton(
+                icon: Icons.notifications,
+                text: 'Notifications',
+                textStyle: AppTextStyles.navigation,
+              ),
+              GButton(
+                icon: Icons.person_rounded,
+                text: 'Profile',
+                textStyle: AppTextStyles.navigation,
+              ),
             ],
           ),
         ),

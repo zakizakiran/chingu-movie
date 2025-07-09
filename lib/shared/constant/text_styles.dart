@@ -22,6 +22,12 @@ class AppTextStyles {
     color: AppColors.text,
   );
 
+  static TextStyle get navigation => GoogleFonts.poppins(
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: AppColors.white,
+  );
+
   static TextStyle get buttonLight => GoogleFonts.poppins(
     fontSize: 20.sp,
     fontWeight: FontWeight.w600,
