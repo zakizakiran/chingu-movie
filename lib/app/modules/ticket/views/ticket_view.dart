@@ -48,8 +48,7 @@ class TicketView extends GetView<TicketController> {
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
                     width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryLight),
+                    decoration: BoxDecoration(color: AppColors.primaryLight),
                     child: Padding(
                       padding: EdgeInsetsGeometry.all(20),
                       child: Column(
@@ -80,39 +79,37 @@ class TicketView extends GetView<TicketController> {
                             spacing: 6.w,
                             runSpacing: 6.h,
                             children:
-                                (args["selectedSeats"] as List<String>)
-                                    .map(
-                                      (seat) => Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 12.w,
-                                          vertical: 6.h,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: AppColors.primaryDark.withOpacity(
-                                            0.1,
-                                          ),
-                                          borderRadius: BorderRadius.circular(
-                                            8.r,
-                                          ),
-                                          border: Border.all(
-                                            color: AppColors.primaryDark,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          seat,
-                                          style: AppTextStyles.smallText
-                                              .copyWith(
-                                                color: AppColors.primaryDark,
-                                                fontSize: 12.sp,
-                                              ),
-                                        ),
+                                (args["selectedSeats"] as List?)?.map<Widget>((
+                                  seat,
+                                ) {
+                                  return Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w,
+                                      vertical: 6.h,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.primaryDark.withOpacity(
+                                        0.1,
                                       ),
-                                    )
-                                    .toList(),
+                                      borderRadius: BorderRadius.circular(8.r),
+                                      border: Border.all(
+                                        color: AppColors.primaryDark,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      seat.toString(),
+                                      style: AppTextStyles.smallText.copyWith(
+                                        color: AppColors.primaryDark,
+                                        fontSize: 12.sp,
+                                      ),
+                                    ),
+                                  );
+                                }).toList() ??
+                                [],
                           ),
+
                           SizedBox(height: 5.h),
-                          Text("Rp. 90.000", 
-                          style: AppTextStyles.label),
+                          Text("Rp. 90.000", style: AppTextStyles.label),
                         ],
                       ),
                     ),
