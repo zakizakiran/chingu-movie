@@ -176,19 +176,12 @@ Widget historyView() {
       final movieTitle = "JUMBO";
       return Padding(
         padding: EdgeInsets.only(bottom: 16.h),
-        child: GestureDetector(
-          onTap: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Go to ticket ${movieTitle}")),
-            );
-          },
-          child: buildTicketClip(
+        child: buildTicketClip(
             movieTitle: movieTitle,
             selectedSeats: "C1, C2",
             studio: "1 (One)",
             date: "Wed, 16 June 2025",
           ),
-        ),
       );
     },
   );
