@@ -18,6 +18,8 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/reservation/bindings/reservation_binding.dart';
 import '../modules/reservation/views/reservation_view.dart';
+import '../modules/ticket/bindings/ticket_binding.dart';
+import '../modules/ticket/views/ticket_view.dart';
 
 part 'app_routes.dart';
 
@@ -79,6 +81,11 @@ class AppPages {
       name: _Paths.RESERVATION,
       page: () => const ReservationView(),
       binding: ReservationBinding(),
+    ),
+    GetPage(
+      name: _Paths.TICKET,
+      page: () => const TicketView(),
+      binding: TicketBinding(),
     ),
   ];
 }

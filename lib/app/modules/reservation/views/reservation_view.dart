@@ -241,6 +241,10 @@ class ReservationView extends StatelessWidget {
                       "Success",
                       "You booked: ${selectedSeats.join(', ')}",
                     );
+                    Get.toNamed(
+                      "/ticket",
+                      arguments: {"selectedSeats": selectedSeats},
+                    );
                   }
                 },
                 borderRadius: 20.r,

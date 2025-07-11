@@ -13,6 +13,7 @@ abstract class Routes {
   static const NOTIFICATION = _Paths.NOTIFICATION;
   static const PROFILE = _Paths.PROFILE;
   static const RESERVATION = _Paths.RESERVATION;
+  static const TICKET = _Paths.TICKET;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const NOTIFICATION = '/notification';
   static const PROFILE = '/profile';
   static const RESERVATION = '/reservation';
+  static const TICKET = '/ticket';
 }
