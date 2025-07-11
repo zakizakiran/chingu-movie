@@ -57,6 +57,7 @@ Widget buildTicketClip({
   String? date,
   String? selectedSeats,
   String? studio,
+  Icon? icon
 }) {
   return ClipPath(
     clipper: TicketPassClipper(),
@@ -133,7 +134,7 @@ Widget buildTicketClip({
             ],
           ),
           SizedBox(width: 16.w),
-          Icon(Icons.qr_code),
+          icon ?? Icon(Icons.done_all_outlined)
         ],
       ),
     ),
@@ -159,6 +160,7 @@ Widget recentView() {
             selectedSeats: "C1, C2",
             studio: "1 (One)",
             date: "Wed, 16 June 2025",
+            icon: Icon(Icons.qr_code_2_outlined)
           ),
         ),
       );
