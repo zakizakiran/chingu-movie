@@ -40,9 +40,8 @@ class OrderHistoryView extends GetView<OrderHistoryController> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    recentView(),
-                    Center(child: Text('History')),
-                  ],
+                    recentView(), 
+                    historyView()],
                 ),
               ),
             ],
@@ -53,46 +52,142 @@ class OrderHistoryView extends GetView<OrderHistoryController> {
   }
 }
 
-Widget buildTicketClip(String text, Color color) {
+Widget buildTicketClip({
+  String? movieTitle,
+  String? date,
+  String? selectedSeats,
+  String? studio,
+}) {
   return ClipPath(
-  clipper: TicketPassClipper(),
-  child: Container(
-    height: 100.h,
-    padding: EdgeInsets.all(20),
-    color: AppColors.primaryLight,
-    alignment: Alignment.center,
-    child: Row(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(3)),
-          child: Image.asset("assets/images/jumbo-poster.png")),
-          SizedBox(
-            width: 10.w,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    clipper: TicketPassClipper(),
+    child: Container(
+      height: 200.h,
+      padding: EdgeInsets.all(20),
+      color: AppColors.primaryLight,
+      alignment: Alignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Text("Jumbo", style: AppTextStyles.smallTextBold,),
-              Text("C1, C2", style: AppTextStyles.smallText,),
-              Text("Studio 1", style: AppTextStyles.smallText,)
+              SizedBox(
+                width: 80.w,
+                height: 100.h,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(3)),
+                  child: Image.asset(
+                    "assets/images/jumbo-poster.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10.w),
+              SizedBox(
+                width: 180.w,
+                child: Column(
+                  children: [
+                    Text(
+                      movieTitle ?? "Unknown movie title",
+                      style: AppTextStyles.label,
+                      textAlign: TextAlign.center,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.h),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Studio", style: AppTextStyles.smallText),
+                              Text(
+                                studio ?? "No studio selected",
+                                style: AppTextStyles.smallTextBold,
+                              ),
+                              SizedBox(height: 5.h),
+                              Text("Date", style: AppTextStyles.smallText),
+                              Text(
+                                date ?? "MM/DD/YY",
+                                style: AppTextStyles.smallTextBold,
+                              ),
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Seats", style: AppTextStyles.smallText),
+                              Text(
+                                selectedSeats ?? "No seats selected",
+                                style: AppTextStyles.smallTextBold,
+                              ),
+                              SizedBox(height: 5.h),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
-          )
-      ],
-    )
-  ),
-);
+          ),
+          SizedBox(width: 16.w),
+          Icon(Icons.qr_code),
+        ],
+      ),
+    ),
+  );
 }
 
 Widget recentView() {
   return ListView.builder(
-    itemCount: 5,
+    itemCount: 2,
     padding: EdgeInsets.all(16),
     itemBuilder: (context, index) {
+      final movieTitle = "JUMBO";
       return Padding(
         padding: EdgeInsets.only(bottom: 16.h),
-        child: buildTicketClip("🎟️ Tiket #${index + 1}", Colors.redAccent),
+        child: GestureDetector(
+          onTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Go to ticket ${movieTitle}")),
+            );
+          },
+          child: buildTicketClip(
+            movieTitle: movieTitle,
+            selectedSeats: "C1, C2",
+            studio: "1 (One)",
+            date: "Wed, 16 June 2025",
+          ),
+        ),
       );
     },
   );
 }
 
+Widget historyView() {
+  return ListView.builder(
+    itemCount: 2,
+    padding: EdgeInsets.all(16),
+    itemBuilder: (context, index) {
+      final movieTitle = "JUMBO";
+      return Padding(
+        padding: EdgeInsets.only(bottom: 16.h),
+        child: GestureDetector(
+          onTap: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Go to ticket ${movieTitle}")),
+            );
+          },
+          child: buildTicketClip(
+            movieTitle: movieTitle,
+            selectedSeats: "C1, C2",
+            studio: "1 (One)",
+            date: "Wed, 16 June 2025",
+          ),
+        ),
+      );
+    },
+  );
+}
