@@ -1,8 +1,6 @@
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
-import 'package:chingu_app/shared/widgets/custom_button.dart';
 import 'package:chingu_app/shared/widgets/custom_button_icon.dart';
-import 'package:chingu_app/shared/widgets/cutom_rectangle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -26,6 +24,7 @@ class ProfileView extends GetView<ProfileController> {
           child: Column(
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
