@@ -62,8 +62,8 @@ Widget buildTicketClip({
   return ClipPath(
     clipper: TicketPassClipper(),
     child: Container(
-      height: 200.h,
-      padding: EdgeInsets.all(20),
+      height: 150.h,
+      padding: EdgeInsets.all(10),
       color: AppColors.primaryLight,
       alignment: Alignment.center,
       child: Row(
