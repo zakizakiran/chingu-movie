@@ -1,4 +1,4 @@
-import 'package:chingu_app/app/modules/reservation/controllers/reservation_controller.dart';
+import 'package:chingu_app/app/modules/pages/reservation/controllers/reservation_controller.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:chingu_app/shared/widgets/custom_button.dart';
