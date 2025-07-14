@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "754769446363",
+    "project_id": "chingu-app-3c96a",
+    "storage_bucket": "chingu-app-3c96a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754769446363:android:cd1864a98d4173148f13fe",
+        "android_client_info": {
+          "package_name": "com.chingumovie.chingu_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIjfGkAC51iV3zeikWKywdnlQ1IKVyr7Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
