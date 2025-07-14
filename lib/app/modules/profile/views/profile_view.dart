@@ -12,33 +12,25 @@ class ProfileView extends GetView<ProfileController> {
   const ProfileView({super.key});
   @override
   Widget build(BuildContext context) {
-    final List<Icon> iconSettings = [
-      Icon(Icons.edit),
-      Icon(Icons.logout),];
+    final List<Icon> iconSettings = [Icon(Icons.edit), Icon(Icons.logout)];
     final List<String> profileSettings = ["Edit Profile", "Logout"];
     return Scaffold(
       backgroundColor: AppColors.primaryLight,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back_ios, size: 24.sp),
-                    onPressed: () => Get.back(),
-                  ),
-                  Text("Profile", style: AppTextStyles.label),
-                  SizedBox.shrink(),
-                ],
+              Center(
+                child: Text(
+                  "Profile",
+                  style: AppTextStyles.label.copyWith(color: AppColors.white),
+                ),
               ),
               SizedBox(
                 height: 165.h,
                 child: Padding(
-                  padding: EdgeInsetsGeometry.symmetric(vertical: 15.h),
+                  padding: EdgeInsets.symmetric(vertical: 15.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -50,10 +42,17 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                       ),
                       SizedBox(height: 15.h),
-                      Text("Harry Potter", style: AppTextStyles.label),
+                      Text(
+                        "Harry Potter",
+                        style: AppTextStyles.label.copyWith(
+                          color: AppColors.white,
+                        ),
+                      ),
                       Text(
                         "harrypotter@gmail.com",
-                        style: AppTextStyles.smallText,
+                        style: AppTextStyles.smallText.copyWith(
+                          color: AppColors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -78,8 +77,7 @@ class ProfileView extends GetView<ProfileController> {
                       children: [
                         ...List.generate(profileSettings.length, (index) {
                           final setting = profileSettings[index];
-                          final icon =
-                              iconSettings;
+                          final icon = iconSettings;
                           return Padding(
                             padding: EdgeInsets.only(bottom: 10.h),
                             child: CustomButtonIcon(
