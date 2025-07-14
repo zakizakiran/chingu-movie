@@ -2,6 +2,7 @@ import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class TicketView extends GetView<TicketController> {
     final args = Get.arguments as Map? ?? {};
 
     return Scaffold(
+      backgroundColor: AppColors.pageBackground,
       appBar: AppBar(
         backgroundColor: AppColors.white,
         title: Text('Ticket', style: AppTextStyles.label),
@@ -26,12 +28,16 @@ class TicketView extends GetView<TicketController> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsetsGeometry.symmetric(
-            horizontal: 16.w,
-            vertical: 30.h,
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 30.h),
           child: Column(
             children: [
+              Center(
+                child:
+                    args['movieTitle'] != null
+                        ? Text(args['movieTitle'], style: AppTextStyles.label)
+                        : Text('Unknown Movie', style: AppTextStyles.label),
+              ),
+              SizedBox(height: 16.h),
               Center(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
@@ -41,16 +47,18 @@ class TicketView extends GetView<TicketController> {
                   ),
                 ),
               ),
-              SizedBox(height: 15.h),
+              SizedBox(height: 16.h),
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(horizontal: 30.w),
+                padding: EdgeInsets.symmetric(horizontal: 30.w),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(color: AppColors.primaryLight),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(color: AppColors.darkGrey),
+                    ),
                     child: Padding(
-                      padding: EdgeInsetsGeometry.all(20),
+                      padding: EdgeInsets.all(20),
                       child: Column(
                         children: [
                           Text(
@@ -58,10 +66,16 @@ class TicketView extends GetView<TicketController> {
                             style: AppTextStyles.smallText,
                           ),
                           Text("Studio 1", style: AppTextStyles.smallText),
-                          Text(
-                            "12.00 - 14.30,",
-                            style: AppTextStyles.smallText,
-                          ),
+                          SizedBox(height: 8.h),
+                          args['showtime'] != null
+                              ? Text(
+                                args['showtime'],
+                                style: AppTextStyles.body,
+                              )
+                              : Text(
+                                'Unknown Showtime',
+                                style: AppTextStyles.body,
+                              ),
                           SizedBox(height: 10.h),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(8),
@@ -69,7 +83,6 @@ class TicketView extends GetView<TicketController> {
                               data: 'movie data',
                               version: QrVersions.auto,
                               size: 250.0,
-                              backgroundColor: AppColors.primary,
                             ),
                           ),
                           SizedBox(height: 10.h),
@@ -107,9 +120,20 @@ class TicketView extends GetView<TicketController> {
                                 }).toList() ??
                                 [],
                           ),
-
-                          SizedBox(height: 5.h),
-                          Text("Rp. 90.000", style: AppTextStyles.label),
+                          SizedBox(height: 12.h),
+                          args['totalPrice'] != null
+                              ? Text(
+                                NumberFormat.currency(
+                                  locale: 'id',
+                                  symbol: 'Rp',
+                                  decimalDigits: 0,
+                                ).format(args['totalPrice']),
+                                style: AppTextStyles.label,
+                              )
+                              : Text(
+                                "Total Price: Unknown",
+                                style: AppTextStyles.label,
+                              ),
                         ],
                       ),
                     ),
