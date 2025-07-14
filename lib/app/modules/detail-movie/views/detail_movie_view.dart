@@ -159,7 +159,16 @@ class DetailMovieView extends GetView<DetailMovieController> {
                                 backgroundColor: AppColors.darkGrey,
                                 colorText: Colors.white,
                               );
-                              Get.toNamed('/reservation');
+                              Get.toNamed(
+                                '/reservation',
+                                arguments: {
+                                  'movieTitle': args['movieTitle'],
+                                  'showtime':
+                                      controller.showtimes[controller
+                                          .selectedShowtimeIndex
+                                          .value],
+                                },
+                              );
                             }
                             : null,
                   ),
