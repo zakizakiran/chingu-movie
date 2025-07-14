@@ -15,8 +15,10 @@ class ReservationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ReservationController());
+    final args = Get.arguments as Map? ?? {};
 
     return Scaffold(
+      backgroundColor: AppColors.pageBackground,
       body: SafeArea(
         child: Column(
           children: [
@@ -147,7 +149,11 @@ class ReservationView extends StatelessWidget {
                             ),
                             SizedBox(height: 12.h),
                             Text(
-                              'Rp${NumberFormat.currency(locale: 'id', symbol: '', decimalDigits: 0).format(totalPrice)}',
+                              NumberFormat.currency(
+                                locale: 'id',
+                                symbol: 'Rp',
+                                decimalDigits: 0,
+                              ).format(totalPrice),
                               style: AppTextStyles.label.copyWith(
                                 color: Colors.black87,
                               ),
@@ -243,7 +249,12 @@ class ReservationView extends StatelessWidget {
                     );
                     Get.toNamed(
                       "/ticket",
-                      arguments: {"selectedSeats": selectedSeats},
+                      arguments: {
+                        "selectedSeats": selectedSeats,
+                        "movieTitle": args['movieTitle'],
+                        "showtime": args['showtime'],
+                        "totalPrice": selectedSeats.length * 50000,
+                      },
                     );
                   }
                 },
