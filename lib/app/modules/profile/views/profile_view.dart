@@ -15,7 +15,7 @@ class ProfileView extends GetView<ProfileController> {
     final List<Icon> iconSettings = [Icon(Icons.edit), Icon(Icons.logout)];
     final List<String> profileSettings = ["Edit Profile", "Logout"];
     return Scaffold(
-      backgroundColor: AppColors.primaryLight,
+      backgroundColor: AppColors.pageBackground,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -23,12 +23,11 @@ class ProfileView extends GetView<ProfileController> {
             children: [
               Center(
                 child: Text(
-                  "Profile",
-                  style: AppTextStyles.label.copyWith(color: AppColors.white),
+                  "My Profile",
+                  style: AppTextStyles.label.copyWith(color: AppColors.text),
                 ),
               ),
               SizedBox(
-                height: 165.h,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 15.h),
                   child: Column(
@@ -41,19 +40,21 @@ class ProfileView extends GetView<ProfileController> {
                           "assets/images/profile.jpg",
                         ),
                       ),
-                      SizedBox(height: 15.h),
+                      SizedBox(height: 16.h),
                       Text(
                         "Harry Potter",
                         style: AppTextStyles.label.copyWith(
-                          color: AppColors.white,
+                          color: AppColors.text,
                         ),
                       ),
                       Text(
                         "harrypotter@gmail.com",
                         style: AppTextStyles.smallText.copyWith(
-                          color: AppColors.white,
+                          color: AppColors.text,
                         ),
                       ),
+                      SizedBox(height: 16.h),
+                      Divider(color: AppColors.lightGrey, height: 20.h),
                     ],
                   ),
                 ),
@@ -68,35 +69,28 @@ class ProfileView extends GetView<ProfileController> {
                       top: Radius.circular(24.w),
                     ),
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 20.w,
-                      horizontal: 20.w,
-                    ),
-                    child: Column(
-                      children: [
-                        ...List.generate(profileSettings.length, (index) {
-                          final setting = profileSettings[index];
-                          final icon = iconSettings;
-                          return Padding(
-                            padding: EdgeInsets.only(bottom: 10.h),
-                            child: CustomButtonIcon(
-                              backgroundColor: AppColors.primaryLight
-                                  .withOpacity(0.3),
-                              borderColor: AppColors.primary,
-                              text: setting,
-                              textStyle: TextStyle(color: AppColors.black),
-                              icon: icon[index],
-                              onPressed: () {
-                                if (setting == "Logout") {
-                                  Get.toNamed("/login");
-                                } else if (setting == "Edit Profile") {}
-                              },
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      ...List.generate(profileSettings.length, (index) {
+                        final setting = profileSettings[index];
+                        final icon = iconSettings;
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 12.h),
+                          child: CustomButtonIcon(
+                            backgroundColor: AppColors.white,
+                            borderColor: AppColors.lightGrey,
+                            text: setting,
+                            textStyle: TextStyle(color: AppColors.black),
+                            icon: icon[index],
+                            onPressed: () {
+                              if (setting == "Logout") {
+                                Get.toNamed("/login");
+                              } else if (setting == "Edit Profile") {}
+                            },
+                          ),
+                        );
+                      }),
+                    ],
                   ),
                 ),
               ),
