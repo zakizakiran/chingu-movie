@@ -5,7 +5,7 @@ class HomeController extends GetxController {
   final count = 0.obs;
   final searchController = TextEditingController();
   final moviePoster = "assets/images/jumbo-poster.png".obs;
-  final movieTitle = "Jumbo";
+  final movieTitle = "Jumbo Uncut";
   final movieSynopsis =
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ac ultrices turpis";
   final movieYear = "2024";
