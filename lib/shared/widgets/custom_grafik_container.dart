@@ -1,5 +1,4 @@
 import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
-import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'custom_line_chart.dart';
 
 class CustomGrafikContainer extends StatelessWidget {
-  final String title;
   final RxString selectedValue;
   final List<String> items;
   final void Function(String?) onChanged;
@@ -20,7 +18,6 @@ class CustomGrafikContainer extends StatelessWidget {
 
   const CustomGrafikContainer({
     super.key,
-    required this.title,
     required this.selectedValue,
     required this.items,
     required this.onChanged,
@@ -36,62 +33,63 @@ class CustomGrafikContainer extends StatelessWidget {
       width: double.infinity,
       constraints: const BoxConstraints(minHeight: 400),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.lightGrey),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(title, style: AppTextStyles.smallTextBold),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Obx(() {
-                    return DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedValue.value,
-                        onChanged: onChanged,
-                        items: items.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value, style: AppTextStyles.smallText),
-                          );
-                        }).toList(),
-                        icon: const Icon(Icons.keyboard_arrow_down),
+            Obx(() {
+              return Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: List.generate(items.length, (index) {
+                    final label = items[index];
+                    final isSelected = controller.selectedIndex.value == index;
+
+                    return GestureDetector(
+                      onTap: () => controller.onIndexChanged(index),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: isSelected ? Colors.white : Colors.transparent,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          label,
+                          style: isSelected
+                              ? AppTextStyles.smallTextBold
+                              : AppTextStyles.hintText,
+                        ),
                       ),
                     );
                   }),
                 ),
-              ],
-            ),
+              );
+            }),
+
             const SizedBox(height: 16),
+
+            // Line Chart
             Obx(() {
               switch (selectedValue.value) {
                 case 'Daily':
-                  return CustomLineChart(
-                    controller: controller,
-                    chartSpots: chartSpots,
-                    bottomLabels: bottomLabels,
-                    leftLabels: leftLabels,
-                    date: "June 2025",
-                    reportType: selectedValue.value,
-                  );
                 case 'Weekly':
                   return CustomLineChart(
                     controller: controller,
                     chartSpots: chartSpots,
                     bottomLabels: bottomLabels,
                     leftLabels: leftLabels,
-                    reportType: selectedValue.value,
                     date: "June 2025",
+                    reportType: selectedValue.value,
                   );
                 case 'Monthly':
                   return Container(

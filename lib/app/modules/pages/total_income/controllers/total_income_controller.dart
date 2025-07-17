@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class TotalIncomeController extends GetxController {
   //TODO: Implement TotalIncomeController
   RxBool showAvg = false.obs;
-  RxString selectedType = 'Daily'.obs;
+  RxString selectedValue = 'Daily'.obs;
 
   // Dummy data untuk grafik
   RxList<FlSpot> spots = <FlSpot>[].obs;
@@ -15,6 +15,13 @@ class TotalIncomeController extends GetxController {
   // Label sumbu Y (jumlah uang)
   RxMap<int, String> leftAxisLabels = <int, String>{}.obs;
 
+  final RxInt selectedIndex = 0.obs;
+
+  void onIndexChanged(int index) {
+    selectedIndex.value = index;
+    selectedValue.value = ['Daily', 'Weekly', 'Monthly', 'Yearly'][index];
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -23,7 +30,7 @@ class TotalIncomeController extends GetxController {
 
   void onDropdownChanged(String? value) {
     if (value != null) {
-      selectedType.value = value;
+      selectedValue.value = value;
       loadDummyData(); // ubah dari firebase
     }
   }
@@ -52,11 +59,7 @@ class TotalIncomeController extends GetxController {
     };
 
     // Label sumbu Y (total uang)
-    leftAxisLabels.value = {
-      1: '10K',
-      3: '30K',
-      5: '50K',
-    };
+    leftAxisLabels.value = {1: '10K', 3: '30K', 5: '50K'};
   }
 
   final count = 0.obs;

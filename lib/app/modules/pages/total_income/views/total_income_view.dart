@@ -29,10 +29,12 @@ class TotalIncomeView extends GetView<TotalIncomeController> {
           child: Column(
             children: [
               CustomGrafikContainer(
-                title: 'Total Income',
-                selectedValue: controller.selectedType,
+                selectedValue: controller.selectedValue,
                 items: ['Daily', 'Weekly', 'Monthly', 'Yearly'],
-                onChanged: controller.onDropdownChanged,
+                onChanged: (value) {
+                  // opsional jika ingin mengubah pakai dropdown
+                  controller.selectedValue.value = value!;
+                },
                 controller: controller,
                 chartSpots: controller.spots,
                 bottomLabels: controller.bottomAxisLabels,
