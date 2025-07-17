@@ -1,8 +1,10 @@
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
+import 'package:chingu_app/shared/widgets/custom_donut_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'dart:math';
 
 import '../controllers/dashboard_controller.dart';
 
@@ -115,7 +117,6 @@ class DashboardView extends GetView<DashboardController> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Container(
-                  height: 100,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -130,14 +131,42 @@ class DashboardView extends GetView<DashboardController> {
                           "Ticket Overview",
                           style: AppTextStyles.smallTextBold,
                         ),
+                        SizedBox(height: 10.h),
+                        Divider(color: Colors.grey, thickness: 1, height: 1),
+                        SizedBox(height: 10.h),
                         SizedBox(
-                          height: 10.h,
+                          width: 300,
+                          height: 250,
+                          child: DonutChart(
+                            labels: controller.movieTitle,
+                            values: controller.totalTicket,
+                            colors: List.generate(
+                              controller.movieTitle.length,
+                              (_) => getRandomColor(),
+                            ),
+                          ),
                         ),
-                        Divider(
-                          color: Colors.grey, 
-                          thickness: 1, 
-                          height: 1, 
+                        Divider(color: Colors.grey, thickness: 1, height: 1),
+                        SizedBox(
+                        height: 100.h,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.only(left: 16.w),
+                          child: Row(
+                            children: List.generate(controller.movieTitle.length, (
+                              index,
+                            ) {
+                              return Padding(
+                                padding: EdgeInsets.only(right: 30.w),
+                                child: totalTicketSoldOut(
+                                  movieTitle: controller.movieTitle[index],
+                                  totalTicket: controller.totalTicket[index]
+                                )
+                              );
+                            }),
+                          ),
                         ),
+                      ),
                       ],
                     ),
                   ),
@@ -192,4 +221,39 @@ class DashboardView extends GetView<DashboardController> {
       ],
     );
   }
+}
+
+Color getRandomColor() {
+  final Random random = Random();
+  return Color.fromARGB(
+    255,
+    random.nextInt(256),
+    random.nextInt(256),
+    random.nextInt(256),
+  );
+}
+
+Widget totalTicketSoldOut({
+  String? movieTitle,
+  double? totalTicket,
+}) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 10.h),
+    child: SizedBox(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            movieTitle ?? "Unknown Title",
+            style: AppTextStyles.smallTextBold.copyWith(color: Colors.grey),
+          ),
+          Text(totalTicket?.toInt().toString() ?? "0", style: AppTextStyles.label),
+          Text(
+            "Tickets",
+            style: AppTextStyles.smallTextBold.copyWith(color: Colors.grey),
+          ),
+        ],
+      ),
+    ),
+  );
 }
