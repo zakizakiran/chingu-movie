@@ -76,10 +76,5 @@ class AppTextStyles {
     color: AppColors.danger,
   );
 
-  static TextStyle get dashboardCardNum => GoogleFonts.poppins(
-    fontSize: 25.sp,
-    fontWeight: FontWeight.w600,
-    color: AppColors.black,
-  );
 
 }
