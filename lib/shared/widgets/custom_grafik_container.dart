@@ -32,9 +32,7 @@ class CustomGrafikContainer extends StatelessWidget {
     return Container(
       width: double.infinity,
       constraints: const BoxConstraints(minHeight: 400),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -58,16 +56,20 @@ class CustomGrafikContainer extends StatelessWidget {
                     return GestureDetector(
                       onTap: () => controller.onIndexChanged(index),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
                         decoration: BoxDecoration(
                           color: isSelected ? Colors.white : Colors.transparent,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
                           label,
-                          style: isSelected
-                              ? AppTextStyles.smallTextBold
-                              : AppTextStyles.hintText,
+                          style:
+                              isSelected
+                                  ? AppTextStyles.smallTextBold
+                                  : AppTextStyles.hintText,
                         ),
                       ),
                     );
@@ -78,31 +80,48 @@ class CustomGrafikContainer extends StatelessWidget {
 
             const SizedBox(height: 16),
 
-            // Line Chart
             Obx(() {
               switch (selectedValue.value) {
                 case 'Daily':
+                  return CustomLineChart(
+                    controller: controller,
+                    chartSpots: chartSpots,
+                    bottomLabels: bottomLabels,
+                    leftLabels: leftLabels,
+                    date: "Mei 2025",
+                    reportType: selectedValue.value,
+                  );
+
                 case 'Weekly':
                   return CustomLineChart(
                     controller: controller,
                     chartSpots: chartSpots,
                     bottomLabels: bottomLabels,
                     leftLabels: leftLabels,
-                    date: "June 2025",
+                    date: "Juni 2025",
                     reportType: selectedValue.value,
                   );
+
                 case 'Monthly':
-                  return Container(
-                    padding: const EdgeInsets.all(16),
-                    color: Colors.orange[50],
-                    child: const Text("🗓️ Menampilkan laporan bulanan"),
+                  return CustomLineChart(
+                    controller: controller,
+                    chartSpots: chartSpots,
+                    bottomLabels: bottomLabels,
+                    leftLabels: leftLabels,
+                    date: "2025",
+                    reportType: selectedValue.value,
                   );
+
                 case 'Yearly':
-                  return Container(
-                    padding: const EdgeInsets.all(16),
-                    color: Colors.purple[50],
-                    child: const Text("📊 Menampilkan laporan tahunan"),
+                  return CustomLineChart(
+                    controller: controller,
+                    chartSpots: chartSpots,
+                    bottomLabels: bottomLabels,
+                    leftLabels: leftLabels,
+                    date: "2020 – 2025",
+                    reportType: selectedValue.value,
                   );
+
                 default:
                   return const SizedBox.shrink();
               }

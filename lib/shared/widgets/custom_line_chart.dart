@@ -20,7 +20,7 @@ class CustomLineChart extends StatelessWidget {
     required this.bottomLabels,
     required this.leftLabels,
     this.reportType,
-    this.date
+    this.date,
   });
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -34,6 +34,12 @@ class CustomLineChart extends StatelessWidget {
     final label = leftLabels[value.toInt()];
     if (label == null) return Container();
     return Text(label, style: style, textAlign: TextAlign.left);
+  }
+
+  double getMaxY() {
+    if (chartSpots.isEmpty) return 6;
+    double maxY = chartSpots.map((e) => e.y).reduce((a, b) => a > b ? a : b);
+    return maxY < 6 ? 6 : maxY + 2; // Tambah margin atas
   }
 
   LineChartData mainData(List<Color> gradientColors) {
@@ -54,9 +60,9 @@ class CustomLineChart extends StatelessWidget {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: controller.spots.isNotEmpty ? controller.spots.last.x : 6,
+      maxX: chartSpots.isNotEmpty ? chartSpots.last.x : 6,
       minY: 0,
-      maxY: 6,
+      maxY: getMaxY(),
       lineBarsData: [
         LineChartBarData(
           spots: chartSpots,
@@ -77,7 +83,9 @@ class CustomLineChart extends StatelessWidget {
   }
 
   LineChartData avgData(List<Color> gradientColors) {
-    final avgY = chartSpots.isEmpty ? 0.0 : chartSpots.map((e) => e.y).reduce((a, b) => a + b) / chartSpots.length;
+    final avgY = chartSpots.isEmpty
+        ? 0.0
+        : chartSpots.map((e) => e.y).reduce((a, b) => a + b) / chartSpots.length;
     return LineChartData(
       gridData: FlGridData(show: true),
       titlesData: FlTitlesData(
@@ -95,9 +103,9 @@ class CustomLineChart extends StatelessWidget {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: controller.spots.isNotEmpty ? controller.spots.last.x : 6,
+      maxX: chartSpots.isNotEmpty ? chartSpots.last.x : 6,
       minY: 0,
-      maxY: 6,
+      maxY: getMaxY(),
       lineBarsData: [
         LineChartBarData(
           spots: chartSpots.map((e) => FlSpot(e.x, avgY)).toList(),
