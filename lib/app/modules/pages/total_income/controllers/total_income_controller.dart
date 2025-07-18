@@ -1,10 +1,9 @@
-// Tambahkan import ini jika belum
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class TotalIncomeController extends GetxController {
   RxBool showAvg = false.obs;
-
   RxString selectedValue = 'Daily'.obs;
   RxInt selectedIndex = 0.obs;
 
@@ -68,7 +67,6 @@ class TotalIncomeController extends GetxController {
 
   List<FlSpot> get spots => currentSpots;
 
-  // Getters
   List<FlSpot> get currentSpots {
     switch (selectedValue.value) {
       case 'Weekly':
@@ -108,16 +106,22 @@ class TotalIncomeController extends GetxController {
     }
   }
 
-  //=== DATA MOVIE ===
-  List<String> movieTitle = ["Jumbo", "Harry Potter", "Moving"];
+  // MOVIE DATA
+  List<String> dailyMovieTitle = ["Jumbo", "Harry Potter", "Moving"];
+  List<String> dailyMovieTicket = ["500", "320", "400"];
+  List<int> dailyMovieIncome = [9000000, 5200000, 8000000];
 
-  List<String> movieTicket = ["500", "320", "400"];
+  List<String> weeklyMovieTitle = ["Barbie", "Avengers", "Interstellar"];
+  List<String> weeklyMovieTicket = ["900", "1100", "850"];
+  List<int> weeklyMovieIncome = [18000000, 25000000, 17000000];
 
-  List<String> movieIncome = [
-    "Rp. 9.000.000",
-    "Rp. 5.200.000",
-    "Rp. 8.000.000",
-  ];
+  List<String> monthlyMovieTitle = ["Oppenheimer", "Dune", "Wonka"];
+  List<String> monthlyMovieTicket = ["2000", "1700", "1800"];
+  List<int> monthlyMovieIncome = [40000000, 33000000, 36000000];
+
+  List<String> yearlyMovieTitle = ["Fast X", "Tenet", "Inception"];
+  List<String> yearlyMovieTicket = ["8000", "7800", "8200"];
+  List<int> yearlyMovieIncome = [160000000, 156000000, 164000000];
 
   List<String> movieImage = [
     "assets/images/jumbo-poster.png",
@@ -125,10 +129,53 @@ class TotalIncomeController extends GetxController {
     "assets/images/jumbo-poster.png",
   ];
 
-  // Menghitung total tiket
-  int get totalTickets {
-    return movieTicket.fold(0, (sum, item) => sum + int.parse(item));
+  List<String> get currentMovieTitle {
+    switch (selectedValue.value) {
+      case 'Weekly':
+        return weeklyMovieTitle;
+      case 'Monthly':
+        return monthlyMovieTitle;
+      case 'Yearly':
+        return yearlyMovieTitle;
+      default:
+        return dailyMovieTitle;
+    }
   }
+
+  List<String> get currentMovieTicket {
+    switch (selectedValue.value) {
+      case 'Weekly':
+        return weeklyMovieTicket;
+      case 'Monthly':
+        return monthlyMovieTicket;
+      case 'Yearly':
+        return yearlyMovieTicket;
+      default:
+        return dailyMovieTicket;
+    }
+  }
+
+  List<int> get currentMovieIncome {
+    switch (selectedValue.value) {
+      case 'Weekly':
+        return weeklyMovieIncome;
+      case 'Monthly':
+        return monthlyMovieIncome;
+      case 'Yearly':
+        return yearlyMovieIncome;
+      default:
+        return dailyMovieIncome;
+    }
+  }
+
+  int get totalTickets {
+    return currentMovieTicket.fold(0, (sum, item) => sum + int.parse(item));
+  }
+
+  int get totalIncome {
+    return currentMovieIncome.fold(0, (sum, item) => sum + item);
+  }
+
 
   @override
   void onInit() {

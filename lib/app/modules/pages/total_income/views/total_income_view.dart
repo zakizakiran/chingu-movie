@@ -5,102 +5,115 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:fl_chart/fl_chart.dart';
-
 import '../controllers/total_income_controller.dart';
+import 'package:intl/intl.dart';
 
-class TotalIncomeView extends GetView<TotalIncomeController> {
+class TotalIncomeView extends StatelessWidget {
   const TotalIncomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.pageBackground,
-      appBar: AppBar(
-        backgroundColor: AppColors.white,
-        title: Text('Total Income', style: AppTextStyles.label),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: AppColors.text),
-          onPressed: () => Get.back(),
-        ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              children: [
-                Obx(() {
-                  // Ambil data berdasarkan selectedValue
-                  String value = controller.selectedValue.value;
+    return GetBuilder<TotalIncomeController>(
+      init: TotalIncomeController(),
+      builder: (controller) {
+        return Scaffold(
+          backgroundColor: AppColors.pageBackground,
+          appBar: AppBar(
+            backgroundColor: AppColors.white,
+            title: Text('Total Income', style: AppTextStyles.label),
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios, color: AppColors.text),
+              onPressed: () => Get.back(),
+            ),
+            centerTitle: true,
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Column(
+                  children: [
+                    Obx(() {
+                      String value = controller.selectedValue.value;
 
-                  List<FlSpot> currentSpots;
-                  Map<int, String> currentBottomLabels;
-                  Map<int, String> currentLeftLabels;
+                      List<FlSpot> currentSpots;
+                      Map<int, String> currentBottomLabels;
+                      Map<int, String> currentLeftLabels;
 
-                  switch (value) {
-                    case 'Daily':
-                      currentSpots = controller.dailySpots;
-                      currentBottomLabels = controller.dailyBottomLabels;
-                      currentLeftLabels = controller.dailyLeftLabels;
-                      break;
-                    case 'Weekly':
-                      currentSpots = controller.weeklySpots;
-                      currentBottomLabels = controller.weeklyBottomLabels;
-                      currentLeftLabels = controller.weeklyLeftLabels;
-                      break;
-                    case 'Monthly':
-                      currentSpots = controller.monthlySpots;
-                      currentBottomLabels = controller.monthlyBottomLabels;
-                      currentLeftLabels = controller.monthlyLeftLabels;
-                      break;
-                    case 'Yearly':
-                      currentSpots = controller.yearlySpots;
-                      currentBottomLabels = controller.yearlyBottomLabels;
-                      currentLeftLabels = controller.yearlyLeftLabels;
-                      break;
-                    default:
-                      currentSpots = [];
-                      currentBottomLabels = {};
-                      currentLeftLabels = {};
-                  }
+                      switch (value) {
+                        case 'Daily':
+                          currentSpots = controller.dailySpots;
+                          currentBottomLabels = controller.dailyBottomLabels;
+                          currentLeftLabels = controller.dailyLeftLabels;
+                          break;
+                        case 'Weekly':
+                          currentSpots = controller.weeklySpots;
+                          currentBottomLabels = controller.weeklyBottomLabels;
+                          currentLeftLabels = controller.weeklyLeftLabels;
+                          break;
+                        case 'Monthly':
+                          currentSpots = controller.monthlySpots;
+                          currentBottomLabels = controller.monthlyBottomLabels;
+                          currentLeftLabels = controller.monthlyLeftLabels;
+                          break;
+                        case 'Yearly':
+                          currentSpots = controller.yearlySpots;
+                          currentBottomLabels = controller.yearlyBottomLabels;
+                          currentLeftLabels = controller.yearlyLeftLabels;
+                          break;
+                        default:
+                          currentSpots = [];
+                          currentBottomLabels = {};
+                          currentLeftLabels = {};
+                      }
 
-                  return CustomGrafikContainer(
-                    selectedValue: controller.selectedValue,
-                    items: ['Daily', 'Weekly', 'Monthly', 'Yearly'],
-                    onChanged: (value) {
-                      controller.selectedValue.value = value!;
-                    },
-                    controller: controller,
-                    chartSpots: currentSpots,
-                    bottomLabels: currentBottomLabels,
-                    leftLabels: currentLeftLabels,
-                  );
-                }),
+                      return Column(
+                        children: [
+                          CustomGrafikContainer(
+                            selectedValue: controller.selectedValue,
+                            items: ['Daily', 'Weekly', 'Monthly', 'Yearly'],
+                            onChanged: (value) {
+                              controller.selectedValue.value = value!;
+                            },
+                            controller: controller,
+                            chartSpots: controller.currentSpots,
+                            bottomLabels: controller.currentBottomLabels,
+                            leftLabels: controller.currentLeftLabels,
+                          ),
+                          SizedBox(height: 20.h),
 
-                SizedBox(height: 20.h),
-                ListView.builder(
-                  itemCount: controller.movieTitle.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.only(bottom: 10.h),
-                      child: movieCard(
-                        index: (index + 1).toString(),
-                        movieTitle: controller.movieTitle[index],
-                        totalTicket: controller.movieTicket[index],
-                        totalIncome: controller.movieIncome[index],
-                        assetImage: AssetImage(controller.movieImage[index]),
-                      ),
-                    );
-                  },
+                          // List movieCard berdasarkan selectedValue
+                          ...List.generate(
+                            controller.currentMovieTitle.length,
+                            (index) {
+                              return Padding(
+                                padding: EdgeInsets.only(bottom: 10.h),
+                                child: movieCard(
+                                  index: (index + 1).toString(),
+                                  movieTitle:
+                                      controller.currentMovieTitle[index],
+                                  totalTicket:
+                                      controller.currentMovieTicket[index],
+                                  totalIncome:
+                                      controller.currentMovieIncome[index]
+                                          .toString(),
+                                  assetImage: AssetImage(
+                                    controller.movieImage[index],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    }),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -153,32 +166,44 @@ class TotalIncomeView extends GetView<TotalIncomeController> {
                     style: AppTextStyles.cardTitle,
                   ),
                   SizedBox(height: 10.h),
-                  Text(
-                    "Ticket Sold Out",
-                    style: AppTextStyles.smallText.copyWith(
-                      color: AppColors.darkGrey,
-                      fontSize: 10,
-                    ),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Ticket Sold Out",
+                            style: AppTextStyles.smallText.copyWith(
+                              color: AppColors.darkGrey,
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(totalTicket ?? "0", style: AppTextStyles.label),
+                        ],
+                      ),
+                      SizedBox(width: 20.w), // jarak antar kolom
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Total Income",
+                            style: AppTextStyles.smallText.copyWith(
+                              color: AppColors.darkGrey,
+                              fontSize: 10,
+                            ),
+                          ),
+                          Text(
+                            NumberFormat.currency(
+                              locale: 'id_ID',
+                              symbol: 'Rp. ',
+                              decimalDigits: 0,
+                            ).format(int.parse(totalIncome ?? "0")),
+                            style: AppTextStyles.label,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                  Text(totalTicket ?? "0", style: AppTextStyles.label),
-                ],
-              ),
-            ),
-            const Spacer(),
-            SizedBox(
-              height: 80.h,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Total Income",
-                    style: AppTextStyles.smallText.copyWith(
-                      color: AppColors.darkGrey,
-                      fontSize: 10,
-                    ),
-                  ),
-                  Text(totalIncome ?? "-", style: AppTextStyles.label),
                 ],
               ),
             ),
