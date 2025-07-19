@@ -1,5 +1,7 @@
 import 'package:chingu_app/app/modules/pages/home/controllers/home_controller.dart';
 import 'package:chingu_app/app/modules/pages/home/views/home_view.dart';
+import 'package:chingu_app/app/modules/pages/input_movie/controllers/input_movie_controller.dart';
+import 'package:chingu_app/app/modules/pages/input_movie/views/input_movie_view.dart';
 import 'package:chingu_app/app/modules/pages/notification/controllers/notification_controller.dart';
 import 'package:chingu_app/app/modules/pages/notification/views/notification_view.dart';
 import 'package:chingu_app/app/modules/pages/order_history/controllers/order_history_controller.dart';
@@ -22,13 +24,13 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderHistoryController());
-    Get.lazyPut(() => NotificationController());
+    Get.lazyPut(() => InputMovieController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       HomeView(),
       OrderHistoryView(),
-      NotificationView(),
+      InputMovieView(),
       ProfileView(),
     ];
 
