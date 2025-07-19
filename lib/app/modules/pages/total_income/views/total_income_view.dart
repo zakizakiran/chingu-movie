@@ -83,27 +83,23 @@ class TotalIncomeView extends StatelessWidget {
                           SizedBox(height: 20.h),
 
                           // List movieCard berdasarkan selectedValue
-                          ...List.generate(
-                            controller.currentMovieTitle.length,
-                            (index) {
-                              return Padding(
-                                padding: EdgeInsets.only(bottom: 10.h),
-                                child: movieCard(
-                                  index: (index + 1).toString(),
-                                  movieTitle:
-                                      controller.currentMovieTitle[index],
-                                  totalTicket:
-                                      controller.currentMovieTicket[index],
-                                  totalIncome:
-                                      controller.currentMovieIncome[index]
-                                          .toString(),
-                                  assetImage: AssetImage(
-                                    controller.movieImage[index],
-                                  ),
+                          ...List.generate(controller.currentMovies.length, (
+                            index,
+                          ) {
+                            final movie = controller.currentMovies[index];
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 10.h),
+                              child: movieCard(
+                                index: (index + 1).toString(),
+                                movieTitle: movie['movieTitle'],
+                                totalTicket: movie['ticket'].toString(),
+                                totalIncome: movie['income'].toString(),
+                                assetImage: AssetImage(
+                                  controller.movieImage[index],
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          }),
                         ],
                       );
                     }),

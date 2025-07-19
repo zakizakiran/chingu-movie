@@ -18,55 +18,122 @@ class TotalIncomeController extends GetxController {
     }
   }
 
-  // DAILY
-  List<FlSpot> dailySpots = [
-    FlSpot(0, 3),
-    FlSpot(1, 2.5),
-    FlSpot(2, 1.5),
-    FlSpot(3, 3.5),
-    FlSpot(4, 2.2),
-    FlSpot(5, 4),
-    FlSpot(6, 3.8),
+  // MOVIE DATA
+  List<String> movieTitles = ["Jumbo", "Giganto", "Tyranno"];
+
+  List<String> dailyMovieTicket = ["500", "320", "400"];
+  List<int> dailyMovieIncome = [9000000, 5200000, 8000000];
+
+  List<String> weeklyMovieTicket = ["900", "1100", "850"];
+  List<int> weeklyMovieIncome = [18000000, 25000000, 17000000];
+
+  List<String> monthlyMovieTicket = ["2000", "1700", "1800"];
+  List<int> monthlyMovieIncome = [40000000, 33000000, 36000000];
+
+  List<String> yearlyMovieTicket = ["8000", "7800", "8200"];
+  List<int> yearlyMovieIncome = [160000000, 156000000, 164000000];
+
+  List<String> movieImage = [
+    "assets/images/jumbo-poster.png",
+    "assets/images/jumbo-poster.png",
+    "assets/images/jumbo-poster.png",
   ];
-  Map<int, String> dailyBottomLabels = {
-    0: 'Mon',
-    1: 'Tue',
-    2: 'Wed',
-    3: 'Thu',
-    4: 'Fri',
-    5: 'Sat',
-    6: 'Sun',
-  };
-  Map<int, String> dailyLeftLabels = {1: '10K', 3: '30K', 5: '50K'};
 
-  // WEEKLY
-  List<FlSpot> weeklySpots = [
-    FlSpot(0, 10),
-    FlSpot(1, 15),
-    FlSpot(2, 8),
-    FlSpot(3, 12),
+  // === FlSpot dari income ===
+  List<FlSpot> get dailySpots => List.generate(
+    dailyMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), dailyMovieIncome[index] / 1000000),
+  );
+
+  List<FlSpot> get weeklySpots => List.generate(
+    weeklyMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), weeklyMovieIncome[index] / 1000000),
+  );
+
+  List<FlSpot> get monthlySpots => List.generate(
+    monthlyMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), monthlyMovieIncome[index] / 1000000),
+  );
+
+  List<FlSpot> get yearlySpots => List.generate(
+    yearlyMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), yearlyMovieIncome[index] / 1000000),
+  );
+
+  // === DateTime list ===
+  List<DateTime> dailyDates = [
+    DateTime(2025, 7, 15),
+    DateTime(2025, 7, 16),
+    DateTime(2025, 7, 17),
   ];
-  Map<int, String> weeklyBottomLabels = {0: 'W1', 1: 'W2', 2: 'W3', 3: 'W4'};
-  Map<int, String> weeklyLeftLabels = {
-    5: '50K',
-    8: '80K',
-    10: '100K',
-    12: '120K',
-    15: '150K',
+
+  List<DateTime> weeklyDates = [
+    DateTime(2025, 7, 1),
+    DateTime(2025, 7, 8),
+    DateTime(2025, 7, 15),
+  ];
+
+  List<DateTime> monthlyDates = [
+    DateTime(2025, 5),
+    DateTime(2025, 6),
+    DateTime(2025, 7),
+  ];
+
+  List<DateTime> yearlyDates = [DateTime(2022), DateTime(2023), DateTime(2024)];
+
+  // === Bottom Labels from DateTime ===
+  Map<int, String> get dailyBottomLabels {
+    return Map.fromEntries(
+      dailyDates.asMap().entries.map(
+        (e) => MapEntry(
+          e.key,
+          DateFormat.E('id_ID').format(e.value),
+        ), // Sen, Sel...
+      ),
+    );
+  }
+
+  Map<int, String> get weeklyBottomLabels {
+    return Map.fromEntries(
+      weeklyDates.asMap().entries.map(
+        (e) => MapEntry(
+          e.key,
+          DateFormat("d MMM", 'id_ID').format(e.value),
+        ), // 1 Jul
+      ),
+    );
+  }
+
+  Map<int, String> get monthlyBottomLabels {
+    return Map.fromEntries(
+      monthlyDates.asMap().entries.map(
+        (e) => MapEntry(
+          e.key,
+          DateFormat.MMM('id_ID').format(e.value),
+        ), // Mei, Jun
+      ),
+    );
+  }
+
+  Map<int, String> get yearlyBottomLabels {
+    return Map.fromEntries(
+      yearlyDates.asMap().entries.map(
+        (e) => MapEntry(e.key, DateFormat.y('id_ID').format(e.value)), // 2022
+      ),
+    );
+  }
+
+  // === Left Labels Manual ===
+  Map<int, String> dailyLeftLabels = {5: '5JT', 8: '8JT', 10: '10JT'};
+  Map<int, String> weeklyLeftLabels = {15: '15JT', 20: '20JT', 25: '25JT'};
+  Map<int, String> monthlyLeftLabels = {30: '30JT', 40: '40JT', 50: '50JT'};
+  Map<int, String> yearlyLeftLabels = {
+    150: '150JT',
+    160: '160JT',
+    170: '170JT',
   };
 
-  // MONTHLY
-  List<FlSpot> monthlySpots = [FlSpot(0, 30), FlSpot(1, 45), FlSpot(2, 60)];
-  Map<int, String> monthlyBottomLabels = {0: 'May', 1: 'Jun', 2: 'Jul'};
-  Map<int, String> monthlyLeftLabels = {20: '200K', 40: '400K', 60: '600K'};
-
-  // YEARLY
-  List<FlSpot> yearlySpots = [FlSpot(0, 300), FlSpot(1, 500), FlSpot(2, 400)];
-  Map<int, String> yearlyBottomLabels = {0: '2022', 1: '2023', 2: '2024'};
-  Map<int, String> yearlyLeftLabels = {200: '2JT', 400: '4JT', 600: '6JT'};
-
-  List<FlSpot> get spots => currentSpots;
-
+  // === CURRENT SELECTED ===
   List<FlSpot> get currentSpots {
     switch (selectedValue.value) {
       case 'Weekly':
@@ -106,39 +173,16 @@ class TotalIncomeController extends GetxController {
     }
   }
 
-  // MOVIE DATA
-  List<String> dailyMovieTitle = ["Jumbo", "Harry Potter", "Moving"];
-  List<String> dailyMovieTicket = ["500", "320", "400"];
-  List<int> dailyMovieIncome = [9000000, 5200000, 8000000];
-
-  List<String> weeklyMovieTitle = ["Barbie", "Avengers", "Interstellar"];
-  List<String> weeklyMovieTicket = ["900", "1100", "850"];
-  List<int> weeklyMovieIncome = [18000000, 25000000, 17000000];
-
-  List<String> monthlyMovieTitle = ["Oppenheimer", "Dune", "Wonka"];
-  List<String> monthlyMovieTicket = ["2000", "1700", "1800"];
-  List<int> monthlyMovieIncome = [40000000, 33000000, 36000000];
-
-  List<String> yearlyMovieTitle = ["Fast X", "Tenet", "Inception"];
-  List<String> yearlyMovieTicket = ["8000", "7800", "8200"];
-  List<int> yearlyMovieIncome = [160000000, 156000000, 164000000];
-
-  List<String> movieImage = [
-    "assets/images/jumbo-poster.png",
-    "assets/images/jumbo-poster.png",
-    "assets/images/jumbo-poster.png",
-  ];
-
-  List<String> get currentMovieTitle {
+  List<int> get currentMovieIncome {
     switch (selectedValue.value) {
       case 'Weekly':
-        return weeklyMovieTitle;
+        return weeklyMovieIncome;
       case 'Monthly':
-        return monthlyMovieTitle;
+        return monthlyMovieIncome;
       case 'Yearly':
-        return yearlyMovieTitle;
+        return yearlyMovieIncome;
       default:
-        return dailyMovieTitle;
+        return dailyMovieIncome;
     }
   }
 
@@ -155,16 +199,16 @@ class TotalIncomeController extends GetxController {
     }
   }
 
-  List<int> get currentMovieIncome {
+  double get currentMaxY {
     switch (selectedValue.value) {
       case 'Weekly':
-        return weeklyMovieIncome;
+        return 30.0;
       case 'Monthly':
-        return monthlyMovieIncome;
+        return 50.0;
       case 'Yearly':
-        return yearlyMovieIncome;
+        return 180.0;
       default:
-        return dailyMovieIncome;
+        return 12.0; // Untuk Daily
     }
   }
 
@@ -176,6 +220,15 @@ class TotalIncomeController extends GetxController {
     return currentMovieIncome.fold(0, (sum, item) => sum + item);
   }
 
+  List<Map<String, dynamic>> get currentMovies {
+    return List.generate(movieTitles.length, (index) {
+      return {
+        'movieTitle': movieTitles[index],
+        'income': currentMovieIncome[index],
+        'ticket': currentMovieTicket[index],
+      };
+    });
+  }
 
   @override
   void onInit() {

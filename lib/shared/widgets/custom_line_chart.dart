@@ -36,12 +36,6 @@ class CustomLineChart extends StatelessWidget {
     return Text(label, style: style, textAlign: TextAlign.left);
   }
 
-  double getMaxY() {
-    if (chartSpots.isEmpty) return 6;
-    double maxY = chartSpots.map((e) => e.y).reduce((a, b) => a > b ? a : b);
-    return maxY < 6 ? 6 : maxY + 2; // Tambah margin atas
-  }
-
   LineChartData mainData(List<Color> gradientColors) {
     return LineChartData(
       gridData: FlGridData(show: true),
@@ -62,7 +56,7 @@ class CustomLineChart extends StatelessWidget {
       minX: 0,
       maxX: chartSpots.isNotEmpty ? chartSpots.last.x : 6,
       minY: 0,
-      maxY: getMaxY(),
+      maxY: controller.currentMaxY, // 🔥 DIUBAH dari getMaxY()
       lineBarsData: [
         LineChartBarData(
           spots: chartSpots,
@@ -105,7 +99,7 @@ class CustomLineChart extends StatelessWidget {
       minX: 0,
       maxX: chartSpots.isNotEmpty ? chartSpots.last.x : 6,
       minY: 0,
-      maxY: getMaxY(),
+      maxY: controller.currentMaxY, 
       lineBarsData: [
         LineChartBarData(
           spots: chartSpots.map((e) => FlSpot(e.x, avgY)).toList(),
