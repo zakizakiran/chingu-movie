@@ -19,39 +19,62 @@ class ScanTicketView extends GetView<ScanTicketController> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 4,
-            child: MobileScanner(
-              controller: controller.cameraController,
-              onDetect: (BarcodeCapture capture) {
-                final List<Barcode> barcodes = capture.barcodes;
-                if (barcodes.isNotEmpty) {
-                  final code = barcodes.first.rawValue;
-                  if (code != null && !controller.isScanned.value) {
-                    controller.isScanned.value = true;
-                    controller.result.value = code;
-                    debugPrint('Scanned QR: $code');
-                  }
-                }
-              },
-            ),
-          ),
-          Expanded(
-            flex: 2,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      height: 300,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: MobileScanner(
+                          controller: controller.cameraController,
+                          onDetect: (BarcodeCapture capture) {
+                            final List<Barcode> barcodes = capture.barcodes;
+                            if (barcodes.isNotEmpty) {
+                              final code = barcodes.first.rawValue;
+                              if (code != null && !controller.isScanned.value) {
+                                controller.isScanned.value = true;
+                                controller.result.value = code;
+                                debugPrint('Scanned QR: $code');
+                              }
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: 300,
+                      height: 300,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: AppColors.primary,
+                          width: 3,
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 24),
+
                 Obx(
                   () => Text(
                     controller.result.value.isEmpty
-                        ? 'Scan a QR Code'
+                        ? 'Scan Ticket'
                         : 'Result: ${controller.result.value}',
                     style: const TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
+
                 Obx(
                   () => ElevatedButton.icon(
                     onPressed: () {
@@ -60,26 +83,26 @@ class ScanTicketView extends GetView<ScanTicketController> {
                     icon: const Icon(Icons.cameraswitch),
                     label: Text(
                       controller.isFrontCamera.value
-                          ? 'Kamera Depan'
-                          : 'Kamera Belakang',
+                          ? 'Front Camera'
+                          : 'Rear Camera',
                     ),
                   ),
                 ),
+
                 Obx(
-                  () =>
-                      controller.isScanned.value
-                          ? TextButton(
-                            onPressed: () {
-                              controller.resetScan();
-                            },
-                            child: const Text('Scan Lagi'),
-                          )
-                          : const SizedBox(),
+                  () => controller.isScanned.value
+                      ? TextButton(
+                          onPressed: () {
+                            controller.resetScan();
+                          },
+                          child: const Text('Scan Again'),
+                        )
+                      : const SizedBox(),
                 ),
               ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
