@@ -52,31 +52,54 @@ class DashboardView extends GetView<DashboardController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "Total Income",
-                              style: AppTextStyles.smallText.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              "Rp. ${controller.income ?? "0"}",
-                              style: AppTextStyles.loginTitle.copyWith(
-                                color: Colors.white,
-                              ),
-                            ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
-                                  Icons.calendar_today,
-                                  color: Colors.white,
-                                  size: 15,
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Total Income",
+                                      style: AppTextStyles.smallText.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Rp. ${controller.income ?? "0"}",
+                                      style: AppTextStyles.loginTitle.copyWith(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4.h),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                        SizedBox(width: 6),
+                                        Text(
+                                          controller.date ?? "MM/YY",
+                                          style: AppTextStyles.smallText
+                                              .copyWith(color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(width: 6),
-                                Text(
-                                  controller.date ?? "MM/YY",
-                                  style: AppTextStyles.smallText.copyWith(
+
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.qr_code_scanner,
                                     color: Colors.white,
+                                    size: 35,
                                   ),
+                                  onPressed: () {
+                                    Get.toNamed("/scan-ticket");
+                                  },
                                 ),
                               ],
                             ),
@@ -148,25 +171,27 @@ class DashboardView extends GetView<DashboardController> {
                         ),
                         Divider(color: Colors.grey, thickness: 1, height: 1),
                         SizedBox(
-                        height: 100.h,
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.only(left: 16.w),
-                          child: Row(
-                            children: List.generate(controller.movieTitle.length, (
-                              index,
-                            ) {
-                              return Padding(
-                                padding: EdgeInsets.only(right: 30.w),
-                                child: totalTicketSoldOut(
-                                  movieTitle: controller.movieTitle[index],
-                                  totalTicket: controller.totalTicket[index]
-                                )
-                              );
-                            }),
+                          height: 100.h,
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            padding: EdgeInsets.only(left: 16.w),
+                            child: Row(
+                              children: List.generate(
+                                controller.movieTitle.length,
+                                (index) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(right: 30.w),
+                                    child: totalTicketSoldOut(
+                                      movieTitle: controller.movieTitle[index],
+                                      totalTicket:
+                                          controller.totalTicket[index],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
                         ),
-                      ),
                       ],
                     ),
                   ),
@@ -233,10 +258,7 @@ Color getRandomColor() {
   );
 }
 
-Widget totalTicketSoldOut({
-  String? movieTitle,
-  double? totalTicket,
-}) {
+Widget totalTicketSoldOut({String? movieTitle, double? totalTicket}) {
   return Padding(
     padding: EdgeInsets.symmetric(vertical: 10.h),
     child: SizedBox(
@@ -247,7 +269,10 @@ Widget totalTicketSoldOut({
             movieTitle ?? "Unknown Title",
             style: AppTextStyles.smallTextBold.copyWith(color: Colors.grey),
           ),
-          Text(totalTicket?.toInt().toString() ?? "0", style: AppTextStyles.label),
+          Text(
+            totalTicket?.toInt().toString() ?? "0",
+            style: AppTextStyles.label,
+          ),
           Text(
             "Tickets",
             style: AppTextStyles.smallTextBold.copyWith(color: Colors.grey),
