@@ -24,13 +24,13 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderHistoryController());
-    Get.lazyPut(() => TotalIncomeController());
+    Get.lazyPut(() => NotificationController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       HomeView(),
       OrderHistoryView(),
-      TotalIncomeView(),
+      NotificationView(),
       ProfileView(),
     ];
 
