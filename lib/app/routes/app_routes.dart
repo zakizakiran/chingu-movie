@@ -14,6 +14,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const RESERVATION = _Paths.RESERVATION;
   static const TICKET = _Paths.TICKET;
+  static const LIST_MOVIE = _Paths.LIST_MOVIE;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const RESERVATION = '/reservation';
   static const TICKET = '/ticket';
+  static const LIST_MOVIE = '/list-movie';
 }
