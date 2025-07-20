@@ -9,6 +9,7 @@ class InputMovieController extends GetxController {
   final titleController = TextEditingController();
   final synopsisController = TextEditingController();
   final priceController = TextEditingController();
+  final selectedDuration = "".obs;
 
   // Dropdown and date
   var selectedGenre = ''.obs;
@@ -17,7 +18,6 @@ class InputMovieController extends GetxController {
   // Image
   var selectedImage = Rx<File?>(null);
 
-  // Optional: method to reset after submit
   void resetFields() {
     titleController.clear();
     synopsisController.clear();
@@ -26,6 +26,8 @@ class InputMovieController extends GetxController {
     selectedDate.value = '';
     selectedImage.value = null;
   }
+
+
 
   
 

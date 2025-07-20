@@ -76,6 +76,16 @@ class InputMovieView extends GetView<InputMovieController> {
                   ],
                 ),
                 SizedBox(height: 20.h),
+                Obx(
+                  () => customDurationPickerField(
+                    label: "Duration",
+                    selectedDuration: controller.selectedDuration.value,
+                    onDurationSelected: (duration) {
+                      controller.selectedDuration.value = duration;
+                    },
+                  ),
+                ),
+                SizedBox(height: 20.h),
                 customInputFieldFull(
                   label: "Price / Seat",
                   hint: "Exp: Rp. 25.000",
@@ -106,6 +116,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     final genre = controller.selectedGenre.value;
                     final date = controller.selectedDate.value;
                     final image = controller.selectedImage.value;
+                    final duration = controller.selectedDuration.value;
 
                     if ([
                           title,
@@ -113,6 +124,7 @@ class InputMovieView extends GetView<InputMovieController> {
                           price,
                           genre,
                           date,
+                          duration,
                         ].any((e) => e.isEmpty) ||
                         image == null) {
                       Get.snackbar(
@@ -122,6 +134,7 @@ class InputMovieView extends GetView<InputMovieController> {
                       return;
                     }
 
+                    print("Duration: $duration");
                     print("Ready to send:");
                     print("Title: $title");
                     print("Synopsis: $synopsis");
@@ -161,13 +174,13 @@ class InputMovieView extends GetView<InputMovieController> {
             maxLines: isMultiline ? null : 1,
             keyboardType:
                 isMultiline ? TextInputType.multiline : TextInputType.text,
-            style: AppTextStyles.body.copyWith(fontWeight: FontWeight.bold),
+            style: AppTextStyles.smallText,
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: AppTextStyles.hintText,
               border: const UnderlineInputBorder(),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.blue, width: 2),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: AppColors.primary, width: 2),
               ),
               enabledBorder: const UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.grey),
@@ -206,7 +219,7 @@ class InputMovieView extends GetView<InputMovieController> {
                   )
                   .toList(),
           onChanged: onChanged,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             isDense: true,
             contentPadding: EdgeInsets.only(bottom: 5),
             border: UnderlineInputBorder(),
@@ -214,10 +227,10 @@ class InputMovieView extends GetView<InputMovieController> {
               borderSide: BorderSide(color: Colors.grey),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.blue, width: 2),
+              borderSide: BorderSide(color: AppColors.primary, width: 2),
             ),
           ),
-          style: AppTextStyles.body.copyWith(fontWeight: FontWeight.bold),
+          style: AppTextStyles.smallText,
           hint: Text('Select genre', style: AppTextStyles.hintText),
         ),
       ],
@@ -260,9 +273,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     style:
                         selectedDate.isEmpty
                             ? AppTextStyles.hintText
-                            : AppTextStyles.body.copyWith(
-                              fontWeight: FontWeight.bold,
-                            ),
+                            : AppTextStyles.smallText
                   ),
                 ),
               ],
@@ -329,6 +340,116 @@ class InputMovieView extends GetView<InputMovieController> {
                         ],
                       ),
                     ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget customDurationPickerField({
+    required String label,
+    required String selectedDuration,
+    required Function(String) onDurationSelected,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: AppTextStyles.smallText),
+        GestureDetector(
+          onTap: () {
+            int selectedHour = 0;
+            int selectedMinute = 0;
+
+            showDialog(
+              context: Get.context!,
+              builder: (context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  title: const Text("Pilih Durasi"),
+                  content: StatefulBuilder(
+                    builder: (context, setState) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              DropdownButton<int>(
+                                value: selectedHour,
+                                items: List.generate(
+                                  10,
+                                  (i) => DropdownMenuItem(
+                                    value: i,
+                                    child: Text("$i jam"),
+                                  ),
+                                ),
+                                onChanged:
+                                    (val) =>
+                                        setState(() => selectedHour = val!),
+                              ),
+                              const SizedBox(width: 20),
+                              DropdownButton<int>(
+                                value: selectedMinute,
+                                items: List.generate(
+                                  60,
+                                  (i) => DropdownMenuItem(
+                                    value: i,
+                                    child: Text("$i menit"),
+                                  ),
+                                ),
+                                onChanged:
+                                    (val) =>
+                                        setState(() => selectedMinute = val!),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text("Cancel"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        final result =
+                            "$selectedHour jam $selectedMinute menit";
+                        onDurationSelected(result);
+                        Navigator.pop(context);
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.timer, size: 18, color: Colors.grey),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: Text(
+                    selectedDuration.isEmpty
+                        ? 'Select duration'
+                        : selectedDuration,
+                    style:
+                        selectedDuration.isEmpty
+                            ? AppTextStyles.hintText
+                            : AppTextStyles.smallText
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
