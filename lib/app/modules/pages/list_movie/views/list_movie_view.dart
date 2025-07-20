@@ -15,7 +15,7 @@ class ListMovieView extends GetView<ListMovieController> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
-        title: Text('List Movie', style: AppTextStyles.label),
+        title: Text('Movie List', style: AppTextStyles.label),
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios, color: AppColors.text),
           onPressed: () => Get.back(),
@@ -45,21 +45,64 @@ class ListMovieView extends GetView<ListMovieController> {
                   ),
                 ),
               ),
+
               Expanded(
-                child: Obx(() {
-                  return ListView.builder(
-                    itemCount: controller.movieList.length,
-                    itemBuilder: (context, index) {
-                      final movie = controller.movieList[index];
-                      return movieCard(
-                        imagePath: movie["imagePath"],
-                        movieTitle: movie["title"],
-                        movieStudio: movie["studio"],
-                        movieDate: movie["date"],
-                      );
-                    },
-                  );
-                }),
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Obx(() {
+                        return Row(
+                          children: List.generate(controller.studios.length, (
+                            index,
+                          ) {
+                            final isSelected =
+                                controller.selectedStudioIndex.value == index;
+                            return GestureDetector(
+                              onTap:
+                                  () =>
+                                      controller.selectedStudioIndex.value =
+                                          index,
+                              child: Padding(
+                                padding: EdgeInsets.only(right: 20.w),
+                                child: Text(
+                                  controller.studios[index],
+                                  style:
+                                      isSelected
+                                          ? AppTextStyles.label.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          )
+                                          : AppTextStyles.hintText,
+                                ),
+                              ),
+                            );
+                          }),
+                        );
+                      }),
+
+                      SizedBox(height: 16.h),
+
+                      Obx(() {
+                        final movies = controller.filteredMovies;
+                        return Expanded(
+                          child: ListView.builder(
+                            itemCount: movies.length,
+                            itemBuilder: (context, index) {
+                              final movie = movies[index];
+                              return movieCard(
+                                imagePath: movie["imagePath"],
+                                movieTitle: movie["title"],
+                                movieStudio: movie["studio"],
+                                movieDate: movie["date"],
+                              );
+                            },
+                          ),
+                        );
+                      }),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),
@@ -68,18 +111,25 @@ class ListMovieView extends GetView<ListMovieController> {
     );
   }
 
-  Widget miniButton({String? buttonName, Color? color}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color ?? AppColors.secondary,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 30.h, vertical: 8),
-      child: Text(
-        buttonName ?? "Edit",
-        style: AppTextStyles.hintText.copyWith(
-          fontWeight: FontWeight.bold,
-          color: Colors.blueGrey,
+  Widget miniButton({
+    required String buttonName,
+    Color? color,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: color ?? AppColors.secondary,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 30.h, vertical: 8),
+        child: Text(
+          buttonName,
+          style: AppTextStyles.hintText.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Colors.blueGrey,
+          ),
         ),
       ),
     );
@@ -93,6 +143,7 @@ class ListMovieView extends GetView<ListMovieController> {
   }) {
     return SizedBox(
       width: double.infinity,
+      height: 160.h,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 15.h),
         child: Row(
@@ -101,8 +152,8 @@ class ListMovieView extends GetView<ListMovieController> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: SizedBox(
-                width: 120.w,
-                height: 150.h,
+                width: 100.w,
+                height: 160.h,
                 child: Image.asset(
                   imagePath ?? "assets/images/jumbo-poster.png",
                   fit: BoxFit.cover,
@@ -110,26 +161,52 @@ class ListMovieView extends GetView<ListMovieController> {
               ),
             ),
             SizedBox(width: 10.w),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(movieTitle ?? "Unknown Title", style: AppTextStyles.label),
-                Text(
-                  movieStudio ?? "Unavailable",
-                  style: AppTextStyles.hintText,
-                ),
-                Text(movieDate ?? "DD/MM/YY", style: AppTextStyles.hintText),
-                SizedBox(height: 49.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    miniButton(buttonName: "Edit"),
-                    SizedBox(width: 10.w),
-                    miniButton(buttonName: "Delete", color: AppColors.primary),
-                  ],
-                ),
-              ],
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    movieTitle ?? "Unknown Title",
+                    style: AppTextStyles.label,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    movieStudio ?? "Unavailable",
+                    style: AppTextStyles.hintText,
+                  ),
+                  Text(movieDate ?? "DD/MM/YY", style: AppTextStyles.hintText),
+                  Spacer(),
+                  Row(
+                    children: [
+                      miniButton(buttonName: "Edit", onTap: () {}),
+                      SizedBox(width: 15.w),
+                      miniButton(
+                        buttonName: "Delete",
+                        color: AppColors.primary,
+                        onTap: () {
+                          Get.defaultDialog(
+                            backgroundColor: AppColors.white,
+                            title: "Confirmation",
+                            titleStyle: AppTextStyles.label,
+                            middleText: "Are you sure to delete ${movieTitle ?? "Unknown"} movie?",
+                            middleTextStyle: AppTextStyles.body,
+                            textCancel: "Cancel",
+                            textConfirm: "Yes",
+                            confirmTextColor: Colors.white,
+                            cancelTextColor: AppColors.primary,
+                            buttonColor: AppColors.primary,
+                            radius: 4,
+                            onConfirm: () {
+                              Get.back();
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),

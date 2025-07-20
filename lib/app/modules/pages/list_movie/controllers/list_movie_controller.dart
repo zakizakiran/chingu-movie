@@ -5,6 +5,18 @@ class ListMovieController extends GetxController {
   //TODO: Implement ListMovieController
   final searchController = TextEditingController();
 
+  //===STUDIO DATA===
+  final selectedStudioIndex = 0.obs;
+
+  final List<String> studios = ["Studio 1", "Studio 2", "Studio 3"];
+
+  List<Map<String, dynamic>> get filteredMovies {
+    final selectedStudio = studios[selectedStudioIndex.value];
+    return movieList
+        .where((movie) => movie["studio"] == selectedStudio)
+        .toList();
+  }
+
   //===MOVIE DATA===
   var movieList = <Map<String, dynamic>>[].obs;
 
