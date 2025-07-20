@@ -174,7 +174,7 @@ class InputMovieView extends GetView<InputMovieController> {
             maxLines: isMultiline ? null : 1,
             keyboardType:
                 isMultiline ? TextInputType.multiline : TextInputType.text,
-            style: AppTextStyles.smallText,
+            style: AppTextStyles.smallText.copyWith(fontSize: 14),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: AppTextStyles.hintText,
@@ -205,7 +205,7 @@ class InputMovieView extends GetView<InputMovieController> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: AppTextStyles.smallText),
+        Text(label, style: AppTextStyles.smallText.copyWith(fontSize: 14)),
         DropdownButtonFormField<String>(
           value: selectedValue.isEmpty ? null : selectedValue,
           isExpanded: true,
@@ -273,7 +273,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     style:
                         selectedDate.isEmpty
                             ? AppTextStyles.hintText
-                            : AppTextStyles.smallText
+                            : AppTextStyles.smallText.copyWith(fontSize: 14)
                   ),
                 ),
               ],
@@ -367,7 +367,7 @@ class InputMovieView extends GetView<InputMovieController> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  title: const Text("Pilih Durasi"),
+                  title: const Text("Select Duration"),
                   content: StatefulBuilder(
                     builder: (context, setState) {
                       return Column(
@@ -382,7 +382,7 @@ class InputMovieView extends GetView<InputMovieController> {
                                   5,
                                   (i) => DropdownMenuItem(
                                     value: i,
-                                    child: Text("$i jam"),
+                                    child: Text("$i hour"),
                                   ),
                                 ),
                                 onChanged:
@@ -396,7 +396,7 @@ class InputMovieView extends GetView<InputMovieController> {
                                   60,
                                   (i) => DropdownMenuItem(
                                     value: i,
-                                    child: Text("$i menit"),
+                                    child: Text("$i minute"),
                                   ),
                                 ),
                                 onChanged:
@@ -417,7 +417,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     ElevatedButton(
                       onPressed: () {
                         final result =
-                            "$selectedHour jam $selectedMinute menit";
+                            "$selectedHour hour $selectedMinute minute";
                         onDurationSelected(result);
                         Navigator.pop(context);
                       },
@@ -445,7 +445,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     style:
                         selectedDuration.isEmpty
                             ? AppTextStyles.hintText
-                            : AppTextStyles.smallText
+                            : AppTextStyles.smallText.copyWith(fontSize: 14)
                   ),
                 ),
               ],
