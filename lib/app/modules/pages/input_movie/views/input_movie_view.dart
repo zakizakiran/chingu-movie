@@ -379,7 +379,7 @@ class InputMovieView extends GetView<InputMovieController> {
                               DropdownButton<int>(
                                 value: selectedHour,
                                 items: List.generate(
-                                  10,
+                                  5,
                                   (i) => DropdownMenuItem(
                                     value: i,
                                     child: Text("$i jam"),
