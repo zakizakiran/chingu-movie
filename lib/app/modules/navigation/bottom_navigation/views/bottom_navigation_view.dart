@@ -34,6 +34,7 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
 
     return Obx(
       () => Scaffold(
+        backgroundColor: AppColors.pageBackground,
         body: pages[controller.currentIndex.value],
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),
