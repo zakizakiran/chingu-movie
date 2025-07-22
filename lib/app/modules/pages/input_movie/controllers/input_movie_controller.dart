@@ -18,6 +18,9 @@ class InputMovieController extends GetxController {
   // Image
   var selectedImage = Rx<File?>(null);
 
+  //showtime
+  final selectedShowtime = "".obs;
+
   void resetFields() {
     titleController.clear();
     synopsisController.clear();

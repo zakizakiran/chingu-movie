@@ -94,6 +94,16 @@ class InputMovieView extends GetView<InputMovieController> {
                 ),
                 SizedBox(height: 20.h),
                 Obx(
+                  () => customTimePickerField(
+                    label: "Show Time",
+                    selectedTime: controller.selectedShowtime.value,
+                    onTimeSelected: (time) {
+                      controller.selectedShowtime.value = time;
+                    },
+                  ),
+                ),
+                SizedBox(height: 20.h),
+                Obx(
                   () => customImagePickerField(
                     label: "Movie Poster",
                     selectedImage: controller.selectedImage.value,
@@ -237,6 +247,51 @@ class InputMovieView extends GetView<InputMovieController> {
     );
   }
 
+  Widget customTimePickerField({
+    required String label,
+    required String selectedTime,
+    required Function(String) onTimeSelected,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: AppTextStyles.smallText),
+        GestureDetector(
+          onTap: () async {
+            final TimeOfDay? picked = await showTimePicker(
+              context: Get.context!,
+              initialTime: TimeOfDay.now(),
+            );
+            if (picked != null) {
+              onTimeSelected(picked.format(Get.context!));
+            }
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.grey)),
+            ),
+            child: Row(
+              children: [
+                const Icon(Icons.access_time, size: 18, color: Colors.grey),
+                SizedBox(width: 8.w),
+                Expanded(
+                  child: Text(
+                    selectedTime.isEmpty ? 'Select time' : selectedTime,
+                    style:
+                        selectedTime.isEmpty
+                            ? AppTextStyles.hintText
+                            : AppTextStyles.smallText.copyWith(fontSize: 14),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget customDatePickerField({
     required String label,
     required String selectedDate,
@@ -273,7 +328,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     style:
                         selectedDate.isEmpty
                             ? AppTextStyles.hintText
-                            : AppTextStyles.smallText.copyWith(fontSize: 14)
+                            : AppTextStyles.smallText.copyWith(fontSize: 14),
                   ),
                 ),
               ],
@@ -445,7 +500,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     style:
                         selectedDuration.isEmpty
                             ? AppTextStyles.hintText
-                            : AppTextStyles.smallText.copyWith(fontSize: 14)
+                            : AppTextStyles.smallText.copyWith(fontSize: 14),
                   ),
                 ),
               ],
