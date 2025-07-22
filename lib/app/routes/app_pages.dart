@@ -20,6 +20,8 @@ import '../modules/pages/profile/bindings/profile_binding.dart';
 import '../modules/pages/profile/views/profile_view.dart';
 import '../modules/pages/reservation/bindings/reservation_binding.dart';
 import '../modules/pages/reservation/views/reservation_view.dart';
+import '../modules/pages/splash/bindings/pages_splash_binding.dart';
+import '../modules/pages/splash/views/pages_splash_view.dart';
 import '../modules/pages/ticket/bindings/ticket_binding.dart';
 import '../modules/pages/ticket/views/ticket_view.dart';
 import '../modules/pages/scan_ticket/bindings/scan_ticket_binding.dart';
@@ -31,7 +33,7 @@ class AppPages {
   AppPages._();
 
   // ignore: constant_identifier_names
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -92,6 +94,7 @@ class AppPages {
       binding: TicketBinding(),
     ),
     GetPage(
+
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
@@ -100,6 +103,11 @@ class AppPages {
       name: _Paths.SCAN_TICKET,
       page: () => const ScanTicketView(),
       binding: ScanTicketBinding(),
+
+      name: _Paths.PAGES_SPLASH,
+      page: () => const PagesSplashView(),
+      binding: PagesSplashBinding(),
+
     ),
   ];
 }

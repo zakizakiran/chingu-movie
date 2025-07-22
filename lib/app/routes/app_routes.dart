@@ -16,6 +16,7 @@ abstract class Routes {
   static const TICKET = _Paths.TICKET;
   static const DASHBOARD = _Paths.DASHBOARD;
   static const SCAN_TICKET = _Paths.SCAN_TICKET;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -33,4 +34,6 @@ abstract class _Paths {
   static const TICKET = '/ticket';
   static const DASHBOARD = '/dashboard';
   static const SCAN_TICKET = '/scan-ticket';
+  static const SPLASH = '/splash';
+  static const PAGES_SPLASH = '/splash';
 }
