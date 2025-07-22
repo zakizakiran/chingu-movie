@@ -1,3 +1,5 @@
+import 'package:chingu_app/app/modules/pages/edit_profile/controllers/edit_profile_controller.dart';
+import 'package:chingu_app/app/modules/pages/edit_profile/views/edit_profile_view.dart';
 import 'package:chingu_app/app/modules/pages/home/controllers/home_controller.dart';
 import 'package:chingu_app/app/modules/pages/home/views/home_view.dart';
 import 'package:chingu_app/app/modules/pages/notification/controllers/notification_controller.dart';
@@ -22,13 +24,13 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderHistoryController());
-    Get.lazyPut(() => NotificationController());
+    Get.lazyPut(() => EditProfileController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       HomeView(),
       OrderHistoryView(),
-      NotificationView(),
+      EditProfileView(),
       ProfileView(),
     ];
 
