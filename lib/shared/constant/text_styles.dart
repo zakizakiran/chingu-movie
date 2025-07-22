@@ -75,4 +75,6 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     color: AppColors.danger,
   );
+
+
 }
