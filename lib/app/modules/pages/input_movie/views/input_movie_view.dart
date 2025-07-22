@@ -86,22 +86,31 @@ class InputMovieView extends GetView<InputMovieController> {
                   ),
                 ),
                 SizedBox(height: 20.h),
-                customInputFieldFull(
-                  label: "Price / Seat",
-                  hint: "Exp: Rp. 25.000",
-                  maxLines: 1,
-                  controller: controller.priceController,
+                Row(
+                  children: [
+                    Expanded(
+                      child: customInputFieldFull(
+                        label: "Price / Seat",
+                        hint: "Exp: Rp. 25.000",
+                        maxLines: 1,
+                        controller: controller.priceController,
+                      ),
+                    ),
+                    SizedBox(width: 20.w),
+                    Expanded(
+                      child: Obx(
+                        () => customTimePickerField(
+                          label: "Show Time",
+                          selectedTime: controller.selectedShowtime.value,
+                          onTimeSelected: (time) {
+                            controller.selectedShowtime.value = time;
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 20.h),
-                Obx(
-                  () => customTimePickerField(
-                    label: "Show Time",
-                    selectedTime: controller.selectedShowtime.value,
-                    onTimeSelected: (time) {
-                      controller.selectedShowtime.value = time;
-                    },
-                  ),
-                ),
+
                 SizedBox(height: 20.h),
                 Obx(
                   () => customImagePickerField(
