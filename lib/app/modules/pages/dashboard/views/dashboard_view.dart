@@ -117,19 +117,34 @@ class DashboardView extends GetView<DashboardController> {
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           child: Row(
-                            children: List.generate(controller.title.length, (
-                              index,
-                            ) {
-                              return Padding(
+                            children: [
+                              ...List.generate(controller.title.length, (
+                                index,
+                              ) {
+                                return Padding(
+                                  padding: EdgeInsets.only(right: 16.w),
+                                  child: card(
+                                    title: controller.title[index],
+                                    value: controller.value[index],
+                                    information: controller.information[index],
+                                    icon: icon[index],
+                                    onTap: () {
+                                      print(
+                                        "Card ${controller.title[index]} diklik",
+                                      );
+                                    },
+                                  ),
+                                );
+                              }),
+                              Padding(
                                 padding: EdgeInsets.only(right: 16.w),
-                                child: card(
-                                  title: controller.title[index],
-                                  value: controller.value[index],
-                                  information: controller.information[index],
-                                  icon: icon[index],
+                                child: cardInsertMovie(
+                                  onTap: () {
+                                    print("navigate to insert movie");
+                                  },
                                 ),
-                              );
-                            }),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -204,48 +219,84 @@ class DashboardView extends GetView<DashboardController> {
     );
   }
 
-  Widget card({String? title, String? value, String? information, Icon? icon}) {
-    return Row(
-      children: [
-        Container(
-          width: 160.w,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title ?? "Unknown Title",
-                  style: AppTextStyles.smallText.copyWith(fontSize: 14),
-                ),
-                SizedBox(height: 5.h),
-                Text(
-                  value ?? "0",
-                  style: AppTextStyles.label.copyWith(fontSize: 25),
-                ),
-                SizedBox(height: 5.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    icon ?? Icon(Icons.calendar_month, size: 12),
-                    SizedBox(width: 5.w),
-                    Text(
-                      information ?? "-",
-                      style: AppTextStyles.smallText.copyWith(fontSize: 10),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+  Widget card({
+    String? title,
+    String? value,
+    String? information,
+    Icon? icon,
+    VoidCallback? onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 160.w,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title ?? "Unknown Title",
+                style: AppTextStyles.smallText.copyWith(fontSize: 14),
+              ),
+              SizedBox(height: 5.h),
+              Text(
+                value ?? "0",
+                style: AppTextStyles.label.copyWith(fontSize: 25),
+              ),
+              SizedBox(height: 5.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  icon ?? Icon(Icons.calendar_month, size: 12),
+                  SizedBox(width: 5.w),
+                  Text(
+                    information ?? "-",
+                    style: AppTextStyles.smallText.copyWith(fontSize: 10),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
+}
+
+Widget cardInsertMovie({VoidCallback? onTap}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(12),
+    child: Container(
+      width: 160.w,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add_circle_outline, size: 40, color: AppColors.primary),
+            SizedBox(height: 10.h),
+            Text(
+              "Insert Movie",
+              style: AppTextStyles.smallTextBold,
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 Color getRandomColor() {
