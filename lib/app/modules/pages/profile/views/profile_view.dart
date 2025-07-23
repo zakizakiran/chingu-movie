@@ -41,16 +41,20 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                       ),
                       SizedBox(height: 16.h),
-                      Text(
-                        "Harry Potter",
-                        style: AppTextStyles.label.copyWith(
-                          color: AppColors.text,
+                      Obx(
+                        () => Text(
+                          controller.fullName.value,
+                          style: AppTextStyles.label.copyWith(
+                            color: AppColors.text,
+                          ),
                         ),
                       ),
-                      Text(
-                        "harrypotter@gmail.com",
-                        style: AppTextStyles.smallText.copyWith(
-                          color: AppColors.text,
+                      Obx(
+                        () => Text(
+                          controller.email.value,
+                          style: AppTextStyles.smallText.copyWith(
+                            color: AppColors.text,
+                          ),
                         ),
                       ),
                       SizedBox(height: 16.h),
@@ -84,7 +88,12 @@ class ProfileView extends GetView<ProfileController> {
                             icon: icon[index],
                             onPressed: () {
                               if (setting == "Logout") {
-                                Get.toNamed("/login");
+                                controller.logout();
+                                Get.snackbar(
+                                  "Logout",
+                                  "You have been logged out successfully.",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                );
                               } else if (setting == "Edit Profile") {}
                             },
                           ),
