@@ -6,8 +6,6 @@ import 'package:chingu_app/app/modules/pages/order_history/controllers/order_his
 import 'package:chingu_app/app/modules/pages/order_history/views/order_history_view.dart';
 import 'package:chingu_app/app/modules/pages/profile/controllers/profile_controller.dart';
 import 'package:chingu_app/app/modules/pages/profile/views/profile_view.dart';
-import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
-import 'package:chingu_app/app/modules/pages/total_income/views/total_income_view.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';

@@ -4,6 +4,8 @@ import 'package:chingu_app/app/modules/pages/notification/controllers/notificati
 import 'package:chingu_app/app/modules/pages/notification/views/notification_view.dart';
 import 'package:chingu_app/app/modules/pages/profile/controllers/profile_controller.dart';
 import 'package:chingu_app/app/modules/pages/profile/views/profile_view.dart';
+import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
+import 'package:chingu_app/app/modules/pages/total_income/views/total_income_view.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +22,12 @@ class AdminNavigationView extends GetView<AdminNavigationController> {
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => DashboardController());
-    Get.lazyPut(() => NotificationController());
+    Get.lazyPut(() => TotalIncomeController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       DashboardView(),
-      NotificationView(),
+      TotalIncomeView(),
       ProfileView(),
     ];
 
@@ -52,8 +54,8 @@ class AdminNavigationView extends GetView<AdminNavigationController> {
                 textStyle: AppTextStyles.navigation,
               ),
               GButton(
-                icon: Icons.notifications,
-                text: 'Notifications',
+                icon: Icons.info_rounded,
+                text: 'Reports',
                 textStyle: AppTextStyles.navigation,
               ),
               GButton(

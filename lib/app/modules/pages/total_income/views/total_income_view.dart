@@ -21,10 +21,6 @@ class TotalIncomeView extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: AppColors.white,
             title: Text('Total Income', style: AppTextStyles.label),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios, color: AppColors.text),
-              onPressed: () => Get.back(),
-            ),
             centerTitle: true,
           ),
           body: SafeArea(
@@ -127,7 +123,7 @@ class TotalIncomeView extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10),
+        padding: EdgeInsets.all(10.w),
         child: Row(
           children: [
             Text(
@@ -136,7 +132,7 @@ class TotalIncomeView extends StatelessWidget {
                 color: AppColors.lightGrey,
               ),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: 10.w),
             Container(
               height: 80.h,
               width: 60.w,
@@ -151,56 +147,71 @@ class TotalIncomeView extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 15),
-            SizedBox(
-              height: 80.h,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    movieTitle ?? "Unknown Title",
-                    style: AppTextStyles.cardTitle,
-                  ),
-                  SizedBox(height: 10.h),
-                  Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Ticket Sold Out",
-                            style: AppTextStyles.smallText.copyWith(
-                              color: AppColors.darkGrey,
-                              fontSize: 10,
-                            ),
+            Expanded(
+              child: SizedBox(
+                height: 80.h,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      movieTitle ?? "Unknown Title",
+                      style: AppTextStyles.cardTitle,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Ticket Sold Out",
+                                style: AppTextStyles.smallText.copyWith(
+                                  color: AppColors.darkGrey,
+                                  fontSize: 10,
+                                ),
+                              ),
+                              Text(
+                                totalTicket ?? "0",
+                                style: AppTextStyles.label,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ],
                           ),
-                          Text(totalTicket ?? "0", style: AppTextStyles.label),
-                        ],
-                      ),
-                      SizedBox(width: 20.w), // jarak antar kolom
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Total Income",
-                            style: AppTextStyles.smallText.copyWith(
-                              color: AppColors.darkGrey,
-                              fontSize: 10,
-                            ),
+                        ),
+                        SizedBox(width: 10.w), // jarak antar kolom
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Total Income",
+                                style: AppTextStyles.smallText.copyWith(
+                                  color: AppColors.darkGrey,
+                                  fontSize: 10,
+                                ),
+                              ),
+                              Text(
+                                NumberFormat.currency(
+                                  locale: 'id_ID',
+                                  symbol: 'Rp. ',
+                                  decimalDigits: 0,
+                                ).format(int.parse(totalIncome ?? "0")),
+                                style: AppTextStyles.label,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                              ),
+                            ],
                           ),
-                          Text(
-                            NumberFormat.currency(
-                              locale: 'id_ID',
-                              symbol: 'Rp. ',
-                              decimalDigits: 0,
-                            ).format(int.parse(totalIncome ?? "0")),
-                            style: AppTextStyles.label,
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
