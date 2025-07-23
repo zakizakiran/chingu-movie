@@ -1,3 +1,7 @@
+import 'package:chingu_app/app/modules/pages/edit_profile/controllers/edit_profile_controller.dart';
+import 'package:chingu_app/app/modules/pages/edit_profile/views/edit_profile_view.dart';
+import 'package:chingu_app/app/modules/pages/dashboard/controllers/dashboard_controller.dart';
+import 'package:chingu_app/app/modules/pages/dashboard/views/dashboard_view.dart';
 import 'package:chingu_app/app/modules/pages/home/controllers/home_controller.dart';
 import 'package:chingu_app/app/modules/pages/home/views/home_view.dart';
 import 'package:chingu_app/app/modules/pages/notification/controllers/notification_controller.dart';

@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+
+import '../modules/pages/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/pages/edit_profile/views/edit_profile_view.dart';
 import '../modules/admin_navigation/bindings/admin_navigation_binding.dart';
 import '../modules/admin_navigation/views/admin_navigation_view.dart';
 import '../modules/navigation/bottom_navigation/bindings/bottom_navigation_binding.dart';
@@ -97,13 +100,19 @@ class AppPages {
       page: () => const TicketView(),
       binding: TicketBinding(),
     ),
+        GetPage(
+      name: _Paths.EDIT_PROFILE,
+      page: () => const EditProfileView(),
+      binding: EditProfileBinding(),
+    ),
     GetPage(
+      name: _Paths.DASHBOARD,
       name: _Paths.TOTAL_INCOME,
       page: () => const TotalIncomeView(),
       binding: TotalIncomeBinding(),
     ),
      GetPage(
-       name: _Paths.DASHBOARD,
+      name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
     ),
@@ -122,5 +131,6 @@ class AppPages {
       page: () => const AdminNavigationView(),
       binding: AdminNavigationBinding(),
     ),
+
   ];
 }
