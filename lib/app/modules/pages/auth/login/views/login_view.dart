@@ -40,6 +40,7 @@ class LoginView extends GetView<LoginController> {
                   ),
                   SizedBox(height: 28.h),
                   Form(
+                    key: controller.formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -104,16 +105,49 @@ class LoginView extends GetView<LoginController> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            CustomButton(
-                              onPressed: () {
-                                Get.toNamed(
-                                  '/bottom-navigation',
-                                ); // Navigate to home page
-                              },
-                              borderRadius: 20.r,
-                              backgroundColor: AppColors.primary,
-                              text: 'Login',
-                              height: 65.h,
+                            Obx(
+                              () => CustomButton(
+                                width: 271.w,
+                                height: 60.h,
+                                text:
+                                    controller.isLoading.value
+                                        ? 'Signing in...'
+                                        : 'Sign in',
+                                textStyle: AppTextStyles.buttonLight,
+                                backgroundColor:
+                                    controller.isLoading.value
+                                        ? AppColors.primary.withOpacity(0.7)
+                                        : AppColors.primary,
+                                borderRadius: 15.r,
+                                onPressed:
+                                    controller.isLoading.value
+                                        ? null
+                                        : () {
+                                          if (controller.formKey.currentState!
+                                              .validate()) {
+                                            controller.login(
+                                              controller.emailController.text,
+                                              controller
+                                                  .passwordController
+                                                  .text,
+                                            );
+                                          } else {
+                                            Get.snackbar(
+                                              'Form Error',
+                                              'Please fill in both email and password.',
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              backgroundColor: Colors.red
+                                                  .withOpacity(0.8),
+                                              colorText: Colors.white,
+                                              margin: const EdgeInsets.all(16),
+                                              duration: const Duration(
+                                                seconds: 2,
+                                              ),
+                                            );
+                                          }
+                                        },
+                              ),
                             ),
                           ],
                         ),

@@ -1,5 +1,7 @@
 import 'package:chingu_app/app/modules/pages/edit_profile/controllers/edit_profile_controller.dart';
 import 'package:chingu_app/app/modules/pages/edit_profile/views/edit_profile_view.dart';
+import 'package:chingu_app/app/modules/pages/dashboard/controllers/dashboard_controller.dart';
+import 'package:chingu_app/app/modules/pages/dashboard/views/dashboard_view.dart';
 import 'package:chingu_app/app/modules/pages/home/controllers/home_controller.dart';
 import 'package:chingu_app/app/modules/pages/home/views/home_view.dart';
 import 'package:chingu_app/app/modules/pages/notification/controllers/notification_controller.dart';
@@ -24,18 +26,19 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderHistoryController());
-    Get.lazyPut(() => EditProfileController());
+    Get.lazyPut(() => DashboardController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       HomeView(),
       OrderHistoryView(),
-      EditProfileView(),
+      DashboardView(),
       ProfileView(),
     ];
 
     return Obx(
       () => Scaffold(
+        backgroundColor: AppColors.pageBackground,
         body: pages[controller.currentIndex.value],
         bottomNavigationBar: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 12.h),

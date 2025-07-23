@@ -8,6 +8,10 @@ import '../modules/pages/auth/login/bindings/login_binding.dart';
 import '../modules/pages/auth/login/views/login_view.dart';
 import '../modules/pages/auth/register/bindings/register_binding.dart';
 import '../modules/pages/auth/register/views/register_view.dart';
+
+import '../modules/pages/dashboard/bindings/dashboard_binding.dart';
+import '../modules/pages/dashboard/views/dashboard_view.dart';
+
 import '../modules/pages/detail-movie/bindings/detail_movie_binding.dart';
 import '../modules/pages/detail-movie/views/detail_movie_view.dart';
 import '../modules/pages/home/bindings/home_binding.dart';
@@ -20,8 +24,12 @@ import '../modules/pages/profile/bindings/profile_binding.dart';
 import '../modules/pages/profile/views/profile_view.dart';
 import '../modules/pages/reservation/bindings/reservation_binding.dart';
 import '../modules/pages/reservation/views/reservation_view.dart';
+import '../modules/pages/splash/bindings/pages_splash_binding.dart';
+import '../modules/pages/splash/views/pages_splash_view.dart';
 import '../modules/pages/ticket/bindings/ticket_binding.dart';
 import '../modules/pages/ticket/views/ticket_view.dart';
+import '../modules/pages/scan_ticket/bindings/scan_ticket_binding.dart';
+import '../modules/pages/scan_ticket/views/scan_ticket_view.dart';
 
 part 'app_routes.dart';
 
@@ -29,7 +37,7 @@ class AppPages {
   AppPages._();
 
   // ignore: constant_identifier_names
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.SPLASH;
 
   static final routes = [
     GetPage(
@@ -89,10 +97,26 @@ class AppPages {
       page: () => const TicketView(),
       binding: TicketBinding(),
     ),
-    GetPage(
+        GetPage(
       name: _Paths.EDIT_PROFILE,
       page: () => const EditProfileView(),
       binding: EditProfileBinding(),
     ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.SCAN_TICKET,
+      page: () => const ScanTicketView(),
+      binding: ScanTicketBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAGES_SPLASH,
+      page: () => const PagesSplashView(),
+      binding: PagesSplashBinding(),
+    ),
+
   ];
 }
