@@ -23,30 +23,33 @@ class LoginController extends GetxController {
         password: password,
       );
 
-      final uid = userCredential.user?.uid;
-      if (uid != null) {
-        final doc =
-            await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final user = userCredential.user;
+      if (user == null) {
+        Get.snackbar('Login Error', 'User not found');
+        return;
+      }
+      final uid = user.uid;
+      final doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-        if (doc.exists) {
-          final fullName = doc.data()?['full_name'] ?? '';
-          final userEmail = doc.data()?['email'] ?? '';
-          final role = doc.data()?['role'] ?? 'user';
+      if (doc.exists) {
+        final fullName = doc.data()?['full_name'] ?? '';
+        final userEmail = doc.data()?['email'] ?? '';
+        final role = doc.data()?['role'] ?? '';
 
-          await storageService.saveFullName(fullName);
-          await storageService.saveEmail(userEmail);
-          await storageService.saveUserRole(role);
+        await storageService.saveFullName(fullName);
+        await storageService.saveEmail(userEmail);
+        await storageService.saveUserRole(role);
 
-          Get.log('Login successful: $fullName, $userEmail, $role');
+        Get.log('Login successful: $fullName, $userEmail, $role');
 
-          if (role == 'admin') {
-            Get.offAllNamed('/notification');
-          } else {
-            Get.offAllNamed('/bottom-navigation');
-          }
+        if (role == 'admin') {
+          Get.offAllNamed('/admin-navigation');
+        } else {
+          Get.offAllNamed('/bottom-navigation');
         }
       } else {
-        Get.snackbar('Login Error', 'User ID not found');
+        Get.snackbar('Login Error', 'User ID not found in Firestore');
       }
     } on FirebaseAuthException catch (e) {
       Get.snackbar(

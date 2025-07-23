@@ -33,7 +33,7 @@ class RegisterController extends GetxController {
 
     final role = await storageService.getUserRole();
     if (role == 'admin') {
-      Get.offAllNamed('/notification');
+      Get.offAllNamed('/admin-navigation');
     } else {
       Get.offAllNamed('/bottom-navigation');
     }

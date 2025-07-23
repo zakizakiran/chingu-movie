@@ -1,38 +1,33 @@
-import 'package:chingu_app/app/modules/pages/edit_profile/controllers/edit_profile_controller.dart';
-import 'package:chingu_app/app/modules/pages/edit_profile/views/edit_profile_view.dart';
 import 'package:chingu_app/app/modules/pages/dashboard/controllers/dashboard_controller.dart';
 import 'package:chingu_app/app/modules/pages/dashboard/views/dashboard_view.dart';
-import 'package:chingu_app/app/modules/pages/home/controllers/home_controller.dart';
-import 'package:chingu_app/app/modules/pages/home/views/home_view.dart';
 import 'package:chingu_app/app/modules/pages/notification/controllers/notification_controller.dart';
 import 'package:chingu_app/app/modules/pages/notification/views/notification_view.dart';
-import 'package:chingu_app/app/modules/pages/order_history/controllers/order_history_controller.dart';
-import 'package:chingu_app/app/modules/pages/order_history/views/order_history_view.dart';
 import 'package:chingu_app/app/modules/pages/profile/controllers/profile_controller.dart';
 import 'package:chingu_app/app/modules/pages/profile/views/profile_view.dart';
+import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
+import 'package:chingu_app/app/modules/pages/total_income/views/total_income_view.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:get/get.dart';
 
-import '../controllers/bottom_navigation_controller.dart';
+import '../controllers/admin_navigation_controller.dart';
 
-class BottomNavigationView extends GetView<BottomNavigationController> {
-  const BottomNavigationView({super.key});
+class AdminNavigationView extends GetView<AdminNavigationController> {
+  const AdminNavigationView({super.key});
+  @override
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => HomeController());
-    Get.lazyPut(() => OrderHistoryController());
-    Get.lazyPut(() => NotificationController());
+    Get.lazyPut(() => DashboardController());
+    Get.lazyPut(() => TotalIncomeController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
-      HomeView(),
-      OrderHistoryView(),
-      NotificationView(),
+      DashboardView(),
+      TotalIncomeView(),
       ProfileView(),
     ];
 
@@ -54,18 +49,13 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
             onTabChange: controller.changePage,
             tabs: [
               GButton(
-                icon: Icons.home_rounded,
-                text: 'Home',
+                icon: Icons.dashboard,
+                text: 'Dashboard',
                 textStyle: AppTextStyles.navigation,
               ),
               GButton(
-                icon: Icons.history,
-                text: 'Order History',
-                textStyle: AppTextStyles.navigation,
-              ),
-              GButton(
-                icon: Icons.notifications,
-                text: 'Notifications',
+                icon: Icons.info_rounded,
+                text: 'Reports',
                 textStyle: AppTextStyles.navigation,
               ),
               GButton(

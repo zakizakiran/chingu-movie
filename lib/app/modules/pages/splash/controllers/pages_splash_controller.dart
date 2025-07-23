@@ -38,7 +38,7 @@ class PagesSplashController extends GetxController {
           await _storageService.saveUserRole(role);
 
           if (role == 'admin') {
-            Get.offAllNamed('/admin');
+            Get.offAllNamed('/admin-navigation');
           } else {
             Get.offAllNamed('/bottom-navigation');
           }

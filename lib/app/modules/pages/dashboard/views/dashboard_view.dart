@@ -26,10 +26,6 @@ class DashboardView extends GetView<DashboardController> {
           'Dashboard',
           style: AppTextStyles.label.copyWith(color: Colors.white),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () => Get.back(),
-        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -235,33 +231,35 @@ class DashboardView extends GetView<DashboardController> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title ?? "Unknown Title",
-                style: AppTextStyles.smallText.copyWith(fontSize: 14),
-              ),
-              SizedBox(height: 5.h),
-              Text(
-                value ?? "0",
-                style: AppTextStyles.label.copyWith(fontSize: 25),
-              ),
-              SizedBox(height: 5.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  icon ?? Icon(Icons.calendar_month, size: 12),
-                  SizedBox(width: 5.w),
-                  Text(
-                    information ?? "-",
-                    style: AppTextStyles.smallText.copyWith(fontSize: 10),
-                  ),
-                ],
-              ),
-            ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  title ?? "Unknown Title",
+                  style: AppTextStyles.smallText.copyWith(fontSize: 14),
+                ),
+                SizedBox(height: 5.h),
+                Text(
+                  value ?? "0",
+                  style: AppTextStyles.label.copyWith(fontSize: 25),
+                ),
+                SizedBox(height: 5.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon ?? Icon(Icons.calendar_month, size: 12),
+                    SizedBox(width: 5.w),
+                    Text(
+                      information ?? "-",
+                      style: AppTextStyles.smallText.copyWith(fontSize: 10),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
