@@ -28,6 +28,8 @@ import '../modules/pages/splash/bindings/pages_splash_binding.dart';
 import '../modules/pages/splash/views/pages_splash_view.dart';
 import '../modules/pages/ticket/bindings/ticket_binding.dart';
 import '../modules/pages/ticket/views/ticket_view.dart';
+import '../modules/pages/total_income/bindings/total_income_binding.dart';
+import '../modules/pages/total_income/views/total_income_view.dart';
 
 part 'app_routes.dart';
 
@@ -96,7 +98,12 @@ class AppPages {
       binding: TicketBinding(),
     ),
     GetPage(
-      name: _Paths.DASHBOARD,
+      name: _Paths.TOTAL_INCOME,
+      page: () => const TotalIncomeView(),
+      binding: TotalIncomeBinding(),
+    ),
+     GetPage(
+       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
     ),
