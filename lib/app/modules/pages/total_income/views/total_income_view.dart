@@ -8,7 +8,7 @@ import 'package:fl_chart/fl_chart.dart';
 import '../controllers/total_income_controller.dart';
 import 'package:intl/intl.dart';
 
-class TotalIncomeView extends StatelessWidget {
+class TotalIncomeView extends GetView<TotalIncomeController> {
   const TotalIncomeView({super.key});
 
   @override

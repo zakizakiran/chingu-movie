@@ -1,7 +1,5 @@
 import 'package:chingu_app/app/modules/pages/dashboard/controllers/dashboard_controller.dart';
 import 'package:chingu_app/app/modules/pages/dashboard/views/dashboard_view.dart';
-import 'package:chingu_app/app/modules/pages/notification/controllers/notification_controller.dart';
-import 'package:chingu_app/app/modules/pages/notification/views/notification_view.dart';
 import 'package:chingu_app/app/modules/pages/profile/controllers/profile_controller.dart';
 import 'package:chingu_app/app/modules/pages/profile/views/profile_view.dart';
 import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
