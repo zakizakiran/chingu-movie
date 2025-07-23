@@ -94,17 +94,10 @@ class EditProfileView extends GetView<EditProfileController> {
                   child: Column(
                     children: [
                       customInputFieldFull(
-                        controller: controller.usernameContorller,
+                        controller: controller.fullNameController,
                         label: "Username",
                         hint: "Enter your username",
                         maxLines: 1,
-                      ),
-                      SizedBox(height: 20.h),
-                      customPasswordField(
-                        label: 'Password',
-                        hint: 'Enter your password',
-                        controller: controller.passwordController,
-                        isObscured: controller.isPasswordHidden,
                       ),
                       SizedBox(height: 40.h),
                       CustomButton(
@@ -113,7 +106,9 @@ class EditProfileView extends GetView<EditProfileController> {
                         textStyle: AppTextStyles.buttonLight,
                         borderRadius: 20.r,
                         height: 65.h,
-                        onPressed: () {},
+                        onPressed: () {
+                          controller.saveProfile();
+                        },
                       ),
                       SizedBox(height: 10.h),
                     ],

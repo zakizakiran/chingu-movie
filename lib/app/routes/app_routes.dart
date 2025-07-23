@@ -37,6 +37,7 @@ abstract class _Paths {
   static const TICKET = '/ticket';
   static const EDIT_PROFILE = '/edit-profile';
   static const DASHBOARD = '/dashboard';
+  static const TOTAL_INCOME = '/total-income';
   static const SCAN_TICKET = '/scan-ticket';
   static const SPLASH = '/splash';
   static const PAGES_SPLASH = '/splash';

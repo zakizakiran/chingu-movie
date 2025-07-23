@@ -94,7 +94,15 @@ class ProfileView extends GetView<ProfileController> {
                                   "You have been logged out successfully.",
                                   snackPosition: SnackPosition.BOTTOM,
                                 );
-                              } else if (setting == "Edit Profile") {}
+                              } else if (setting == "Edit Profile") {
+                                Get.toNamed(
+                                  '/edit-profile',
+                                  arguments: {
+                                    'fullName': controller.fullName.value,
+                                    'email': controller.email.value,
+                                  },
+                                );
+                              }
                             },
                           ),
                         );
