@@ -27,14 +27,12 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderHistoryController());
     Get.lazyPut(() => EditProfileController());
-    Get.lazyPut(() => NotificationController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       HomeView(),
       OrderHistoryView(),
       EditProfileView(),
-      NotificationView(),
       ProfileView(),
     ];
 
