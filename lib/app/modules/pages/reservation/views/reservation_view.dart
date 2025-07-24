@@ -248,11 +248,12 @@ class ReservationView extends StatelessWidget {
                       "You booked: ${selectedSeats.join(', ')}",
                     );
                     Get.toNamed(
-                      "/ticket",
+                      "/checkout",
                       arguments: {
                         "selectedSeats": selectedSeats,
                         "movieTitle": args['movieTitle'],
                         "showtime": args['showtime'],
+                        "price" : 50000,
                         "totalPrice": selectedSeats.length * 50000,
                       },
                     );

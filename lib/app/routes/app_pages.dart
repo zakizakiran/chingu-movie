@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
-import '../modules/pages/edit_profile/bindings/edit_profile_binding.dart';
-import '../modules/pages/edit_profile/views/edit_profile_view.dart';
 import '../modules/admin_navigation/bindings/admin_navigation_binding.dart';
 import '../modules/admin_navigation/views/admin_navigation_view.dart';
+import '../modules/pages/checkout/bindings/checkout_binding.dart';
+import '../modules/pages/checkout/views/checkout_view.dart';
 import '../modules/navigation/bottom_navigation/bindings/bottom_navigation_binding.dart';
 import '../modules/navigation/bottom_navigation/views/bottom_navigation_view.dart';
 import '../modules/pages/auth/login/bindings/login_binding.dart';
@@ -14,6 +14,8 @@ import '../modules/pages/dashboard/bindings/dashboard_binding.dart';
 import '../modules/pages/dashboard/views/dashboard_view.dart';
 import '../modules/pages/detail-movie/bindings/detail_movie_binding.dart';
 import '../modules/pages/detail-movie/views/detail_movie_view.dart';
+import '../modules/pages/edit_profile/bindings/edit_profile_binding.dart';
+import '../modules/pages/edit_profile/views/edit_profile_view.dart';
 import '../modules/pages/home/bindings/home_binding.dart';
 import '../modules/pages/home/views/home_view.dart';
 import '../modules/pages/notification/bindings/notification_binding.dart';
@@ -128,6 +130,11 @@ class AppPages {
       name: _Paths.ADMIN_NAVIGATION,
       page: () => const AdminNavigationView(),
       binding: AdminNavigationBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT,
+      page: () => const CheckoutView(),
+      binding: CheckoutBinding(),
     ),
   ];
 }
