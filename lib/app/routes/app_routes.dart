@@ -20,6 +20,7 @@ abstract class Routes {
   static const SCAN_TICKET = _Paths.SCAN_TICKET;
   static const SPLASH = _Paths.SPLASH;
   static const ADMIN_NAVIGATION = _Paths.ADMIN_NAVIGATION;
+  static const CHECKOUT = _Paths.CHECKOUT;
 }
 
 abstract class _Paths {
@@ -42,4 +43,5 @@ abstract class _Paths {
   static const SPLASH = '/splash';
   static const PAGES_SPLASH = '/splash';
   static const ADMIN_NAVIGATION = '/admin-navigation';
+  static const CHECKOUT = '/checkout';
 }
