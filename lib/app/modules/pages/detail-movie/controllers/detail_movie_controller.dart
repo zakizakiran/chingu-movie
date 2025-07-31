@@ -11,17 +11,8 @@ class DetailMovieController extends GetxController {
   ];
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
+    selectedShowtimeIndex.value = -1; // Reset selected showtime
     super.onClose();
   }
 

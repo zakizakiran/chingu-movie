@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:chingu_app/app/modules/pages/home/controllers/home_controller.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +42,10 @@ class CustomCard extends StatelessWidget {
           children: [
             image ?? Image.asset('assets/images/jumbo-poster.png'),
             SizedBox(height: 8.h),
-            Text(title!, style: AppTextStyles.cardTitle),
+            Text(title ?? 'No Title', style: AppTextStyles.cardTitle),
             SizedBox(height: 4.h),
             Text(
-              description!,
+              description ?? 'No Description',
               style: AppTextStyles.smallText,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,

@@ -73,19 +73,19 @@ class CheckoutView extends GetView<CheckoutController> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 5.h,),
+                                  SizedBox(height: 5.h),
                                   Text(
-                                    args["movieTitle"],
+                                    args["movieTitle"] ?? "Unknown Movie",
                                     style: AppTextStyles.label.copyWith(
                                       fontSize: 20,
                                     ),
                                   ),
-                                  SizedBox(height: 5.h,),
+                                  SizedBox(height: 5.h),
                                   Text(
                                     controller.todayFormatted,
                                     style: AppTextStyles.smallText,
                                   ),
-                                  SizedBox(height: 3.h,),
+                                  SizedBox(height: 3.h),
                                   Text(
                                     args["showtime"],
                                     style: AppTextStyles.smallText,
@@ -146,23 +146,38 @@ class CheckoutView extends GetView<CheckoutController> {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
-                child: CustomButton(
-                  onPressed: () {
-                    Get.toNamed(
-                      "/ticket",
-                      arguments: {
-                        "selectedSeats": args["selectedSeats"],
-                        "movieTitle": args['movieTitle'],
-                        "showtime": args['showtime'],
-                        "price": 50000,
-                        "totalPrice": controller.totalFee,
-                      },
-                    );
-                  },
-                  borderRadius: 20.r,
-                  backgroundColor: AppColors.primary,
-                  text: 'Checkout',
-                  height: 65.h,
+                child: Obx(
+                  () => CustomButton(
+                    onPressed:
+                        controller.isLoading.value
+                            ? null
+                            : () async {
+                              await controller.saveTicket();
+
+                              Get.toNamed(
+                                "/success-checkout",
+                                arguments: {
+                                  "selectedSeats": controller.selectedSeats,
+                                  "movieTitle": controller.movieTitle,
+                                  "showtime": controller.showTime,
+                                  "price": controller.pricePerSeat,
+                                  "totalPrice": controller.totalFee,
+                                },
+                              );
+                            },
+
+                    borderRadius: 20.r,
+                    backgroundColor:
+                        controller.isLoading.value
+                            // ignore: deprecated_member_use
+                            ? AppColors.primary.withOpacity(0.5)
+                            : AppColors.primary,
+                    text:
+                        controller.isLoading.value
+                            ? 'Processing...'
+                            : 'Checkout',
+                    height: 65.h,
+                  ),
                 ),
               ),
             ],
@@ -174,7 +189,7 @@ class CheckoutView extends GetView<CheckoutController> {
 
   Widget transactionDetailsText({String? label, String? value}) {
     return Padding(
-      padding: EdgeInsetsGeometry.only(top: 10.h),
+      padding: EdgeInsets.only(top: 10.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

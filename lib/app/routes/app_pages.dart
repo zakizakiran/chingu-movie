@@ -32,10 +32,14 @@ import '../modules/pages/scan_ticket/bindings/scan_ticket_binding.dart';
 import '../modules/pages/scan_ticket/views/scan_ticket_view.dart';
 import '../modules/pages/splash/bindings/pages_splash_binding.dart';
 import '../modules/pages/splash/views/pages_splash_view.dart';
+import '../modules/pages/success_checkout/bindings/success_checkout_binding.dart';
+import '../modules/pages/success_checkout/views/success_checkout_view.dart';
 import '../modules/pages/ticket/bindings/ticket_binding.dart';
 import '../modules/pages/ticket/views/ticket_view.dart';
 import '../modules/pages/total_income/bindings/total_income_binding.dart';
 import '../modules/pages/total_income/views/total_income_view.dart';
+import '../modules/pages/ticket_oder/bindings/ticket_oder_binding.dart';
+import '../modules/pages/ticket_oder/views/ticket_oder_view.dart';
 
 part 'app_routes.dart';
 
@@ -142,6 +146,15 @@ class AppPages {
       name: _Paths.LIST_MOVIE,
       page: () => const ListMovieView(),
       binding: ListMovieBinding(),
+    ),
+    GetPage( name: _Paths.SUCCESS_CHECKOUT,
+      page: () => const SuccessCheckoutView(),
+      binding: SuccessCheckoutBinding(),
+           ),
+    GetPage(
+      name: _Paths.TICKET_ODER,
+      page: () => const TicketOrderView(),
+      binding: TicketOderBinding(),
     ),
   ];
 }

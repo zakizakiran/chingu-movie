@@ -11,8 +11,8 @@ class CustomRectangle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width!.w,
-      height: height!.h,
+      width: (width ?? 100).w,
+      height: (height ?? 100).h,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(8.r),

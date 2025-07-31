@@ -41,42 +41,82 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                 ),
+                SizedBox(height: 12.h),
+
+                Obx(
+                  () => SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children:
+                          controller.genres.map((genre) {
+                            final isSelected =
+                                genre == controller.selectedGenre.value;
+                            return Padding(
+                              padding: EdgeInsets.only(right: 8.w),
+                              child: ChoiceChip(
+                                elevation: 0,
+                                label: Text(
+                                  genre,
+                                  style: AppTextStyles.body.copyWith(
+                                    color:
+                                        isSelected
+                                            ? Colors.white
+                                            : AppColors.text,
+                                  ),
+                                ),
+                                selected: isSelected,
+                                onSelected:
+                                    (_) => controller.selectGenre(genre),
+                                selectedColor: AppColors.primary,
+                                backgroundColor: Colors.grey.shade200,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 16.h),
                 Expanded(
-                  child: GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.52.w,
-                    children: List.generate(4, (index) {
-                      return Padding(
-                        padding: EdgeInsets.all(8.w),
-                        child: Material(
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(12.r),
-                          clipBehavior: Clip.hardEdge,
-                          child: InkWell(
-                            onTap: () {
-                              Get.toNamed(
-                                '/detail-movie',
-                                arguments: {
-                                  'movieTitle': controller.movieTitle,
-                                  'movieSynopsis': controller.movieSynopsis,
-                                  'year': controller.movieYear,
-                                  'genre': controller.movieGenre,
-                                  'duration': controller.movieDuration,
-                                  'rating': controller.movieRating,
-                                },
-                              );
-                            },
-                            child: CustomCard(
-                              image: Image.asset(controller.moviePoster.value),
-                              controller: controller,
-                              title: controller.movieTitle,
-                              description: controller.movieSynopsis,
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
+                  child: Obx(
+                    () => GridView.count(
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.52.w,
+                      children:
+                          controller.filteredMovies.map((movie) {
+                            return Padding(
+                              padding: EdgeInsets.all(8.w),
+                              child: Material(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(12.r),
+                                clipBehavior: Clip.hardEdge,
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.toNamed(
+                                      '/detail-movie',
+                                      arguments: {
+                                        'movieTitle': movie['title'],
+                                        'movieSynopsis': movie['synopsis'],
+                                        'year': movie['year'],
+                                        'genre': movie['genre'],
+                                        'duration': movie['duration'],
+                                        'rating': movie['rating'],
+                                      },
+                                    );
+                                  },
+                                  child: CustomCard(
+                                    image: Image.asset(movie['poster']),
+                                    controller: controller,
+                                    title: movie['title'],
+                                    description: movie['synopsis'],
+                                  ),
+                                ),
+                              ),
+                            );
+                          }).toList(),
+                    ),
                   ),
                 ),
               ],

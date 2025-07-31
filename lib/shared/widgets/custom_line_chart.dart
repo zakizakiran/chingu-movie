@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
@@ -41,10 +43,16 @@ class CustomLineChart extends StatelessWidget {
       gridData: FlGridData(show: true),
       titlesData: FlTitlesData(
         bottomTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, getTitlesWidget: bottomTitleWidgets),
+          sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: bottomTitleWidgets,
+          ),
         ),
         leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, getTitlesWidget: leftTitleWidgets),
+          sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: leftTitleWidgets,
+          ),
         ),
         topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
         rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -68,6 +76,7 @@ class CustomLineChart extends StatelessWidget {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
+              // ignore: deprecated_member_use
               colors: gradientColors.map((c) => c.withOpacity(0.3)).toList(),
             ),
           ),
@@ -77,17 +86,25 @@ class CustomLineChart extends StatelessWidget {
   }
 
   LineChartData avgData(List<Color> gradientColors) {
-    final avgY = chartSpots.isEmpty
-        ? 0.0
-        : chartSpots.map((e) => e.y).reduce((a, b) => a + b) / chartSpots.length;
+    final avgY =
+        chartSpots.isEmpty
+            ? 0.0
+            : chartSpots.map((e) => e.y).reduce((a, b) => a + b) /
+                chartSpots.length;
     return LineChartData(
       gridData: FlGridData(show: true),
       titlesData: FlTitlesData(
         bottomTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, getTitlesWidget: bottomTitleWidgets),
+          sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: bottomTitleWidgets,
+          ),
         ),
         leftTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: true, getTitlesWidget: leftTitleWidgets),
+          sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: leftTitleWidgets,
+          ),
         ),
         topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
         rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -99,7 +116,7 @@ class CustomLineChart extends StatelessWidget {
       minX: 0,
       maxX: chartSpots.isNotEmpty ? chartSpots.last.x : 6,
       minY: 0,
-      maxY: controller.currentMaxY, 
+      maxY: controller.currentMaxY,
       lineBarsData: [
         LineChartBarData(
           spots: chartSpots.map((e) => FlSpot(e.x, avgY)).toList(),
@@ -137,7 +154,10 @@ class CustomLineChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("${reportType ?? "Null"} Report Total Income", style: AppTextStyles.smallTextBold),
+          Text(
+            "${reportType ?? "Null"} Report Total Income",
+            style: AppTextStyles.smallTextBold,
+          ),
           Text(date ?? "DD/MM/YY", style: AppTextStyles.hintText),
           const SizedBox(height: 12),
           SizedBox(
@@ -151,29 +171,34 @@ class CustomLineChart extends StatelessWidget {
                     top: 24,
                     bottom: 12,
                   ),
-                  child: Obx(() => LineChart(
-                        controller.showAvg.value
-                            ? avgData(gradientColors)
-                            : mainData(gradientColors),
-                      )),
+                  child: Obx(
+                    () => LineChart(
+                      controller.showAvg.value
+                          ? avgData(gradientColors)
+                          : mainData(gradientColors),
+                    ),
+                  ),
                 ),
                 Positioned(
                   top: 0,
                   left: 0,
-                  child: Obx(() => TextButton(
-                        onPressed: () {
-                          controller.showAvg.value = !controller.showAvg.value;
-                        },
-                        child: Text(
-                          'avg',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: controller.showAvg.value
-                                ? Colors.white.withOpacity(0.5)
-                                : Colors.white,
-                          ),
+                  child: Obx(
+                    () => TextButton(
+                      onPressed: () {
+                        controller.showAvg.value = !controller.showAvg.value;
+                      },
+                      child: Text(
+                        'avg',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:
+                              controller.showAvg.value
+                                  ? Colors.white.withOpacity(0.5)
+                                  : Colors.white,
                         ),
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),

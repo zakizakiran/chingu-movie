@@ -102,7 +102,8 @@ class TicketView extends GetView<TicketController> {
                                         ),
                                         decoration: BoxDecoration(
                                           color: AppColors.primaryDark
-                                              .withOpacity(0.1),
+                                          // ignore: deprecated_member_use
+                                          .withOpacity(0.1),
                                           borderRadius: BorderRadius.circular(
                                             8.r,
                                           ),

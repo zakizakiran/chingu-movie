@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
+  final void Function(String)? onChanged;
   final bool obscureText;
   final double? width;
   final double? height;
@@ -28,6 +29,7 @@ class CustomTextField extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.controller,
+    this.onChanged,
     this.obscureText = false,
     this.width,
     this.height,
@@ -50,6 +52,7 @@ class CustomTextField extends StatelessWidget {
       width: width ?? double.infinity,
       height: height,
       child: TextFormField(
+        onChanged: onChanged,
         maxLines: maxLine,
         keyboardType: keyboardType,
         controller: controller,

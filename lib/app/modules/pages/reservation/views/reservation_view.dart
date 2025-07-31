@@ -1,3 +1,4 @@
+import 'package:chingu_app/app/modules/pages/checkout/controllers/checkout_controller.dart';
 import 'package:chingu_app/app/modules/pages/reservation/controllers/reservation_controller.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
@@ -16,6 +17,13 @@ class ReservationView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(ReservationController());
     final args = Get.arguments as Map? ?? {};
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.loadReservedSeats(
+        args['movieTitle'] ?? '',
+        args['showtime'] ?? '',
+      );
+    });
 
     return Scaffold(
       backgroundColor: AppColors.pageBackground,
@@ -195,7 +203,8 @@ class ReservationView extends StatelessWidget {
                                                 ),
                                                 decoration: BoxDecoration(
                                                   color: AppColors.primary
-                                                      .withOpacity(0.1),
+                                                  // ignore: deprecated_member_use
+                                                  .withOpacity(0.1),
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                         8.r,
@@ -234,30 +243,38 @@ class ReservationView extends StatelessWidget {
             Padding(
               padding: EdgeInsets.all(8.w),
               child: CustomButton(
-                onPressed: () {
+                onPressed: () async {
                   final selectedSeats = controller.selectedSeatLabels;
                   if (selectedSeats.isEmpty) {
                     Get.snackbar(
                       "No Seat Selected",
                       "Please select at least one seat.",
                     );
-                  } else {
-                    controller.confirmBooking();
-                    Get.snackbar(
-                      "Success",
-                      "You booked: ${selectedSeats.join(', ')}",
-                    );
-                    Get.toNamed(
-                      "/checkout",
-                      arguments: {
-                        "selectedSeats": selectedSeats,
-                        "movieTitle": args['movieTitle'],
-                        "showtime": args['showtime'],
-                        "price" : 50000,
-                        "totalPrice": selectedSeats.length * 50000,
-                      },
-                    );
+                    return;
                   }
+
+                  final movieTitle = args['movieTitle'];
+                  final showtime = args['showtime'];
+                  final price = 50000;
+                  final totalPrice = selectedSeats.length * price;
+
+                  // Optional: tandai kursi sebagai reserved di UI
+                  controller.confirmBooking();
+
+                  // 🔥 Hapus controller checkout agar tidak cache data lama
+                  Get.delete<CheckoutController>();
+
+                  // Navigasi dengan data BARU
+                  Get.toNamed(
+                    '/checkout',
+                    arguments: {
+                      "selectedSeats": selectedSeats,
+                      "movieTitle": movieTitle,
+                      "showtime": showtime,
+                      "price": price,
+                      "totalPrice": totalPrice,
+                    },
+                  );
                 },
                 borderRadius: 20.r,
                 backgroundColor: AppColors.primary,

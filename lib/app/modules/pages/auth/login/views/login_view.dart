@@ -116,6 +116,7 @@ class LoginView extends GetView<LoginController> {
                                 textStyle: AppTextStyles.buttonLight,
                                 backgroundColor:
                                     controller.isLoading.value
+                                        // ignore: deprecated_member_use
                                         ? AppColors.primary.withOpacity(0.7)
                                         : AppColors.primary,
                                 borderRadius: 15.r,
@@ -138,7 +139,8 @@ class LoginView extends GetView<LoginController> {
                                               snackPosition:
                                                   SnackPosition.BOTTOM,
                                               backgroundColor: Colors.red
-                                                  .withOpacity(0.8),
+                                              // ignore: deprecated_member_use
+                                              .withOpacity(0.8),
                                               colorText: Colors.white,
                                               margin: const EdgeInsets.all(16),
                                               duration: const Duration(

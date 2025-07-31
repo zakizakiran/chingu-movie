@@ -40,9 +40,4 @@ class ProfileController extends GetxController {
     getFullName();
     getEmail();
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

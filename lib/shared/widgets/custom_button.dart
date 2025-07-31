@@ -50,6 +50,7 @@ class CustomButton extends StatelessWidget {
               width: 1,
             ),
           ),
+          // ignore: deprecated_member_use
           shadowColor: Colors.black.withOpacity(0.25),
           padding: EdgeInsets.symmetric(
             horizontal: horizontalPad.w,
