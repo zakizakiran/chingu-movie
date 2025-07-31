@@ -21,6 +21,7 @@ abstract class Routes {
   static const SPLASH = _Paths.SPLASH;
   static const ADMIN_NAVIGATION = _Paths.ADMIN_NAVIGATION;
   static const CHECKOUT = _Paths.CHECKOUT;
+  static const LIST_MOVIE = _Paths.LIST_MOVIE;
 }
 
 abstract class _Paths {
@@ -44,4 +45,5 @@ abstract class _Paths {
   static const PAGES_SPLASH = '/splash';
   static const ADMIN_NAVIGATION = '/admin-navigation';
   static const CHECKOUT = '/checkout';
+  static const LIST_MOVIE = '/list-movie';
 }
