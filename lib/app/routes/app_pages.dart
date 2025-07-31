@@ -2,8 +2,13 @@ import 'package:get/get.dart';
 
 import '../modules/admin_navigation/bindings/admin_navigation_binding.dart';
 import '../modules/admin_navigation/views/admin_navigation_view.dart';
+<<<<<<< HEAD
 import '../modules/pages/input_movie/bindings/input_movie_binding.dart';
 import '../modules/pages/input_movie/views/input_movie_view.dart';
+=======
+import '../modules/pages/list_movie/bindings/list_movie_binding.dart';
+import '../modules/pages/list_movie/views/list_movie_view.dart';
+>>>>>>> cb4b039c2b34176ec30ec11d0bff66b376ebc764
 import '../modules/navigation/bottom_navigation/bindings/bottom_navigation_binding.dart';
 import '../modules/navigation/bottom_navigation/views/bottom_navigation_view.dart';
 import '../modules/pages/auth/login/bindings/login_binding.dart';
@@ -143,10 +148,14 @@ class AppPages {
       binding: CheckoutBinding(),
     ),
     GetPage(
-      name: _Paths.SUCCESS_CHECKOUT,
+      name: _Paths.LIST_MOVIE,
+      page: () => const ListMovieView(),
+      binding: ListMovieBinding(),
+    ),
+    GetPage( name: _Paths.SUCCESS_CHECKOUT,
       page: () => const SuccessCheckoutView(),
       binding: SuccessCheckoutBinding(),
-    ),
+           ),
     GetPage(
       name: _Paths.TICKET_ODER,
       page: () => const TicketOrderView(),
