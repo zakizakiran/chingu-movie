@@ -124,11 +124,7 @@ class DashboardView extends GetView<DashboardController> {
                                     value: controller.value[index],
                                     information: controller.information[index],
                                     icon: icon[index],
-                                    onTap: () {
-                                      print(
-                                        "Card ${controller.title[index]} diklik",
-                                      );
-                                    },
+                                    onTap: () {},
                                   ),
                                 );
                               }),
@@ -136,7 +132,7 @@ class DashboardView extends GetView<DashboardController> {
                                 padding: EdgeInsets.only(right: 16.w),
                                 child: cardInsertMovie(
                                   onTap: () {
-                                    print("navigate to insert movie");
+                                    Get.toNamed('/input-movie');
                                   },
                                 ),
                               ),

@@ -5,6 +5,7 @@ import 'package:chingu_app/shared/widgets/custom_star_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../controllers/detail_movie_controller.dart';
 
 class DetailMovieView extends GetView<DetailMovieController> {
@@ -12,6 +13,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
   @override
   Widget build(BuildContext context) {
     final args = Get.arguments as Map? ?? {};
+    controller.generateShowtimes(args['duration'] ?? '');
 
     return Scaffold(
       backgroundColor: AppColors.pageBackground,
@@ -41,7 +43,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                       ),
                       SizedBox(height: 4.h),
                       Text(
-                        "Thursday, June 26th, 2025",
+                        DateFormat('MMMM dd, yyyy').format(DateTime.now()),
                         style: AppTextStyles.smallText,
                       ),
                       SizedBox(height: 12.h),
@@ -53,25 +55,26 @@ class DetailMovieView extends GetView<DetailMovieController> {
                           color: Colors.red,
                         ),
                         child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child:
-                              args['moviePoster'] != null
-                                  ? Image.asset(
-                                    args['moviePoster'] as String,
-                                    fit: BoxFit.cover,
-                                  )
-                                  : Image.asset(
-                                    "assets/images/jumbo-poster.png",
-                                    // Default image if no poster is provided
-                                    fit: BoxFit.cover,
+                          borderRadius: BorderRadius.circular(12),
+                          child: AspectRatio(
+                            aspectRatio: 1,
+                            child: Image.network(
+                              args['poster_url'] ?? '',
+                              fit: BoxFit.cover,
+                              errorBuilder:
+                                  (_, __, ___) => const Icon(
+                                    Icons.broken_image,
+                                    size: 50,
+                                    color: Colors.grey,
                                   ),
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(height: 10.h),
                       SizedBox(
-                        width: 150.w,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               args["year"]?.toString() ?? '',
@@ -81,6 +84,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                               args['genre']?.toString() ?? '',
                               style: AppTextStyles.smallText,
                             ),
+                            SizedBox(width: 2.w),
                             Text(
                               args['duration']?.toString() ?? '',
                               style: AppTextStyles.smallText,
@@ -89,9 +93,9 @@ class DetailMovieView extends GetView<DetailMovieController> {
                         ),
                       ),
                       SizedBox(height: 10.h),
-                      StarRating(
-                        rating: (args['rating'] as num?)?.toDouble() ?? 0.0,
-                      ),
+                      // StarRating(
+                      //   rating: (args['rating'] as num?)?.toDouble() ?? 0.0,
+                      // ),
                       SizedBox(height: 10.h),
                       Text(
                         args["movieSynopsis"]?.toString() ??
@@ -117,7 +121,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                         return Padding(
                           padding: EdgeInsets.symmetric(vertical: 7.h),
                           child: CustomButton(
-                            text: controller.showtimes[index],
+                            text: '${controller.showtimes[index] ?? ''} WIB',
                             textStyle:
                                 isSelected
                                     ? AppTextStyles.body.copyWith(
@@ -139,6 +143,7 @@ class DetailMovieView extends GetView<DetailMovieController> {
                     ),
                   ),
                 ),
+
                 SizedBox(height: 30.h),
                 Obx(
                   () => CustomButton(
