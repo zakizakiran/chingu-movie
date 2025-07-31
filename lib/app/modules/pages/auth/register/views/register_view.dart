@@ -44,6 +44,7 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 SizedBox(height: 28.h),
                 Form(
+                  key: controller.formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -59,8 +60,6 @@ class RegisterView extends GetView<RegisterController> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter your name';
-                          } else if (!EmailValidator.validate(value)) {
-                            return 'Please enter a valid name';
                           }
                           return null;
                         },
@@ -156,12 +155,22 @@ class RegisterView extends GetView<RegisterController> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          CustomButton(
-                            onPressed: () {},
-                            borderRadius: 20.r,
-                            backgroundColor: AppColors.primary,
-                            text: 'Create Account',
-                            height: 65.h,
+                          Obx(
+                            () => CustomButton(
+                              onPressed:
+                                  controller.isLoading.value
+                                      ? null
+                                      : () {
+                                        if (controller.formKey.currentState!
+                                            .validate()) {
+                                          controller.signUp();
+                                        }
+                                      },
+                              borderRadius: 20.r,
+                              backgroundColor: AppColors.primary,
+                              text: 'Create Account',
+                              height: 65.h,
+                            ),
                           ),
                         ],
                       ),

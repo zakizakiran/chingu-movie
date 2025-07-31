@@ -15,6 +15,13 @@ abstract class Routes {
   static const RESERVATION = _Paths.RESERVATION;
   static const TICKET = _Paths.TICKET;
   static const LIST_MOVIE = _Paths.LIST_MOVIE;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const TOTAL_INCOME = _Paths.TOTAL_INCOME;
+  static const DASHBOARD = _Paths.DASHBOARD;
+  static const SCAN_TICKET = _Paths.SCAN_TICKET;
+  static const SPLASH = _Paths.SPLASH;
+  static const ADMIN_NAVIGATION = _Paths.ADMIN_NAVIGATION;
+  static const CHECKOUT = _Paths.CHECKOUT;
 }
 
 abstract class _Paths {
@@ -31,4 +38,12 @@ abstract class _Paths {
   static const RESERVATION = '/reservation';
   static const TICKET = '/ticket';
   static const LIST_MOVIE = '/list-movie';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const DASHBOARD = '/dashboard';
+  static const TOTAL_INCOME = '/total-income';
+  static const SCAN_TICKET = '/scan-ticket';
+  static const SPLASH = '/splash';
+  static const PAGES_SPLASH = '/splash';
+  static const ADMIN_NAVIGATION = '/admin-navigation';
+  static const CHECKOUT = '/checkout';
 }
