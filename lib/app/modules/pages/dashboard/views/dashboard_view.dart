@@ -130,7 +130,11 @@ class DashboardView extends GetView<DashboardController> {
                               }),
                               Padding(
                                 padding: EdgeInsets.only(right: 16.w),
-                                child: cardInsertMovie(onTap: () {}),
+                                child: cardInsertMovie(
+                                  onTap: () {
+                                    Get.toNamed('/input-movie');
+                                  },
+                                ),
                               ),
                             ],
                           ),

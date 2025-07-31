@@ -1,41 +1,36 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final searchController = TextEditingController();
-
   final genres = ['All', 'Action', 'Drama', 'Comedy', 'Thriller'].obs;
   final selectedGenre = 'All'.obs;
 
-  final movies = [
-    {
-      'title': 'Jumbo',
-      'genre': 'Comedy',
-      'poster': 'assets/images/jumbo-poster.png',
-      'synopsis': 'A fun comedy adventure.',
-      'year': 2025,
-      'duration': '1h 45m',
-      'rating': 4.5,
-    },
-    {
-      'title': 'Giganto',
-      'genre': 'Action',
-      'poster': 'assets/images/jumbo-poster.png',
-      'synopsis': 'An epic action tale.',
-      'year': 2025,
-      'duration': '2h',
-      'rating': 3,
-    },
-    // Tambahkan data film lainnya
-  ];
-
+  final movies = <Map<String, dynamic>>[].obs;
   final filteredMovies = <Map<String, dynamic>>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    filteredMovies.assignAll(movies);
+    fetchMovies();
     searchController.addListener(_filterMovies);
+  }
+
+  Future<void> fetchMovies() async {
+    try {
+      final snapshot =
+          await FirebaseFirestore.instance
+              .collection('movies')
+              .orderBy('created_at', descending: true)
+              .get();
+
+      final data = snapshot.docs.map((doc) => doc.data()).toList();
+      movies.assignAll(data);
+      _filterMovies(); // langsung filter
+    } catch (e) {
+      Get.snackbar("Error", "Failed to fetch movies: $e");
+    }
   }
 
   void _filterMovies() {
@@ -51,7 +46,7 @@ class HomeController extends GetxController {
           return matchesGenre && matchesSearch;
         }).toList();
 
-    filteredMovies.assignAll(result); // ini penting
+    filteredMovies.assignAll(result);
   }
 
   void selectGenre(String genre) {

@@ -103,11 +103,28 @@ class HomeView extends GetView<HomeController> {
                                         'genre': movie['genre'],
                                         'duration': movie['duration'],
                                         'rating': movie['rating'],
+                                        'poster_url': movie['poster_url'],
                                       },
                                     );
                                   },
                                   child: CustomCard(
-                                    image: Image.asset(movie['poster']),
+                                    image: ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: AspectRatio(
+                                        aspectRatio: 1,
+                                        child: Image.network(
+                                          movie['poster_url'] ?? '',
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (_, __, ___) => const Icon(
+                                                Icons.broken_image,
+                                                size: 50,
+                                                color: Colors.grey,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+
                                     controller: controller,
                                     title: movie['title'],
                                     description: movie['synopsis'],

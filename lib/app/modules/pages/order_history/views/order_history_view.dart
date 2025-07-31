@@ -47,12 +47,12 @@ class OrderHistoryView extends GetView<OrderHistoryController> {
           ),
           Expanded(
             child: Obx(() {
-              if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
-              }
-
               if (controller.filteredTickets.isEmpty) {
                 return const Center(child: Text("No orders found."));
+              }
+
+              if (controller.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
               }
 
               return ListView.builder(

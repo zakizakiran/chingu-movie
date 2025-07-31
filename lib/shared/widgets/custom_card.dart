@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomCard extends StatelessWidget {
   final String? title;
   final String? description;
-  final Image? image;
+  final Widget? image;
 
   const CustomCard({
     super.key,
