@@ -54,9 +54,4 @@ class PagesSplashController extends GetxController {
       Get.offAllNamed('/login');
     }
   }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
 }

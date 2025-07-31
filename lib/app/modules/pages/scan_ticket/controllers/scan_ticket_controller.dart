@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanTicketController extends GetxController {
-  //TODO: Implement ScanTicketController
   final RxString result = ''.obs;
   final RxBool isScanned = false.obs;
   final RxBool isFrontCamera = false.obs;
@@ -26,16 +25,6 @@ class ScanTicketController extends GetxController {
   }
 
   final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
 
   void increment() => count.value++;
 }

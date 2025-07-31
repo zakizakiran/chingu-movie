@@ -2,6 +2,8 @@ import 'package:chingu_app/app/modules/pages/dashboard/controllers/dashboard_con
 import 'package:chingu_app/app/modules/pages/dashboard/views/dashboard_view.dart';
 import 'package:chingu_app/app/modules/pages/profile/controllers/profile_controller.dart';
 import 'package:chingu_app/app/modules/pages/profile/views/profile_view.dart';
+import 'package:chingu_app/app/modules/pages/ticket_oder/controllers/ticket_oder_controller.dart';
+import 'package:chingu_app/app/modules/pages/ticket_oder/views/ticket_oder_view.dart';
 import 'package:chingu_app/app/modules/pages/total_income/controllers/total_income_controller.dart';
 import 'package:chingu_app/app/modules/pages/total_income/views/total_income_view.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
@@ -20,11 +22,13 @@ class AdminNavigationView extends GetView<AdminNavigationController> {
   @override
   Widget build(BuildContext context) {
     Get.lazyPut(() => DashboardController());
+    Get.lazyPut(() => TicketOrderController());
     Get.lazyPut(() => TotalIncomeController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       DashboardView(),
+      TicketOrderView(),
       TotalIncomeView(),
       ProfileView(),
     ];
@@ -49,6 +53,11 @@ class AdminNavigationView extends GetView<AdminNavigationController> {
               GButton(
                 icon: Icons.dashboard,
                 text: 'Dashboard',
+                textStyle: AppTextStyles.navigation,
+              ),
+              GButton(
+                icon: Icons.movie,
+                text: 'Ticket Order',
                 textStyle: AppTextStyles.navigation,
               ),
               GButton(

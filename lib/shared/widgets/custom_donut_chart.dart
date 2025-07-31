@@ -7,12 +7,7 @@ class DonutChart extends StatefulWidget {
   final List<double>? values;
   final List<Color>? colors;
 
-  const DonutChart({
-    super.key,
-    this.labels,
-    this.values,
-    this.colors,
-  });
+  const DonutChart({super.key, this.labels, this.values, this.colors});
 
   @override
   State<DonutChart> createState() => _DonutChartState();
@@ -30,7 +25,9 @@ class _DonutChartState extends State<DonutChart> {
   @override
   Widget build(BuildContext context) {
     final isValidData =
-        labels.length == values.length && values.length == colors.length && labels.isNotEmpty;
+        labels.length == values.length &&
+        values.length == colors.length &&
+        labels.isNotEmpty;
 
     if (!isValidData) {
       return const Center(child: Text("Data tidak valid atau kosong"));
@@ -46,11 +43,17 @@ class _DonutChartState extends State<DonutChart> {
               sectionsSpace: 2,
               pieTouchData: PieTouchData(
                 touchCallback: (event, response) {
-                  if (!event.isInterestedForInteractions || response?.touchedSection == null) {
+                  if (!event.isInterestedForInteractions ||
+                      response?.touchedSection == null) {
                     setState(() => touchedIndex = -1);
                     return;
                   }
-                  setState(() => touchedIndex = response!.touchedSection!.touchedSectionIndex);
+                  final touchedSection = response?.touchedSection;
+                  if (touchedSection != null) {
+                    setState(
+                      () => touchedIndex = touchedSection.touchedSectionIndex,
+                    );
+                  }
                 },
               ),
               sections: List.generate(values.length, (i) {
@@ -58,7 +61,8 @@ class _DonutChartState extends State<DonutChart> {
                 return PieChartSectionData(
                   color: colors[i],
                   value: values[i],
-                  title: '${((values[i] / totalValue) * 100).toStringAsFixed(0)}%',
+                  title:
+                      '${((values[i] / totalValue) * 100).toStringAsFixed(0)}%',
                   radius: isTouched ? 60 : 50,
                   titleStyle: TextStyle(
                     fontSize: isTouched ? 16 : 14,

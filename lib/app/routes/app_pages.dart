@@ -2,14 +2,14 @@ import 'package:get/get.dart';
 
 import '../modules/admin_navigation/bindings/admin_navigation_binding.dart';
 import '../modules/admin_navigation/views/admin_navigation_view.dart';
-import '../modules/pages/checkout/bindings/checkout_binding.dart';
-import '../modules/pages/checkout/views/checkout_view.dart';
 import '../modules/navigation/bottom_navigation/bindings/bottom_navigation_binding.dart';
 import '../modules/navigation/bottom_navigation/views/bottom_navigation_view.dart';
 import '../modules/pages/auth/login/bindings/login_binding.dart';
 import '../modules/pages/auth/login/views/login_view.dart';
 import '../modules/pages/auth/register/bindings/register_binding.dart';
 import '../modules/pages/auth/register/views/register_view.dart';
+import '../modules/pages/checkout/bindings/checkout_binding.dart';
+import '../modules/pages/checkout/views/checkout_view.dart';
 import '../modules/pages/dashboard/bindings/dashboard_binding.dart';
 import '../modules/pages/dashboard/views/dashboard_view.dart';
 import '../modules/pages/detail-movie/bindings/detail_movie_binding.dart';
@@ -30,10 +30,14 @@ import '../modules/pages/scan_ticket/bindings/scan_ticket_binding.dart';
 import '../modules/pages/scan_ticket/views/scan_ticket_view.dart';
 import '../modules/pages/splash/bindings/pages_splash_binding.dart';
 import '../modules/pages/splash/views/pages_splash_view.dart';
+import '../modules/pages/success_checkout/bindings/success_checkout_binding.dart';
+import '../modules/pages/success_checkout/views/success_checkout_view.dart';
 import '../modules/pages/ticket/bindings/ticket_binding.dart';
 import '../modules/pages/ticket/views/ticket_view.dart';
 import '../modules/pages/total_income/bindings/total_income_binding.dart';
 import '../modules/pages/total_income/views/total_income_view.dart';
+import '../modules/pages/ticket_oder/bindings/ticket_oder_binding.dart';
+import '../modules/pages/ticket_oder/views/ticket_oder_view.dart';
 
 part 'app_routes.dart';
 
@@ -135,6 +139,16 @@ class AppPages {
       name: _Paths.CHECKOUT,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: _Paths.SUCCESS_CHECKOUT,
+      page: () => const SuccessCheckoutView(),
+      binding: SuccessCheckoutBinding(),
+    ),
+    GetPage(
+      name: _Paths.TICKET_ODER,
+      page: () => const TicketOrderView(),
+      binding: TicketOderBinding(),
     ),
   ];
 }

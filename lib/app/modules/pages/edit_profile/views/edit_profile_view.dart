@@ -172,7 +172,7 @@ class EditProfileView extends GetView<EditProfileController> {
     required TextEditingController controller,
     RxBool? isObscured,
   }) {
-    final _isObscured = isObscured ?? true.obs;
+    final isObscured0 = isObscured ?? true.obs;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,7 +181,7 @@ class EditProfileView extends GetView<EditProfileController> {
         Obx(
           () => TextField(
             controller: controller,
-            obscureText: _isObscured.value,
+            obscureText: isObscured0.value,
             style: AppTextStyles.smallText.copyWith(fontSize: 14),
             decoration: InputDecoration(
               hintText: hint,
@@ -199,11 +199,11 @@ class EditProfileView extends GetView<EditProfileController> {
               ),
               suffixIcon: IconButton(
                 icon: Icon(
-                  _isObscured.value ? Icons.visibility_off : Icons.visibility,
+                  isObscured0.value ? Icons.visibility_off : Icons.visibility,
                   color: Colors.grey,
                 ),
                 onPressed: () {
-                  _isObscured.value = !_isObscured.value;
+                  isObscured0.value = !isObscured0.value;
                 },
               ),
             ),
