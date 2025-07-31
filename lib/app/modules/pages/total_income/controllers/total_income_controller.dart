@@ -1,63 +1,105 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class TotalIncomeController extends GetxController {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   RxBool showAvg = false.obs;
   RxString selectedValue = 'Daily'.obs;
   RxInt selectedIndex = 0.obs;
 
+  // Firestore data
+  RxList<Map<String, dynamic>> firestoreData = <Map<String, dynamic>>[].obs;
+
   void onIndexChanged(int index) {
     selectedIndex.value = index;
     selectedValue.value = ['Daily', 'Weekly', 'Monthly', 'Yearly'][index];
+    fetchFirestoreData();
   }
 
   void onDropdownChanged(String? value) {
     if (value != null) {
       selectedValue.value = value;
+      fetchFirestoreData();
     }
   }
 
-  // MOVIE DATA
-  List<String> movieTitles = ["Jumbo", "Giganto", "Tyranno"];
+  Future<void> fetchFirestoreData() async {
+    try {
+      // Fetch tickets data based on the selected type
+      final ticketsSnapshot =
+          await _firestore
+              .collection('tickets')
+              .where('type', isEqualTo: selectedValue.value.toLowerCase())
+              .get();
 
-  List<String> dailyMovieTicket = ["500", "320", "400"];
-  List<int> dailyMovieIncome = [9000000, 5200000, 8000000];
+      final ticketsData =
+          ticketsSnapshot.docs.map((doc) => doc.data()).toList();
 
-  List<String> weeklyMovieTicket = ["900", "1100", "850"];
-  List<int> weeklyMovieIncome = [18000000, 25000000, 17000000];
+      // Fetch movies data
+      final moviesSnapshot = await _firestore.collection('movies').get();
+      final moviesData = {
+        for (var doc in moviesSnapshot.docs) doc.id: doc.data(),
+      };
 
-  List<String> monthlyMovieTicket = ["2000", "1700", "1800"];
-  List<int> monthlyMovieIncome = [40000000, 33000000, 36000000];
+      // Merge tickets and movies data
+      firestoreData.value =
+          ticketsData.map((ticket) {
+            final movieId = ticket['movieId'];
+            final movie = moviesData[movieId] ?? {};
 
-  List<String> yearlyMovieTicket = ["8000", "7800", "8200"];
-  List<int> yearlyMovieIncome = [160000000, 156000000, 164000000];
+            return {
+              'movieTitle': movie['title'] ?? 'Unknown',
+              'income': ticket['income'] ?? 0,
+              'ticket': ticket['ticketCount'] ?? 0,
+            };
+          }).toList();
 
-  List<String> movieImage = [
-    "assets/images/jumbo-poster.png",
-    "assets/images/jumbo-poster.png",
-    "assets/images/jumbo-poster.png",
-  ];
+      updateChartData();
+    } catch (e) {
+      print('Error fetching Firestore data: $e');
+    }
+  }
+
+  void updateChartData() {
+    if (firestoreData.isEmpty) return;
+
+    movieTitles =
+        firestoreData.map((data) => data['movieTitle'] as String).toList();
+    currentMovieIncome =
+        firestoreData.map((data) => data['income'] as int).toList();
+    currentMovieTicket =
+        firestoreData.map((data) => data['ticket'].toString()).toList();
+
+    update();
+  }
+
+  // Replace static data with dynamic data
+  List<String> movieTitles = [];
+  List<int> currentMovieIncome = [];
+  List<String> currentMovieTicket = [];
 
   // === FlSpot dari income ===
   List<FlSpot> get dailySpots => List.generate(
-    dailyMovieIncome.length,
-    (index) => FlSpot(index.toDouble(), dailyMovieIncome[index] / 1000000),
+    currentMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), currentMovieIncome[index] / 1000000),
   );
 
   List<FlSpot> get weeklySpots => List.generate(
-    weeklyMovieIncome.length,
-    (index) => FlSpot(index.toDouble(), weeklyMovieIncome[index] / 1000000),
+    currentMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), currentMovieIncome[index] / 1000000),
   );
 
   List<FlSpot> get monthlySpots => List.generate(
-    monthlyMovieIncome.length,
-    (index) => FlSpot(index.toDouble(), monthlyMovieIncome[index] / 1000000),
+    currentMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), currentMovieIncome[index] / 1000000),
   );
 
   List<FlSpot> get yearlySpots => List.generate(
-    yearlyMovieIncome.length,
-    (index) => FlSpot(index.toDouble(), yearlyMovieIncome[index] / 1000000),
+    currentMovieIncome.length,
+    (index) => FlSpot(index.toDouble(), currentMovieIncome[index] / 1000000),
   );
 
   // === DateTime list ===
@@ -134,70 +176,11 @@ class TotalIncomeController extends GetxController {
   };
 
   // === CURRENT SELECTED ===
-  List<FlSpot> get currentSpots {
-    switch (selectedValue.value) {
-      case 'Weekly':
-        return weeklySpots;
-      case 'Monthly':
-        return monthlySpots;
-      case 'Yearly':
-        return yearlySpots;
-      default:
-        return dailySpots;
-    }
-  }
+  List<int> get dynamicMovieIncome =>
+      firestoreData.map((data) => data['income'] as int).toList();
 
-  Map<int, String> get currentBottomLabels {
-    switch (selectedValue.value) {
-      case 'Weekly':
-        return weeklyBottomLabels;
-      case 'Monthly':
-        return monthlyBottomLabels;
-      case 'Yearly':
-        return yearlyBottomLabels;
-      default:
-        return dailyBottomLabels;
-    }
-  }
-
-  Map<int, String> get currentLeftLabels {
-    switch (selectedValue.value) {
-      case 'Weekly':
-        return weeklyLeftLabels;
-      case 'Monthly':
-        return monthlyLeftLabels;
-      case 'Yearly':
-        return yearlyLeftLabels;
-      default:
-        return dailyLeftLabels;
-    }
-  }
-
-  List<int> get currentMovieIncome {
-    switch (selectedValue.value) {
-      case 'Weekly':
-        return weeklyMovieIncome;
-      case 'Monthly':
-        return monthlyMovieIncome;
-      case 'Yearly':
-        return yearlyMovieIncome;
-      default:
-        return dailyMovieIncome;
-    }
-  }
-
-  List<String> get currentMovieTicket {
-    switch (selectedValue.value) {
-      case 'Weekly':
-        return weeklyMovieTicket;
-      case 'Monthly':
-        return monthlyMovieTicket;
-      case 'Yearly':
-        return yearlyMovieTicket;
-      default:
-        return dailyMovieTicket;
-    }
-  }
+  List<String> get dynamicMovieTicket =>
+      firestoreData.map((data) => data['ticket'].toString()).toList();
 
   double get currentMaxY {
     switch (selectedValue.value) {
@@ -228,5 +211,29 @@ class TotalIncomeController extends GetxController {
         'ticket': currentMovieTicket[index],
       };
     });
+  }
+
+  List<String> get movieImage =>
+      firestoreData.map((data) {
+        return (data['image'] ?? 'assets/images/jumbo-poster.png') as String;
+      }).toList();
+
+  List<FlSpot> get currentSpots {
+    return firestoreData.asMap().entries.map((entry) {
+      return FlSpot(
+        entry.key.toDouble(),
+        (entry.value['income'] as int) / 1000000,
+      );
+    }).toList();
+  }
+
+  Map<int, String> get currentBottomLabels {
+    return firestoreData.asMap().map((index, data) {
+      return MapEntry(index, data['movieTitle'] as String);
+    });
+  }
+
+  Map<int, String> get currentLeftLabels {
+    return {5: '5JT', 10: '10JT', 15: '15JT'}; // Example static labels
   }
 }

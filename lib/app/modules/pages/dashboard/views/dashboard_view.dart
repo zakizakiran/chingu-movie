@@ -62,12 +62,14 @@ class DashboardView extends GetView<DashboardController> {
                                         color: Colors.white,
                                       ),
                                     ),
-                                    Text(
-                                      "Rp. ${controller.income ?? "0"}",
-                                      style: AppTextStyles.loginTitle.copyWith(
-                                        color: Colors.white,
+                                    Obx(
+                                      () => Text(
+                                        "Rp. ${controller.income.value}",
+                                        style: AppTextStyles.loginTitle
+                                            .copyWith(color: Colors.white),
                                       ),
                                     ),
+
                                     SizedBox(height: 4.h),
                                     Row(
                                       children: [
@@ -112,31 +114,41 @@ class DashboardView extends GetView<DashboardController> {
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
-                          child: Row(
-                            children: [
-                              ...List.generate(controller.title.length, (
-                                index,
-                              ) {
-                                return Padding(
-                                  padding: EdgeInsets.only(right: 16.w),
-                                  child: card(
-                                    title: controller.title[index],
-                                    value: controller.value[index],
-                                    information: controller.information[index],
-                                    icon: icon[index],
-                                    onTap: () {},
+                          child: Obx(
+                            () => Row(
+                              children: [
+                                ...List.generate(
+                                  min(
+                                    controller.title.length,
+                                    min(
+                                      controller.value.length,
+                                      controller.information.length,
+                                    ),
                                   ),
-                                );
-                              }),
-                              Padding(
-                                padding: EdgeInsets.only(right: 16.w),
-                                child: cardInsertMovie(
-                                  onTap: () {
-                                    Get.toNamed('/input-movie');
-                                  },
+                                  (index) => Padding(
+                                    padding: EdgeInsets.only(right: 16.w),
+                                    child: card(
+                                      title: controller.title[index],
+                                      value: controller.value[index],
+                                      information:
+                                          controller.information[index],
+                                      icon: icon[index],
+                                      onTap: () {
+                                        if (index == 1) {
+                                          Get.toNamed('/list-movie');
+                                        }
+                                      },
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ],
+                                Padding(
+                                  padding: EdgeInsets.only(right: 16.w),
+                                  child: cardInsertMovie(
+                                    onTap: () => Get.toNamed('/input-movie'),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -164,37 +176,54 @@ class DashboardView extends GetView<DashboardController> {
                         SizedBox(height: 10.h),
                         Divider(color: Colors.grey, thickness: 1, height: 1),
                         SizedBox(height: 10.h),
-                        SizedBox(
-                          width: 300,
-                          height: 250,
-                          child: DonutChart(
-                            labels: controller.movieTitle,
-                            values: controller.totalTicket,
-                            colors: List.generate(
-                              controller.movieTitle.length,
-                              (_) => getRandomColor(),
+                        Obx(
+                          () => SizedBox(
+                            width: 300,
+                            height: 250,
+                            child: DonutChart(
+                              labels: controller.movieTitle,
+                              values: controller.totalTicket,
+                              colors: List.generate(
+                                controller.movieTitle.length,
+                                (_) => getRandomColor(),
+                              ),
                             ),
                           ),
                         ),
+
                         Divider(color: Colors.grey, thickness: 1, height: 1),
-                        SizedBox(
-                          height: 100.h,
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.only(left: 16.w),
-                            child: Row(
-                              children: List.generate(
-                                controller.movieTitle.length,
-                                (index) {
-                                  return Padding(
-                                    padding: EdgeInsets.only(right: 30.w),
-                                    child: totalTicketSoldOut(
-                                      movieTitle: controller.movieTitle[index],
-                                      totalTicket:
-                                          controller.totalTicket[index],
-                                    ),
-                                  );
-                                },
+                        Obx(
+                          () => SizedBox(
+                            height: 100.h,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(left: 16.w),
+                              child: Row(
+                                children: List.generate(
+                                  controller.movieTitle.length,
+                                  (index) {
+                                    return Padding(
+                                      padding: EdgeInsets.only(right: 30.w),
+                                      child: totalTicketSoldOut(
+                                        movieTitle:
+                                            controller.movieTitle[index],
+                                        totalTicket:
+                                            controller.totalTicket.isNotEmpty
+                                                ? (controller
+                                                            .totalTicket
+                                                            .isNotEmpty &&
+                                                        index <
+                                                            controller
+                                                                .totalTicket
+                                                                .length
+                                                    ? controller
+                                                        .totalTicket[index]
+                                                    : 0)
+                                                : 0,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),

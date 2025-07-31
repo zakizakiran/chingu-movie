@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,6 @@ class InputMovieController extends GetxController {
   var selectedGenre = ''.obs;
   var selectedDate = ''.obs;
   var selectedImage = Rx<File?>(null);
-  final selectedShowtime = "".obs;
 
   Future<void> insertMovie() async {
     try {
@@ -30,7 +30,7 @@ class InputMovieController extends GetxController {
       final genre = selectedGenre.value;
       final releaseDate = selectedDate.value;
       final duration = selectedDuration.value;
-      final showtime = selectedShowtime.value;
+      final studio = 'Studio ${Random().nextInt(3) + 1}';
       final imageFile = selectedImage.value;
 
       if ([
@@ -39,7 +39,7 @@ class InputMovieController extends GetxController {
             genre,
             releaseDate,
             duration,
-            showtime,
+            studio,
           ].contains('') ||
           imageFile == null ||
           price == 0) {
@@ -59,13 +59,14 @@ class InputMovieController extends GetxController {
         'genre': genre,
         'release_date': releaseDate,
         'duration': duration,
-        'showtime': showtime,
+        'studio': studio,
         'poster_url': imageUrl,
         'created_at': FieldValue.serverTimestamp(),
       });
 
       Get.snackbar("Success", "Movie inserted successfully.");
       resetFields();
+      Get.offAllNamed('/admin-navigation');
     } catch (e) {
       Get.snackbar("Error", "Failed to insert movie: $e");
     }
@@ -105,6 +106,5 @@ class InputMovieController extends GetxController {
     selectedDate.value = '';
     selectedImage.value = null;
     selectedDuration.value = '';
-    selectedShowtime.value = '';
   }
 }

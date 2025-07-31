@@ -11,6 +11,8 @@ class CheckoutController extends GetxController {
   late int totalPrice;
   late int totalServicesFee;
   late int totalFee;
+  late String posterUrl;
+  late String studio;
 
   final servicesFee = 5000;
   final status = 'pending';
@@ -29,6 +31,8 @@ class CheckoutController extends GetxController {
     movieTitle = args['movieTitle'] ?? '';
     showTime = args['showtime'] ?? '';
     pricePerSeat = args['price'] ?? 0;
+    posterUrl = args['poster_url'] ?? '';
+    studio = args['studio'] ?? '';
 
     totalPrice = selectedSeats.length * pricePerSeat;
     totalServicesFee = selectedSeats.length * servicesFee;
@@ -56,7 +60,7 @@ class CheckoutController extends GetxController {
             )
             .get();
 
-    final count = snapshot.size + 1; // urutan berikutnya
+    final count = snapshot.size + 1;
     final paddedCount = count.toString().padLeft(4, '0');
 
     return 'pid-$dateString-$paddedCount';
@@ -76,6 +80,8 @@ class CheckoutController extends GetxController {
         'selected_seats': selectedSeats,
         'total_price': totalFee,
         'status': status,
+        'studio': studio,
+        'poster_url': posterUrl,
         'created_at': FieldValue.serverTimestamp(),
       });
     } catch (e) {

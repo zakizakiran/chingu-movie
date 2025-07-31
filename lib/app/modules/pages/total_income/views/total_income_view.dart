@@ -32,9 +32,11 @@ class TotalIncomeView extends GetView<TotalIncomeController> {
                     Obx(() {
                       String value = controller.selectedValue.value;
 
-                      List<FlSpot> currentSpots;
-                      Map<int, String> currentBottomLabels;
-                      Map<int, String> currentLeftLabels;
+                      List<FlSpot> currentSpots = controller.currentSpots;
+                      Map<int, String> currentBottomLabels =
+                          controller.currentBottomLabels;
+                      Map<int, String> currentLeftLabels =
+                          controller.currentLeftLabels;
 
                       switch (value) {
                         case 'Daily':

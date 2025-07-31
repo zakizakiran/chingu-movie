@@ -7,7 +7,7 @@ class Movie {
   final String genre;
   final DateTime releaseDate;
   final File? image;
-  final String showtime;
+  final int studio;
   final Duration duration;
 
   Movie({
@@ -17,7 +17,7 @@ class Movie {
     required this.genre,
     required this.releaseDate,
     this.image,
-    required this.showtime,
+    required this.studio,
     required this.duration,
   });
 
@@ -30,7 +30,7 @@ class Movie {
       'release_date': releaseDate,
       'duration': duration,
       'image': image?.path,
-      'showtime': showtime,
+      'studio': studio,
     };
   }
 }

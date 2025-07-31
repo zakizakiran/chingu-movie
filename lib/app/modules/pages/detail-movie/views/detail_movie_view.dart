@@ -81,8 +81,10 @@ class DetailMovieView extends GetView<DetailMovieController> {
                               style: AppTextStyles.smallText,
                             ),
                             Text(
-                              args['genre']?.toString() ?? '',
-                              style: AppTextStyles.smallText,
+                              '${args['genre']?.toString()} •',
+                              style: AppTextStyles.smallText.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             SizedBox(width: 2.w),
                             Text(
@@ -172,6 +174,8 @@ class DetailMovieView extends GetView<DetailMovieController> {
                                       controller.showtimes[controller
                                           .selectedShowtimeIndex
                                           .value],
+                                  'poster_url': args['poster_url'],
+                                  'studio': args['studio'],
                                 },
                               );
                             }

@@ -13,7 +13,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus(); // Dismiss the keyboard
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
         backgroundColor: AppColors.pageBackground,
@@ -97,6 +97,7 @@ class HomeView extends GetView<HomeController> {
                                     Get.toNamed(
                                       '/detail-movie',
                                       arguments: {
+                                        'studio': movie['studio'],
                                         'movieTitle': movie['title'],
                                         'movieSynopsis': movie['synopsis'],
                                         'year': movie['year'],

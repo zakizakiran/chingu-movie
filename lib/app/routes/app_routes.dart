@@ -26,6 +26,7 @@ abstract class Routes {
   static const SUCCESS_CHECKOUT = _Paths.SUCCESS_CHECKOUT;
   static const TICKET_ODER = _Paths.TICKET_ODER;
   static const INPUT_MOVIE = _Paths.INPUT_MOVIE;
+  static const EDIT_MOVIE = _Paths.EDIT_MOVIE;
 }
 
 abstract class _Paths {
@@ -53,4 +54,5 @@ abstract class _Paths {
   static const SUCCESS_CHECKOUT = '/success-checkout';
   static const TICKET_ODER = '/ticket-oder';
   static const INPUT_MOVIE = '/input-movie';
+  static const EDIT_MOVIE = '/edit-movie';
 }

@@ -255,23 +255,22 @@ class ReservationView extends StatelessWidget {
 
                   final movieTitle = args['movieTitle'];
                   final showtime = args['showtime'];
+                  final poster = args['poster_url'] ?? '';
                   final price = 50000;
                   final totalPrice = selectedSeats.length * price;
-
-                  // Optional: tandai kursi sebagai reserved di UI
                   controller.confirmBooking();
 
-                  // 🔥 Hapus controller checkout agar tidak cache data lama
                   Get.delete<CheckoutController>();
 
-                  // Navigasi dengan data BARU
                   Get.toNamed(
                     '/checkout',
                     arguments: {
                       "selectedSeats": selectedSeats,
                       "movieTitle": movieTitle,
+                      "poster_url": poster,
                       "showtime": showtime,
                       "price": price,
+                      "studio": args['studio'] ?? '',
                       "totalPrice": totalPrice,
                     },
                   );

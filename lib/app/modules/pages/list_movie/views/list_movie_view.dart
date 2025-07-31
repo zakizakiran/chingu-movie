@@ -1,15 +1,16 @@
+import 'package:chingu_app/app/modules/edit_movie/controllers/edit_movie_controller.dart';
+import 'package:chingu_app/app/modules/edit_movie/views/edit_movie_view.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:chingu_app/shared/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/list_movie_controller.dart';
 
 class ListMovieView extends GetView<ListMovieController> {
   const ListMovieView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +46,6 @@ class ListMovieView extends GetView<ListMovieController> {
                   ),
                 ),
               ),
-
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(top: 10.w),
@@ -80,22 +80,20 @@ class ListMovieView extends GetView<ListMovieController> {
                           }),
                         );
                       }),
-
                       SizedBox(height: 16.h),
-
                       Obx(() {
                         final movies = controller.filteredMovies;
+                        if (movies.isEmpty) {
+                          return const Center(
+                            child: Text("No movies available"),
+                          );
+                        }
                         return Expanded(
                           child: ListView.builder(
                             itemCount: movies.length,
                             itemBuilder: (context, index) {
                               final movie = movies[index];
-                              return movieCard(
-                                imagePath: movie["imagePath"],
-                                movieTitle: movie["title"],
-                                movieStudio: movie["studio"],
-                                movieDate: movie["date"],
-                              );
+                              return movieCard(movieData: movie);
                             },
                           ),
                         );
@@ -128,19 +126,20 @@ class ListMovieView extends GetView<ListMovieController> {
           buttonName,
           style: AppTextStyles.hintText.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.blueGrey,
+            color: AppColors.white,
           ),
         ),
       ),
     );
   }
 
-  Widget movieCard({
-    String? imagePath,
-    String? movieTitle,
-    String? movieStudio,
-    String? movieDate,
-  }) {
+  Widget movieCard({required Map<String, dynamic> movieData}) {
+    final movieId = movieData["movie_id"];
+    final imagePath = movieData["imagePath"];
+    final movieTitle = movieData["title"];
+    final movieStudio = movieData["studio"];
+    final movieDate = movieData["date"];
+
     return SizedBox(
       width: double.infinity,
       height: 160.h,
@@ -154,10 +153,22 @@ class ListMovieView extends GetView<ListMovieController> {
               child: SizedBox(
                 width: 100.w,
                 height: 160.h,
-                child: Image.asset(
-                  imagePath ?? "assets/images/jumbo-poster.png",
-                  fit: BoxFit.cover,
-                ),
+                child:
+                    imagePath != null
+                        ? Image.network(
+                          imagePath,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) {
+                            return Image.asset(
+                              "assets/images/jumbo-poster.png",
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        )
+                        : Image.asset(
+                          "assets/images/jumbo-poster.png",
+                          fit: BoxFit.cover,
+                        ),
               ),
             ),
             SizedBox(width: 10.w),
@@ -176,10 +187,21 @@ class ListMovieView extends GetView<ListMovieController> {
                     style: AppTextStyles.hintText,
                   ),
                   Text(movieDate ?? "DD/MM/YY", style: AppTextStyles.hintText),
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
-                      miniButton(buttonName: "Edit", onTap: () {}),
+                      miniButton(
+                        buttonName: "Edit",
+                        onTap: () {
+                          Get.to(
+                            () => const EditMovieView(),
+                            binding: BindingsBuilder(() {
+                              Get.put(EditMovieController())
+                                ..initMovieData(movieData, movieId);
+                            }),
+                          );
+                        },
+                      ),
                       SizedBox(width: 15.w),
                       miniButton(
                         buttonName: "Delete",
@@ -189,7 +211,8 @@ class ListMovieView extends GetView<ListMovieController> {
                             backgroundColor: AppColors.white,
                             title: "Confirmation",
                             titleStyle: AppTextStyles.label,
-                            middleText: "Are you sure to delete ${movieTitle ?? "Unknown"} movie?",
+                            middleText:
+                                "Are you sure to delete ${movieTitle ?? "Unknown"} movie?",
                             middleTextStyle: AppTextStyles.body,
                             textCancel: "Cancel",
                             textConfirm: "Yes",
@@ -198,6 +221,9 @@ class ListMovieView extends GetView<ListMovieController> {
                             buttonColor: AppColors.primary,
                             radius: 4,
                             onConfirm: () {
+                              final controller =
+                                  Get.find<ListMovieController>();
+                              controller.deleteMovieById(movieId);
                               Get.back();
                             },
                           );

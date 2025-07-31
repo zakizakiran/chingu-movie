@@ -42,9 +42,17 @@ class TicketView extends GetView<TicketController> {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(
-                      "assets/images/jumbo-poster.png",
+                    child: Image.network(
+                      args['poster_url'] ?? '',
+                      width: 150.w,
+                      height: 200.h,
                       fit: BoxFit.cover,
+                      errorBuilder:
+                          (_, __, ___) => const Icon(
+                            Icons.broken_image,
+                            size: 50,
+                            color: Colors.grey,
+                          ),
                     ),
                   ),
                 ),
@@ -63,10 +71,17 @@ class TicketView extends GetView<TicketController> {
                         child: Column(
                           children: [
                             Text(
-                              "Thursday, June 26th, 2025",
+                              args['createdAt'] != null
+                                  ? DateFormat(
+                                    'MMMM dd, yyyy',
+                                  ).format(args['createdAt'].toDate())
+                                  : 'Unknown Date',
                               style: AppTextStyles.smallText,
                             ),
-                            Text("Studio 1", style: AppTextStyles.smallText),
+                            Text(
+                              args['movieStudio'] ?? 'Unknown Studio',
+                              style: AppTextStyles.smallText,
+                            ),
                             SizedBox(height: 8.h),
                             args['showtime'] != null
                                 ? Text(
@@ -81,7 +96,7 @@ class TicketView extends GetView<TicketController> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: QrImageView(
-                                data: 'movie data',
+                                data: args['ticket_id'] ?? 'Unknown Ticket ID',
                                 version: QrVersions.auto,
                                 size: 250.0,
                               ),

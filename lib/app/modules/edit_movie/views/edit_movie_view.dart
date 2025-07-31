@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:chingu_app/app/modules/edit_movie/controllers/edit_movie_controller.dart';
 import 'package:chingu_app/shared/constant/colors.dart';
 import 'package:chingu_app/shared/constant/text_styles.dart';
 import 'package:chingu_app/shared/widgets/custom_button.dart';
@@ -7,10 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import '../controllers/input_movie_controller.dart';
 
-class InputMovieView extends GetView<InputMovieController> {
-  const InputMovieView({super.key});
+class EditMovieView extends GetView<EditMovieController> {
+  const EditMovieView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -106,6 +106,7 @@ class InputMovieView extends GetView<InputMovieController> {
                   () => customImagePickerField(
                     label: "Movie Poster",
                     selectedImage: controller.selectedImage.value,
+                    networkImageUrl: controller.oldPosterUrl, // penting!
                     onImageSelected: (file) {
                       controller.selectedImage.value = file;
                     },
@@ -128,7 +129,7 @@ class InputMovieView extends GetView<InputMovieController> {
                     onPressed:
                         controller.isLoading.value
                             ? null
-                            : () => controller.insertMovie(),
+                            : () => controller.editMovie(),
                   ),
                 ),
               ],
@@ -320,6 +321,7 @@ class InputMovieView extends GetView<InputMovieController> {
     required String label,
     required File? selectedImage,
     required void Function(File imageFile) onImageSelected,
+    String? networkImageUrl,
   }) {
     Future<void> pickImage(BuildContext context) async {
       final pickedFile = await ImagePicker().pickImage(
@@ -357,6 +359,19 @@ class InputMovieView extends GetView<InputMovieController> {
                         fit: BoxFit.cover,
                         width: 200,
                         height: 250,
+                      ),
+                    )
+                    : networkImageUrl != null
+                    ? ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        networkImageUrl,
+                        fit: BoxFit.cover,
+                        width: 200,
+                        height: 250,
+                        errorBuilder: (_, __, ___) {
+                          return Image.asset("assets/images/jumbo-poster.png");
+                        },
                       ),
                     )
                     : Center(

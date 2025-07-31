@@ -23,13 +23,13 @@ class AdminNavigationView extends GetView<AdminNavigationController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => DashboardController());
     Get.lazyPut(() => TicketOrderController());
-    Get.lazyPut(() => TotalIncomeController());
+    // Get.lazyPut(() => TotalIncomeController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       DashboardView(),
       TicketOrderView(),
-      TotalIncomeView(),
+      // TotalIncomeView(),
       ProfileView(),
     ];
 
@@ -60,11 +60,11 @@ class AdminNavigationView extends GetView<AdminNavigationController> {
                 text: 'Ticket Order',
                 textStyle: AppTextStyles.navigation,
               ),
-              GButton(
-                icon: Icons.info_rounded,
-                text: 'Reports',
-                textStyle: AppTextStyles.navigation,
-              ),
+              // GButton(
+              //   icon: Icons.info_rounded,
+              //   text: 'Reports',
+              //   textStyle: AppTextStyles.navigation,
+              // ),
               GButton(
                 icon: Icons.person_rounded,
                 text: 'Profile',

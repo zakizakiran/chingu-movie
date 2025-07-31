@@ -16,23 +16,38 @@ class OrderHistoryController extends GetxController {
     listenToTickets();
   }
 
-  void listenToTickets() {
+  void listenToTickets() async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     if (uid == null) return;
 
     isLoading.value = true;
 
+    // Langganan perubahan data tiket
     FirebaseFirestore.instance
         .collection('tickets')
         .where('user_id', isEqualTo: uid)
         .orderBy('created_at', descending: true)
         .snapshots()
-        .listen((snapshot) {
-          final result = snapshot.docs.map((doc) => doc.data()).toList();
+        .listen((snapshot) async {
+          final ticketDocs = snapshot.docs;
+
+          final movieSnapshot =
+              await FirebaseFirestore.instance.collection('movies').get();
+          final movieMap = {
+            for (var doc in movieSnapshot.docs) doc['title']: doc['poster_url'],
+          };
+
+          final result =
+              ticketDocs.map((doc) {
+                final data = doc.data();
+                final title = data['movie_title'] ?? '';
+                final imageUrl = movieMap[title] ?? '';
+                return {...data, 'image_url': imageUrl};
+              }).toList();
+
           tickets.assignAll(result);
           filterTickets(searchController.text);
 
-          // setelah data diterima, loading selesai
           isLoading.value = false;
         });
   }

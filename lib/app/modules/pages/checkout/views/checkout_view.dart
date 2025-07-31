@@ -48,9 +48,15 @@ class CheckoutView extends GetView<CheckoutController> {
                               ),
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
-                                child: Image.asset(
-                                  "assets/images/jumbo-poster.png",
+                                child: Image.network(
+                                  args['poster_url'] ?? '',
                                   fit: BoxFit.cover,
+                                  errorBuilder:
+                                      (_, __, ___) => const Icon(
+                                        Icons.broken_image,
+                                        size: 50,
+                                        color: Colors.grey,
+                                      ),
                                 ),
                               ),
                             ),

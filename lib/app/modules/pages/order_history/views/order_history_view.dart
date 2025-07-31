@@ -87,11 +87,16 @@ class OrderHistoryView extends GetView<OrderHistoryController> {
                         children: [
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                              'assets/images/jumbo-poster.png',
-                              width: 70,
-                              height: 90,
+                            child: Image.network(
+                              ticket['image_url'] ?? '',
+                              width: 80.w,
                               fit: BoxFit.cover,
+                              errorBuilder:
+                                  (_, __, ___) => const Icon(
+                                    Icons.broken_image,
+                                    size: 50,
+                                    color: Colors.grey,
+                                  ),
                             ),
                           ),
                           const SizedBox(width: 12),
@@ -171,6 +176,7 @@ void showTicketDetailBottomSheet(
 
   showModalBottomSheet(
     backgroundColor: AppColors.pageBackground,
+    isScrollControlled: true,
     context: context,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -205,6 +211,21 @@ void showTicketDetailBottomSheet(
                 SizedBox(height: 4.w),
                 Text(
                   currency.format(ticket['total_price'] ?? 0),
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.darkGrey,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 16.w),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Showtime', style: AppTextStyles.label),
+                SizedBox(height: 4.w),
+                Text(
+                  ticket['showtime'] ?? '-',
                   style: AppTextStyles.body.copyWith(
                     color: AppColors.darkGrey,
                     fontWeight: FontWeight.w500,
@@ -303,6 +324,11 @@ void showTicketDetailBottomSheet(
                         Get.toNamed(
                           '/ticket',
                           arguments: {
+                            'createdAt': ticket['created_at'],
+                            'ticket_id': ticket['ticket_id'],
+                            'paymentId': ticket['payment_id'],
+                            'movieStudio': ticket['studio'],
+                            'poster_url': ticket['poster_url'],
                             'movieTitle': ticket['movie_title'],
                             'selectedSeats': ticket['selected_seats'],
                             'totalPrice': ticket['total_price'],
