@@ -14,6 +14,7 @@ abstract class Routes {
   static const PROFILE = _Paths.PROFILE;
   static const RESERVATION = _Paths.RESERVATION;
   static const TICKET = _Paths.TICKET;
+  static const LIST_MOVIE = _Paths.LIST_MOVIE;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
   static const TOTAL_INCOME = _Paths.TOTAL_INCOME;
   static const DASHBOARD = _Paths.DASHBOARD;
@@ -36,6 +37,7 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const RESERVATION = '/reservation';
   static const TICKET = '/ticket';
+  static const LIST_MOVIE = '/list-movie';
   static const EDIT_PROFILE = '/edit-profile';
   static const DASHBOARD = '/dashboard';
   static const TOTAL_INCOME = '/total-income';

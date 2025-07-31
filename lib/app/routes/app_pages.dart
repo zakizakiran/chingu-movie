@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
-
+import '../modules/pages/list_movie/bindings/list_movie_binding.dart';
+import '../modules/pages/list_movie/views/list_movie_view.dart';
 import '../modules/admin_navigation/bindings/admin_navigation_binding.dart';
 import '../modules/admin_navigation/views/admin_navigation_view.dart';
 import '../modules/pages/checkout/bindings/checkout_binding.dart';
@@ -100,6 +101,11 @@ class AppPages {
       name: _Paths.TICKET,
       page: () => const TicketView(),
       binding: TicketBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIST_MOVIE,
+      page: () => const ListMovieView(),
+      binding: ListMovieBinding(),
     ),
     GetPage(
       name: _Paths.EDIT_PROFILE,
