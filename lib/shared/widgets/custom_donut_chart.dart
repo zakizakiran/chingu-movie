@@ -30,7 +30,7 @@ class _DonutChartState extends State<DonutChart> {
         labels.isNotEmpty;
 
     if (!isValidData) {
-      return const Center(child: Text("Data tidak valid atau kosong"));
+      return const Center(child: Text("Memuatkan data untuk grafik"));
     }
 
     return Column(

@@ -22,13 +22,13 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
   Widget build(BuildContext context) {
     Get.lazyPut(() => HomeController());
     Get.lazyPut(() => OrderHistoryController());
-    Get.lazyPut(() => NotificationController());
+    // Get.lazyPut(() => NotificationController());
     Get.lazyPut(() => ProfileController());
 
     final List<Widget> pages = const [
       HomeView(),
       OrderHistoryView(),
-      NotificationView(),
+      // NotificationView(),
       ProfileView(),
     ];
 
@@ -59,11 +59,11 @@ class BottomNavigationView extends GetView<BottomNavigationController> {
                 text: 'Order History',
                 textStyle: AppTextStyles.navigation,
               ),
-              GButton(
-                icon: Icons.notifications,
-                text: 'Notifications',
-                textStyle: AppTextStyles.navigation,
-              ),
+              // GButton(
+              //   icon: Icons.notifications,
+              //   text: 'Notifications',
+              //   textStyle: AppTextStyles.navigation,
+              // ),
               GButton(
                 icon: Icons.person_rounded,
                 text: 'Profile',

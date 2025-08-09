@@ -138,7 +138,7 @@ class ListMovieView extends GetView<ListMovieController> {
     final imagePath = movieData["imagePath"];
     final movieTitle = movieData["title"];
     final movieStudio = movieData["studio"];
-    final movieDate = movieData["date"];
+    final movieDate = movieData["release_date"]?.toString().split(" ")[0];
 
     return SizedBox(
       width: double.infinity,

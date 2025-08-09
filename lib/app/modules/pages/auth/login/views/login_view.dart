@@ -92,15 +92,15 @@ class LoginView extends GetView<LoginController> {
                           ),
                         ),
                         SizedBox(height: 20.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'Forgot Password?',
-                              style: AppTextStyles.smallText,
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.end,
+                        //   children: [
+                        //     Text(
+                        //       'Forgot Password?',
+                        //       style: AppTextStyles.smallText,
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(height: 32.h),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,

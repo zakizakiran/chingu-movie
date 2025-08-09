@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   final searchController = TextEditingController();
-  final genres = ['All', 'Action', 'Drama', 'Comedy', 'Thriller'].obs;
+  final genres = ['All', 'Action', 'Drama', 'Comedy', 'Horror'].obs;
   final selectedGenre = 'All'.obs;
 
   final movies = <Map<String, dynamic>>[].obs;

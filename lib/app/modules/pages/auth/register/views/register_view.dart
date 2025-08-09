@@ -175,33 +175,33 @@ class RegisterView extends GetView<RegisterController> {
                         ],
                       ),
                       SizedBox(height: 20.h),
-                      Center(
-                        child: Text(
-                          'or sign up with',
-                          style: AppTextStyles.smallText,
-                        ),
-                      ),
+                      // Center(
+                      //   child: Text(
+                      //     'or sign up with',
+                      //     style: AppTextStyles.smallText,
+                      //   ),
+                      // ),
                       SizedBox(height: 20.h),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          CustomButtonIcon(
-                            onPressed: () {},
-                            borderRadius: 20.r,
-                            icon: Image.asset(
-                              'assets/images/icon_google.png',
-                              width: 24.w,
-                              height: 24.h,
-                            ),
-                            backgroundColor: AppColors.white,
-                            borderColor: AppColors.lightGrey,
-                            text: 'Google',
-                            textStyle: AppTextStyles.buttonDark,
-                            height: 65.h,
-                          ),
-                          SizedBox(height: 16.h),
-                        ],
-                      ),
+                      // Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.stretch,
+                      //   children: [
+                      //     CustomButtonIcon(
+                      //       onPressed: () {},
+                      //       borderRadius: 20.r,
+                      //       icon: Image.asset(
+                      //         'assets/images/icon_google.png',
+                      //         width: 24.w,
+                      //         height: 24.h,
+                      //       ),
+                      //       backgroundColor: AppColors.white,
+                      //       borderColor: AppColors.lightGrey,
+                      //       text: 'Google',
+                      //       textStyle: AppTextStyles.buttonDark,
+                      //       height: 65.h,
+                      //     ),
+                      //     SizedBox(height: 16.h),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
